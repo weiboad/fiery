@@ -2,7 +2,7 @@
 
 ### 项目简介
  * Fiery跟踪系统是基于内部Ragnar分布式跟踪设计做的嵌入式精简版
- * 此系统针对 PV 2000w以下的PHP系统提供分布式调用跟踪及性能监控服务
+ * 此系统针对小容量的PHP系统提供分布式调用跟踪及性能监控服务(APM-Application Performance Management)
  * 提供分布式系统性能跟踪，依赖接口性能跟踪，系统故障去重合并等功能
 
 ---------------------------------------
@@ -49,25 +49,24 @@
  * 创建日志存储目录：mkdir db
  * 启动：nohup java -Xms3750m -Xmx3750m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar ragnarserver-0.5.1-SNAPSHOT.jar -type server --server.port=9090 &
  * 启动成功后浏览器访问 http://服务器IP:9090/ragnar/ 即可看到相关界面
- * 注意：此服务重启会丢失性能统计信息，后续版本会增加统计信息落地功能
+ * 注意：当前版本对性能统计数据没有做持久化, 重启会清零
 
 ---------------------------------------
 
 #### 日志收集服务
- * 安装 Java 8 Runtime
+ * 安装 JDK8
  * 拷贝 ragnarserver-0.5.1-SNAPSHOT.jar 包到服务器
  * 启动：nohup java -Xms128m -Xmx750m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar target/ragnarserver-0.5.1-SNAPSHOT.jar -type logpush -path 这里写ragnarsdk产生日志的目录地址 -host 主服务IP:主服务端口（9090） -outtime 7 &
  * 其他方式 nohup php logcollector/tail.php ragnarsdk日志目录 0 & （仅用于测试，服务器地址等信息需要在文件内更改）
 
 ---------------------------------------
 
-## 依赖第三方开源
- * Spring Boot 1.4.5
- * FreeMarker 1.4.5
- * Google Gson 2.7
- * Lucene 6.3.0
- * Swagger 2.6.1
- * Rocksdb Jni 4.9.0
+#### todo
+ * 增加bash脚本(start/restart/stop等)
+ * 对性能统计数据做持久化
+ * 增加对statsd的支持
+
+---------------------------------------
 
 ## 联系我们
  * 微博广告 ADINF 团队 出品
