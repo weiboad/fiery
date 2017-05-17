@@ -1400,3 +1400,16 @@
 2017-05-17 15:26:08.036 ERROR 4361 --- [pool-1-thread-1] c.r.s.search.IndexSearchSharderManager   : /Users/changlongxu/vagrant/share/GitHub/fiery/index/1494777600
 2017-05-17 15:26:13.038 ERROR 4361 --- [pool-1-thread-1] c.r.s.search.IndexSearchSharderManager   : /Users/changlongxu/vagrant/share/GitHub/fiery/index/1494777600
 2017-05-17 15:26:18.036 ERROR 4361 --- [pool-1-thread-1] c.r.s.search.IndexSearchSharderManager   : /Users/changlongxu/vagrant/share/GitHub/fiery/index/1494777600
+2017-05-17 15:26:23.036 ERROR 4361 --- [pool-1-thread-1] c.r.s.search.IndexSearchSharderManager   : /Users/changlongxu/vagrant/share/GitHub/fiery/index/1494777600
+2017-05-17 15:26:28.035 ERROR 4361 --- [pool-1-thread-1] c.r.s.search.IndexSearchSharderManager   : /Users/changlongxu/vagrant/share/GitHub/fiery/index/1494777600
+2017-05-17 15:26:33.036 ERROR 4361 --- [pool-1-thread-1] c.r.s.search.IndexSearchSharderManager   : /Users/changlongxu/vagrant/share/GitHub/fiery/index/1494777600
+2017-05-17 15:26:38.036 ERROR 4361 --- [pool-1-thread-1] c.r.s.search.IndexSearchSharderManager   : /Users/changlongxu/vagrant/share/GitHub/fiery/index/1494777600
+2017-05-17 15:26:43.036 ERROR 4361 --- [pool-1-thread-1] c.r.s.search.IndexSearchSharderManager   : /Users/changlongxu/vagrant/share/GitHub/fiery/index/1494777600
+2017-05-17 15:26:48.035 ERROR 4361 --- [pool-1-thread-1] c.r.s.search.IndexSearchSharderManager   : /Users/changlongxu/vagrant/share/GitHub/fiery/index/1494777600
+2017-05-17 15:26:53.035 ERROR 4361 --- [pool-1-thread-1] c.r.s.search.IndexSearchSharderManager   : /Users/changlongxu/vagrant/share/GitHub/fiery/index/1494777600
+2017-05-17 15:26:58.032 ERROR 4361 --- [pool-1-thread-1] c.r.s.search.IndexSearchSharderManager   : /Users/changlongxu/vagrant/share/GitHub/fiery/index/1494777600
+2017-05-17 15:27:03.034 ERROR 4361 --- [pool-1-thread-1] c.r.s.search.IndexSearchSharderManager   : /Users/changlongxu/vagrant/share/GitHub/fiery/index/1494777600
+2017-05-17 15:27:07.424  INFO 4361 --- [Thread-2] ationConfigEmbeddedWebApplicationContext : Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@2b662a77: startup date [Wed May 17 15:16:03 CST 2017]; root of context hierarchy
+2017-05-17 15:27:07.425  INFO 4361 --- [Thread-2] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
+2017-05-17 15:27:07.426  INFO 4361 --- [Thread-2] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 0
+2017-05-17 15:27:07.427  INFO 4361 --- [Thread-2] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
