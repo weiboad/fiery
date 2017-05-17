@@ -58,6 +58,7 @@ public class SqlPerformance {
 
         model.addAttribute("sql", performList.get("sql").get("sql"));
         performList.remove("sql");
+        model.addAttribute("sqlpre", sql);
         model.addAttribute("perfomancelist", performList);
         return "sqlgroup_render";
     }

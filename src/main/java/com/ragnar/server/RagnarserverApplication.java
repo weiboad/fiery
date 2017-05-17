@@ -36,10 +36,11 @@ public class RagnarserverApplication {
                         "\t\tjava -jar com.ragnar.server.RaganrserverApplication.jar -type server\r\n" +
                         "\t\tjava -jar com.ragnar.server.RaganrserverApplication.jar -type logpush -path ./ -host 127.0.0.1:8888\r\n";
 
-        String type = "server";
-        String host = "127.0.0.1:8888";
-        String path = "/";
-        String outtime = "";
+        String type = "server";//服务类型
+        String host = "127.0.0.1:8888";//推送接口host设置
+        String path = "/";//扫描日志路径
+        String outtime = "";//过期日志清理如果传输按天传输
+        Integer threadcount = 10;//线程数量默认十个
         System.out.println("Lib Path:" + System.getProperty("java.library.path"));
 
         if (args.length > 0 && ("-h".equals(args[0]) || "-help".equals(args[0]))) {
@@ -64,6 +65,10 @@ public class RagnarserverApplication {
                 outtime = args[i + 1];
                 i++;
             }
+            if ("-threadcount".equals(args[i])) {
+                threadcount = Integer.valueOf(args[i + 1]);
+                i++;
+            }
         }
 
         //decide which app will start
@@ -71,7 +76,7 @@ public class RagnarserverApplication {
             SpringApplication.run(RagnarserverApplication.class, args);
         } else if (type.equals("logpush")) {
             LogPusherMain tail = new LogPusherMain();
-            tail.start(path, host,outtime);
+            tail.start(path, host,outtime,threadcount);
         } else {
             System.out.println(usage);
             System.exit(0);

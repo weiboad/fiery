@@ -276,14 +276,14 @@ public class LogPusherMain {
         }
     }
 
-    public void start(String path, String host, String outtime) {
+    public void start(String path, String host, String outtime,Integer threadcount) {
 
         if (path.isEmpty() || host.isEmpty()) {
             log.error("parameter:-path or -host was not set!");
             return;
         }
         //pull thread
-        CurlThreadPool curlThreadPool = new CurlThreadPool(host, sendBizLogQueue, sendMetaLogQueue, 10);
+        CurlThreadPool curlThreadPool = new CurlThreadPool(host, sendBizLogQueue, sendMetaLogQueue, threadcount);
         curlThreadPool.start();
 
         while (true) {

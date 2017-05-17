@@ -47,7 +47,7 @@
                         <option value=5>${current_date_5}</option>
                         <option value=6>${current_date_6}</option>
                     </select>
-                    <input type="hidden" name="sql" value="${sql}"/>
+                    <input type="hidden" name="sql" value="${sqlpre}"/>
                 </div>
             </form>
             <table class="table sorttable table-hover" id="listtable">
