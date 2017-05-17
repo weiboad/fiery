@@ -1,0 +1,1402 @@
+2017-05-17 15:08:27.167  INFO 4117 --- [main] c.ragnar.server.RagnarserverApplication  : Starting RagnarserverApplication on thinkpc.local with PID 4117 (/Users/changlongxu/vagrant/share/GitHub/fiery/target/classes started by changlong1 in /Users/changlongxu/vagrant/share/GitHub/fiery)
+2017-05-17 15:08:27.170  INFO 4117 --- [main] c.ragnar.server.RagnarserverApplication  : The following profiles are active: prod
+2017-05-17 15:08:27.239  INFO 4117 --- [main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@79e2c065: startup date [Wed May 17 15:08:27 CST 2017]; root of context hierarchy
+2017-05-17 15:08:28.668  INFO 4117 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 9090 (http)
+2017-05-17 15:08:28.680  INFO 4117 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2017-05-17 15:08:28.681  INFO 4117 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.11
+2017-05-17 15:08:28.779  INFO 4117 --- [localhost-startStop-1] o.a.c.c.C.[.[localhost].[/ragnar]        : Initializing Spring embedded WebApplicationContext
+2017-05-17 15:08:28.780  INFO 4117 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1547 ms
+2017-05-17 15:08:28.928  INFO 4117 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2017-05-17 15:08:28.932  INFO 4117 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2017-05-17 15:08:28.932  INFO 4117 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2017-05-17 15:08:28.932  INFO 4117 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2017-05-17 15:08:28.933  INFO 4117 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2017-05-17 15:08:28.970  INFO 4117 --- [main] com.ragnar.server.storage.DBManage       : DB Manger init...
+2017-05-17 15:08:28.992  INFO 4117 --- [main] com.ragnar.server.search.IndexService    : Init the Index Service
+2017-05-17 15:08:29.431  INFO 4117 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/log/bizlog/put],methods=[POST]}" onto public com.ragnar.server.data.responseJson com.ragnar.server.contorller.ragnarlog.PutBizLog.appendLog(java.lang.String)
+2017-05-17 15:08:29.432  INFO 4117 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/log/metalog/put],methods=[POST]}" onto public com.ragnar.server.data.responseJson com.ragnar.server.contorller.ragnarlog.PutMetalog.appendindex(java.lang.String)
+2017-05-17 15:08:29.433  INFO 4117 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/group],methods=[POST]}" onto public com.ragnar.server.data.responseJson com.ragnar.server.contorller.search.Group.SearchKeyword(java.lang.String,java.lang.String,java.lang.String)
+2017-05-17 15:08:29.433  INFO 4117 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/recent],methods=[POST]}" onto public com.ragnar.server.data.responseJson com.ragnar.server.contorller.search.Recent.RecentRequest(java.lang.String,java.lang.String,java.lang.String)
+2017-05-17 15:08:29.433  INFO 4117 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/fulltext],methods=[POST]}" onto public com.ragnar.server.data.responseJson com.ragnar.server.contorller.search.SearchField.SearchKeyword(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)
+2017-05-17 15:08:29.434  INFO 4117 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/apitopdetail],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.APITopDetailPage.currentlog(org.springframework.ui.Model,java.lang.String)
+2017-05-17 15:08:29.434  INFO 4117 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/apitop],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.APITopPage.currentlog(org.springframework.ui.Model,java.lang.String)
+2017-05-17 15:08:29.434  INFO 4117 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/aboutus],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.AboutUs.aboutusPage(org.springframework.ui.Model)
+2017-05-17 15:08:29.435  INFO 4117 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/currentlog],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.CurrentLog.currentlog(org.springframework.ui.Model)
+2017-05-17 15:08:29.435  INFO 4117 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public java.lang.String com.ragnar.server.contorller.web.ErrorPage.error(org.springframework.ui.Model,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-05-17 15:08:29.435  INFO 4117 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/errorstatic],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.ExceptionStatics.PerformancePage(org.springframework.ui.Model,java.lang.Integer)
+2017-05-17 15:08:29.435  INFO 4117 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/errorstatic/del],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.ExceptionStatics.PerformancePage(org.springframework.ui.Model,java.lang.String,java.lang.String,java.lang.String)
+2017-05-17 15:08:29.436  INFO 4117 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.Index.IndexPage(org.springframework.ui.Model)
+2017-05-17 15:08:29.436  INFO 4117 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/search],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.Search.searchPage(org.springframework.ui.Model,java.lang.String)
+2017-05-17 15:08:29.436  INFO 4117 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/showtrace],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.ShowTrace.ShowTracePage(org.springframework.ui.Model,java.lang.String,java.lang.String,java.lang.String)
+2017-05-17 15:08:29.439  INFO 4117 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/sqlperformshow],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.SqlPerformance.SqlperformShowPage(org.springframework.ui.Model,java.lang.Integer,java.lang.String)
+2017-05-17 15:08:29.439  INFO 4117 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/sqlperformance],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.SqlPerformance.SqlperformancePage(org.springframework.ui.Model,java.lang.Integer)
+2017-05-17 15:08:29.439  INFO 4117 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/performance],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.UrlPerformance.PerformancePage(org.springframework.ui.Model,java.lang.Integer)
+2017-05-17 15:08:29.439  INFO 4117 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/performanceshow],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.UrlPerformance.PerformanceShowPage(org.springframework.ui.Model,java.lang.Integer,java.lang.String)
+2017-05-17 15:08:29.440  INFO 4117 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/v2/api-docs],methods=[GET],produces=[application/json || application/hal+json]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)
+2017-05-17 15:08:29.443  INFO 4117 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/swagger-resources/configuration/ui]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.UiConfiguration> springfox.documentation.swagger.web.ApiResourceController.uiConfiguration()
+2017-05-17 15:08:29.444  INFO 4117 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/swagger-resources/configuration/security]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.SecurityConfiguration> springfox.documentation.swagger.web.ApiResourceController.securityConfiguration()
+2017-05-17 15:08:29.444  INFO 4117 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/swagger-resources]}" onto org.springframework.http.ResponseEntity<java.util.List<springfox.documentation.swagger.web.SwaggerResource>> springfox.documentation.swagger.web.ApiResourceController.swaggerResources()
+2017-05-17 15:08:29.578  INFO 4117 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@79e2c065: startup date [Wed May 17 15:08:27 CST 2017]; root of context hierarchy
+2017-05-17 15:08:29.629  INFO 4117 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-05-17 15:08:29.629  INFO 4117 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-05-17 15:08:29.680  INFO 4117 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-05-17 15:08:29.879  INFO 4117 --- [main] o.s.w.s.v.f.FreeMarkerConfigurer         : ClassTemplateLoader for Spring macros added to FreeMarker configuration
+2017-05-17 15:08:29.952  INFO 4117 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2017-05-17 15:08:29.961  INFO 4117 --- [main] o.s.c.support.DefaultLifecycleProcessor  : Starting beans in phase 2147483647
+2017-05-17 15:08:29.962  INFO 4117 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2017-05-17 15:08:29.984  INFO 4117 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2017-05-17 15:08:29.996  INFO 4117 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2017-05-17 15:08:30.074  INFO 4117 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: currentlogUsingGET_1
+2017-05-17 15:08:30.077  INFO 4117 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: currentlogUsingGET_2
+2017-05-17 15:08:30.104  INFO 4117 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: PerformancePageUsingGET_1
+2017-05-17 15:08:30.171  INFO 4117 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: SearchKeywordUsingPOST_1
+2017-05-17 15:08:30.189  INFO 4117 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: PerformancePageUsingGET_2
+2017-05-17 15:08:30.216  INFO 4117 --- [main] s.a.ScheduledAnnotationBeanPostProcessor : No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2017-05-17 15:08:30.275  INFO 4117 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 9090 (http)
+2017-05-17 15:08:30.279  INFO 4117 --- [main] c.ragnar.server.RagnarserverApplication  : Started RagnarserverApplication in 3.746 seconds (JVM running for 4.536)
+2017-05-17 15:09:40.461  INFO 4117 --- [http-nio-9090-exec-10] o.a.c.c.C.[.[localhost].[/ragnar]        : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2017-05-17 15:09:40.461  INFO 4117 --- [http-nio-9090-exec-10] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization started
+2017-05-17 15:09:40.472  INFO 4117 --- [http-nio-9090-exec-10] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization completed in 11 ms
+2017-05-17 15:09:40.867  INFO 4117 --- [http-nio-9090-exec-4] c.r.s.search.IndexWriterShaderManager    : Create Write Index:1494777600
+2017-05-17 15:09:45.225  INFO 4117 --- [pool-1-thread-1] c.r.s.search.IndexSearchSharderManager   : start load index foldername:1494777600 abspath:/Users/changlongxu/vagrant/share/GitHub/fiery/index/1494777600
+2017-05-17 15:09:45.253  INFO 4117 --- [pool-1-thread-1] c.r.s.search.IndexSearchSharderManager   : Load Index Success:1494777600 path:/Users/changlongxu/vagrant/share/GitHub/fiery/index/1494777600
+2017-05-17 15:09:50.300  INFO 4117 --- [pool-1-thread-1] c.r.s.search.IndexSearchSharderManager   : Reload Index:1494777600 cost:76 totalcount:2000
+2017-05-17 15:12:07.506  INFO 4117 --- [Thread-2] ationConfigEmbeddedWebApplicationContext : Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@79e2c065: startup date [Wed May 17 15:08:27 CST 2017]; root of context hierarchy
+2017-05-17 15:12:07.509  INFO 4117 --- [Thread-2] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
+2017-05-17 15:12:07.510  INFO 4117 --- [Thread-2] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+2017-05-17 15:12:26.805  INFO 4335 --- [main] c.ragnar.server.RagnarserverApplication  : Starting RagnarserverApplication on thinkpc.local with PID 4335 (/Users/changlongxu/vagrant/share/GitHub/fiery/target/classes started by changlong1 in /Users/changlongxu/vagrant/share/GitHub/fiery)
+2017-05-17 15:12:26.839  INFO 4335 --- [main] c.ragnar.server.RagnarserverApplication  : The following profiles are active: prod
+2017-05-17 15:12:27.097  INFO 4335 --- [main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@2b662a77: startup date [Wed May 17 15:12:27 CST 2017]; root of context hierarchy
+2017-05-17 15:12:33.325  INFO 4335 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 9090 (http)
+2017-05-17 15:12:33.355  INFO 4335 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2017-05-17 15:12:33.357  INFO 4335 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.11
+2017-05-17 15:12:33.641  INFO 4335 --- [localhost-startStop-1] o.a.c.c.C.[.[localhost].[/ragnar]        : Initializing Spring embedded WebApplicationContext
+2017-05-17 15:12:33.641  INFO 4335 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 6549 ms
+2017-05-17 15:12:34.312  INFO 4335 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2017-05-17 15:12:34.319  INFO 4335 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'metricsFilter' to: [/*]
+2017-05-17 15:12:34.322  INFO 4335 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2017-05-17 15:12:34.325  INFO 4335 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2017-05-17 15:12:34.326  INFO 4335 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2017-05-17 15:12:34.327  INFO 4335 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2017-05-17 15:12:34.329  INFO 4335 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'webRequestLoggingFilter' to: [/*]
+2017-05-17 15:12:34.330  INFO 4335 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'applicationContextIdFilter' to: [/*]
+2017-05-17 15:12:34.409  INFO 4335 --- [main] com.ragnar.server.storage.DBManage       : DB Manger init...
+2017-05-17 15:12:34.462  INFO 4335 --- [main] com.ragnar.server.search.IndexService    : Init the Index Service
+2017-05-17 15:12:36.422  INFO 4335 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/log/bizlog/put],methods=[POST]}" onto public com.ragnar.server.data.responseJson com.ragnar.server.contorller.ragnarlog.PutBizLog.appendLog(java.lang.String)
+2017-05-17 15:12:36.424  INFO 4335 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/log/metalog/put],methods=[POST]}" onto public com.ragnar.server.data.responseJson com.ragnar.server.contorller.ragnarlog.PutMetalog.appendindex(java.lang.String)
+2017-05-17 15:12:36.425  INFO 4335 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/group],methods=[POST]}" onto public com.ragnar.server.data.responseJson com.ragnar.server.contorller.search.Group.SearchKeyword(java.lang.String,java.lang.String,java.lang.String)
+2017-05-17 15:12:36.425  INFO 4335 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/recent],methods=[POST]}" onto public com.ragnar.server.data.responseJson com.ragnar.server.contorller.search.Recent.RecentRequest(java.lang.String,java.lang.String,java.lang.String)
+2017-05-17 15:12:36.425  INFO 4335 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/fulltext],methods=[POST]}" onto public com.ragnar.server.data.responseJson com.ragnar.server.contorller.search.SearchField.SearchKeyword(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)
+2017-05-17 15:12:36.425  INFO 4335 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/apitopdetail],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.APITopDetailPage.currentlog(org.springframework.ui.Model,java.lang.String)
+2017-05-17 15:12:36.426  INFO 4335 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/apitop],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.APITopPage.currentlog(org.springframework.ui.Model,java.lang.String)
+2017-05-17 15:12:36.426  INFO 4335 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/aboutus],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.AboutUs.aboutusPage(org.springframework.ui.Model)
+2017-05-17 15:12:36.426  INFO 4335 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/currentlog],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.CurrentLog.currentlog(org.springframework.ui.Model)
+2017-05-17 15:12:36.427  INFO 4335 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public java.lang.String com.ragnar.server.contorller.web.ErrorPage.error(org.springframework.ui.Model,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-05-17 15:12:36.427  INFO 4335 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/errorstatic],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.ExceptionStatics.PerformancePage(org.springframework.ui.Model,java.lang.Integer)
+2017-05-17 15:12:36.445  INFO 4335 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/errorstatic/del],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.ExceptionStatics.PerformancePage(org.springframework.ui.Model,java.lang.String,java.lang.String,java.lang.String)
+2017-05-17 15:12:36.472  INFO 4335 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.Index.IndexPage(org.springframework.ui.Model)
+2017-05-17 15:12:36.473  INFO 4335 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/search],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.Search.searchPage(org.springframework.ui.Model,java.lang.String)
+2017-05-17 15:12:36.474  INFO 4335 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/showtrace],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.ShowTrace.ShowTracePage(org.springframework.ui.Model,java.lang.String,java.lang.String,java.lang.String)
+2017-05-17 15:12:36.480  INFO 4335 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/sqlperformshow],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.SqlPerformance.SqlperformShowPage(org.springframework.ui.Model,java.lang.Integer,java.lang.String)
+2017-05-17 15:12:36.481  INFO 4335 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/sqlperformance],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.SqlPerformance.SqlperformancePage(org.springframework.ui.Model,java.lang.Integer)
+2017-05-17 15:12:36.483  INFO 4335 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/performance],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.UrlPerformance.PerformancePage(org.springframework.ui.Model,java.lang.Integer)
+2017-05-17 15:12:36.484  INFO 4335 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/performanceshow],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.UrlPerformance.PerformanceShowPage(org.springframework.ui.Model,java.lang.Integer,java.lang.String)
+2017-05-17 15:12:36.487  INFO 4335 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/v2/api-docs],methods=[GET],produces=[application/json || application/hal+json]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)
+2017-05-17 15:12:36.495  INFO 4335 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/swagger-resources/configuration/security]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.SecurityConfiguration> springfox.documentation.swagger.web.ApiResourceController.securityConfiguration()
+2017-05-17 15:12:36.496  INFO 4335 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/swagger-resources/configuration/ui]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.UiConfiguration> springfox.documentation.swagger.web.ApiResourceController.uiConfiguration()
+2017-05-17 15:12:36.497  INFO 4335 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/swagger-resources]}" onto org.springframework.http.ResponseEntity<java.util.List<springfox.documentation.swagger.web.SwaggerResource>> springfox.documentation.swagger.web.ApiResourceController.swaggerResources()
+2017-05-17 15:12:37.396  INFO 4335 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/beans || /beans.json],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-17 15:12:37.397  INFO 4335 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/trace || /trace.json],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-17 15:12:37.398  INFO 4335 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/info || /info.json],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-17 15:12:37.400  INFO 4335 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/dump || /dump.json],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-17 15:12:37.401  INFO 4335 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/configprops || /configprops.json],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-17 15:12:37.402  INFO 4335 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/health || /health.json],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.HealthMvcEndpoint.invoke(java.security.Principal)
+2017-05-17 15:12:37.403  INFO 4335 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/logfile || /logfile.json],methods=[GET || HEAD]}" onto public void org.springframework.boot.actuate.endpoint.mvc.LogFileMvcEndpoint.invoke(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse) throws javax.servlet.ServletException,java.io.IOException
+2017-05-17 15:12:37.406  INFO 4335 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/autoconfig || /autoconfig.json],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-17 15:12:37.408  INFO 4335 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/heapdump || /heapdump.json],methods=[GET],produces=[application/octet-stream]}" onto public void org.springframework.boot.actuate.endpoint.mvc.HeapdumpMvcEndpoint.invoke(boolean,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse) throws java.io.IOException,javax.servlet.ServletException
+2017-05-17 15:12:37.412  INFO 4335 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/mappings || /mappings.json],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-17 15:12:37.417  INFO 4335 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/metrics/{name:.*}],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.MetricsMvcEndpoint.value(java.lang.String)
+2017-05-17 15:12:37.417  INFO 4335 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/metrics || /metrics.json],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-17 15:12:37.419  INFO 4335 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/env/{name:.*}],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EnvironmentMvcEndpoint.value(java.lang.String)
+2017-05-17 15:12:37.419  INFO 4335 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/env || /env.json],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-17 15:12:38.101  INFO 4335 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@2b662a77: startup date [Wed May 17 15:12:27 CST 2017]; root of context hierarchy
+2017-05-17 15:12:38.369  INFO 4335 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-05-17 15:12:38.369  INFO 4335 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-05-17 15:12:38.516  INFO 4335 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-05-17 15:12:39.424  INFO 4335 --- [main] o.s.w.s.v.f.FreeMarkerConfigurer         : ClassTemplateLoader for Spring macros added to FreeMarker configuration
+2017-05-17 15:12:39.787  INFO 4335 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2017-05-17 15:12:39.821  INFO 4335 --- [main] o.s.c.support.DefaultLifecycleProcessor  : Starting beans in phase 0
+2017-05-17 15:12:40.073  INFO 4335 --- [main] o.s.c.support.DefaultLifecycleProcessor  : Starting beans in phase 2147483647
+2017-05-17 15:12:40.074  INFO 4335 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2017-05-17 15:12:40.164  INFO 4335 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2017-05-17 15:12:40.401  INFO 4335 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2017-05-17 15:12:40.744  INFO 4335 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: currentlogUsingGET_1
+2017-05-17 15:12:40.748  INFO 4335 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: currentlogUsingGET_2
+2017-05-17 15:12:40.799  INFO 4335 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_1
+2017-05-17 15:12:40.805  INFO 4335 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_2
+2017-05-17 15:12:40.809  INFO 4335 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_3
+2017-05-17 15:12:40.814  INFO 4335 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_4
+2017-05-17 15:12:40.816  INFO 4335 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_5
+2017-05-17 15:12:40.819  INFO 4335 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_6
+2017-05-17 15:12:40.823  INFO 4335 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_7
+2017-05-17 15:12:40.864  INFO 4335 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_8
+2017-05-17 15:12:40.872  INFO 4335 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_9
+2017-05-17 15:12:40.886  INFO 4335 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_10
+2017-05-17 15:12:40.889  INFO 4335 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_11
+2017-05-17 15:12:40.894  INFO 4335 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_12
+2017-05-17 15:12:40.896  INFO 4335 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_13
+2017-05-17 15:12:40.921  INFO 4335 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_14
+2017-05-17 15:12:40.927  INFO 4335 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_15
+2017-05-17 15:12:41.042  INFO 4335 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: PerformancePageUsingGET_1
+2017-05-17 15:12:41.265  INFO 4335 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_16
+2017-05-17 15:12:41.332  INFO 4335 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_17
+2017-05-17 15:12:41.340  INFO 4335 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingHEAD_1
+2017-05-17 15:12:41.345  INFO 4335 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingPOST_1
+2017-05-17 15:12:41.360  INFO 4335 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingPUT_1
+2017-05-17 15:12:41.371  INFO 4335 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingPATCH_1
+2017-05-17 15:12:41.376  INFO 4335 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingDELETE_1
+2017-05-17 15:12:41.382  INFO 4335 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingOPTIONS_1
+2017-05-17 15:12:41.395  INFO 4335 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingTRACE_1
+2017-05-17 15:12:41.427  INFO 4335 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_18
+2017-05-17 15:12:41.436  INFO 4335 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_19
+2017-05-17 15:12:41.451  INFO 4335 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_20
+2017-05-17 15:12:41.489  INFO 4335 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingHEAD_2
+2017-05-17 15:12:41.496  INFO 4335 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_21
+2017-05-17 15:12:41.502  INFO 4335 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingHEAD_3
+2017-05-17 15:12:41.513  INFO 4335 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_22
+2017-05-17 15:12:41.516  INFO 4335 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_23
+2017-05-17 15:12:41.522  INFO 4335 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: valueUsingGET_1
+2017-05-17 15:12:41.591  INFO 4335 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: SearchKeywordUsingPOST_1
+2017-05-17 15:12:41.662  INFO 4335 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: PerformancePageUsingGET_2
+2017-05-17 15:12:41.737  INFO 4335 --- [main] s.a.ScheduledAnnotationBeanPostProcessor : No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2017-05-17 15:12:41.753  INFO 4335 --- [pool-1-thread-1] c.r.s.search.IndexSearchSharderManager   : start load index foldername:1494777600 abspath:/Users/changlongxu/vagrant/share/GitHub/fiery/index/1494777600
+2017-05-17 15:12:41.951  INFO 4335 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 9090 (http)
+2017-05-17 15:12:41.978  INFO 4335 --- [main] c.ragnar.server.RagnarserverApplication  : Started RagnarserverApplication in 17.135 seconds (JVM running for 18.445)
+2017-05-17 15:12:42.378  INFO 4335 --- [pool-1-thread-1] c.r.s.search.IndexSearchSharderManager   : Load Index Success:1494777600 path:/Users/changlongxu/vagrant/share/GitHub/fiery/index/1494777600
+2017-05-17 15:12:49.304  INFO 4335 --- [http-nio-9090-exec-2] o.a.c.c.C.[.[localhost].[/ragnar]        : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2017-05-17 15:12:49.305  INFO 4335 --- [http-nio-9090-exec-2] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization started
+2017-05-17 15:12:49.327  INFO 4335 --- [http-nio-9090-exec-2] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization completed in 22 ms
+2017-05-17 15:12:51.027  INFO 4335 --- [http-nio-9090-exec-9] c.r.s.search.IndexWriterShaderManager    : Create Write Index:1494777600
+2017-05-17 15:12:52.813 ERROR 4335 --- [http-nio-9090-exec-1] c.r.s.contorller.ragnarlog.PutMetalog    : java.lang.IllegalStateException: Expected BEGIN_OBJECT but was STRING at line 1 column 1 path $
+2017-05-17 15:12:52.820 ERROR 4335 --- [http-nio-9090-exec-1] c.r.s.contorller.ragnarlog.PutMetalog    : java.lang.IllegalStateException: Expected BEGIN_OBJECT but was STRING at line 1 column 1 path $
+2017-05-17 15:12:52.842 ERROR 4335 --- [http-nio-9090-exec-3] c.r.s.contorller.ragnarlog.PutMetalog    : java.lang.IllegalStateException: Expected BEGIN_OBJECT but was STRING at line 1 column 1 path $
+2017-05-17 15:12:53.155  INFO 4335 --- [Thread-2] ationConfigEmbeddedWebApplicationContext : Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@2b662a77: startup date [Wed May 17 15:12:27 CST 2017]; root of context hierarchy
+2017-05-17 15:12:53.157  INFO 4335 --- [Thread-2] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
+2017-05-17 15:12:53.158  INFO 4335 --- [Thread-2] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 0
+2017-05-17 15:12:53.161  INFO 4335 --- [Thread-2] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+2017-05-17 15:12:58.329  INFO 4353 --- [main] c.ragnar.server.RagnarserverApplication  : Starting RagnarserverApplication on thinkpc.local with PID 4353 (/Users/changlongxu/vagrant/share/GitHub/fiery/target/classes started by changlong1 in /Users/changlongxu/vagrant/share/GitHub/fiery)
+2017-05-17 15:12:58.340  INFO 4353 --- [main] c.ragnar.server.RagnarserverApplication  : The following profiles are active: prod
+2017-05-17 15:12:58.616  INFO 4353 --- [main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@2b662a77: startup date [Wed May 17 15:12:58 CST 2017]; root of context hierarchy
+2017-05-17 15:13:00.632  INFO 4353 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 9090 (http)
+2017-05-17 15:13:00.647  INFO 4353 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2017-05-17 15:13:00.648  INFO 4353 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.11
+2017-05-17 15:13:00.777  INFO 4353 --- [localhost-startStop-1] o.a.c.c.C.[.[localhost].[/ragnar]        : Initializing Spring embedded WebApplicationContext
+2017-05-17 15:13:00.778  INFO 4353 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2188 ms
+2017-05-17 15:13:00.992  INFO 4353 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2017-05-17 15:13:00.997  INFO 4353 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'metricsFilter' to: [/*]
+2017-05-17 15:13:00.997  INFO 4353 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2017-05-17 15:13:00.997  INFO 4353 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2017-05-17 15:13:00.997  INFO 4353 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2017-05-17 15:13:00.998  INFO 4353 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2017-05-17 15:13:00.998  INFO 4353 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'webRequestLoggingFilter' to: [/*]
+2017-05-17 15:13:00.998  INFO 4353 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'applicationContextIdFilter' to: [/*]
+2017-05-17 15:13:01.039  INFO 4353 --- [main] com.ragnar.server.storage.DBManage       : DB Manger init...
+2017-05-17 15:13:01.062  INFO 4353 --- [main] com.ragnar.server.search.IndexService    : Init the Index Service
+2017-05-17 15:13:01.622  INFO 4353 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/log/bizlog/put],methods=[POST]}" onto public com.ragnar.server.data.responseJson com.ragnar.server.contorller.ragnarlog.PutBizLog.appendLog(java.lang.String)
+2017-05-17 15:13:01.622  INFO 4353 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/log/metalog/put],methods=[POST]}" onto public com.ragnar.server.data.responseJson com.ragnar.server.contorller.ragnarlog.PutMetalog.appendindex(java.lang.String)
+2017-05-17 15:13:01.623  INFO 4353 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/group],methods=[POST]}" onto public com.ragnar.server.data.responseJson com.ragnar.server.contorller.search.Group.SearchKeyword(java.lang.String,java.lang.String,java.lang.String)
+2017-05-17 15:13:01.623  INFO 4353 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/recent],methods=[POST]}" onto public com.ragnar.server.data.responseJson com.ragnar.server.contorller.search.Recent.RecentRequest(java.lang.String,java.lang.String,java.lang.String)
+2017-05-17 15:13:01.624  INFO 4353 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/fulltext],methods=[POST]}" onto public com.ragnar.server.data.responseJson com.ragnar.server.contorller.search.SearchField.SearchKeyword(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)
+2017-05-17 15:13:01.624  INFO 4353 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/apitopdetail],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.APITopDetailPage.currentlog(org.springframework.ui.Model,java.lang.String)
+2017-05-17 15:13:01.624  INFO 4353 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/apitop],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.APITopPage.currentlog(org.springframework.ui.Model,java.lang.String)
+2017-05-17 15:13:01.625  INFO 4353 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/aboutus],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.AboutUs.aboutusPage(org.springframework.ui.Model)
+2017-05-17 15:13:01.625  INFO 4353 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/currentlog],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.CurrentLog.currentlog(org.springframework.ui.Model)
+2017-05-17 15:13:01.626  INFO 4353 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public java.lang.String com.ragnar.server.contorller.web.ErrorPage.error(org.springframework.ui.Model,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-05-17 15:13:01.626  INFO 4353 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/errorstatic],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.ExceptionStatics.PerformancePage(org.springframework.ui.Model,java.lang.Integer)
+2017-05-17 15:13:01.627  INFO 4353 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/errorstatic/del],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.ExceptionStatics.PerformancePage(org.springframework.ui.Model,java.lang.String,java.lang.String,java.lang.String)
+2017-05-17 15:13:01.627  INFO 4353 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.Index.IndexPage(org.springframework.ui.Model)
+2017-05-17 15:13:01.627  INFO 4353 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/search],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.Search.searchPage(org.springframework.ui.Model,java.lang.String)
+2017-05-17 15:13:01.628  INFO 4353 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/showtrace],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.ShowTrace.ShowTracePage(org.springframework.ui.Model,java.lang.String,java.lang.String,java.lang.String)
+2017-05-17 15:13:01.630  INFO 4353 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/sqlperformshow],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.SqlPerformance.SqlperformShowPage(org.springframework.ui.Model,java.lang.Integer,java.lang.String)
+2017-05-17 15:13:01.631  INFO 4353 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/sqlperformance],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.SqlPerformance.SqlperformancePage(org.springframework.ui.Model,java.lang.Integer)
+2017-05-17 15:13:01.631  INFO 4353 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/performance],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.UrlPerformance.PerformancePage(org.springframework.ui.Model,java.lang.Integer)
+2017-05-17 15:13:01.631  INFO 4353 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/performanceshow],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.UrlPerformance.PerformanceShowPage(org.springframework.ui.Model,java.lang.Integer,java.lang.String)
+2017-05-17 15:13:01.632  INFO 4353 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/v2/api-docs],methods=[GET],produces=[application/json || application/hal+json]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)
+2017-05-17 15:13:01.636  INFO 4353 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/swagger-resources/configuration/security]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.SecurityConfiguration> springfox.documentation.swagger.web.ApiResourceController.securityConfiguration()
+2017-05-17 15:13:01.637  INFO 4353 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/swagger-resources/configuration/ui]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.UiConfiguration> springfox.documentation.swagger.web.ApiResourceController.uiConfiguration()
+2017-05-17 15:13:01.637  INFO 4353 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/swagger-resources]}" onto org.springframework.http.ResponseEntity<java.util.List<springfox.documentation.swagger.web.SwaggerResource>> springfox.documentation.swagger.web.ApiResourceController.swaggerResources()
+2017-05-17 15:13:01.872  INFO 4353 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/heapdump || /heapdump.json],methods=[GET],produces=[application/octet-stream]}" onto public void org.springframework.boot.actuate.endpoint.mvc.HeapdumpMvcEndpoint.invoke(boolean,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse) throws java.io.IOException,javax.servlet.ServletException
+2017-05-17 15:13:01.876  INFO 4353 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/mappings || /mappings.json],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-17 15:13:01.878  INFO 4353 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/info || /info.json],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-17 15:13:01.878  INFO 4353 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/dump || /dump.json],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-17 15:13:01.879  INFO 4353 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/trace || /trace.json],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-17 15:13:01.880  INFO 4353 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/autoconfig || /autoconfig.json],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-17 15:13:01.881  INFO 4353 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/health || /health.json],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.HealthMvcEndpoint.invoke(java.security.Principal)
+2017-05-17 15:13:01.882  INFO 4353 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/logfile || /logfile.json],methods=[GET || HEAD]}" onto public void org.springframework.boot.actuate.endpoint.mvc.LogFileMvcEndpoint.invoke(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse) throws javax.servlet.ServletException,java.io.IOException
+2017-05-17 15:13:01.886  INFO 4353 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/env/{name:.*}],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EnvironmentMvcEndpoint.value(java.lang.String)
+2017-05-17 15:13:01.886  INFO 4353 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/env || /env.json],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-17 15:13:01.891  INFO 4353 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/metrics/{name:.*}],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.MetricsMvcEndpoint.value(java.lang.String)
+2017-05-17 15:13:01.891  INFO 4353 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/metrics || /metrics.json],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-17 15:13:01.892  INFO 4353 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/configprops || /configprops.json],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-17 15:13:01.893  INFO 4353 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/beans || /beans.json],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-17 15:13:02.091  INFO 4353 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@2b662a77: startup date [Wed May 17 15:12:58 CST 2017]; root of context hierarchy
+2017-05-17 15:13:02.166  INFO 4353 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-05-17 15:13:02.167  INFO 4353 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-05-17 15:13:02.216  INFO 4353 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-05-17 15:13:02.574  INFO 4353 --- [main] o.s.w.s.v.f.FreeMarkerConfigurer         : ClassTemplateLoader for Spring macros added to FreeMarker configuration
+2017-05-17 15:13:02.671  INFO 4353 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2017-05-17 15:13:02.685  INFO 4353 --- [main] o.s.c.support.DefaultLifecycleProcessor  : Starting beans in phase 0
+2017-05-17 15:13:02.741  INFO 4353 --- [main] o.s.c.support.DefaultLifecycleProcessor  : Starting beans in phase 2147483647
+2017-05-17 15:13:02.741  INFO 4353 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2017-05-17 15:13:02.771  INFO 4353 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2017-05-17 15:13:02.891  INFO 4353 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2017-05-17 15:13:02.985  INFO 4353 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: currentlogUsingGET_1
+2017-05-17 15:13:02.989  INFO 4353 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: currentlogUsingGET_2
+2017-05-17 15:13:02.995  INFO 4353 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_1
+2017-05-17 15:13:02.998  INFO 4353 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_2
+2017-05-17 15:13:03.000  INFO 4353 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_3
+2017-05-17 15:13:03.004  INFO 4353 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_4
+2017-05-17 15:13:03.007  INFO 4353 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_5
+2017-05-17 15:13:03.010  INFO 4353 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_6
+2017-05-17 15:13:03.013  INFO 4353 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_7
+2017-05-17 15:13:03.015  INFO 4353 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_8
+2017-05-17 15:13:03.017  INFO 4353 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_9
+2017-05-17 15:13:03.019  INFO 4353 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_10
+2017-05-17 15:13:03.021  INFO 4353 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_11
+2017-05-17 15:13:03.024  INFO 4353 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_12
+2017-05-17 15:13:03.026  INFO 4353 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_13
+2017-05-17 15:13:03.031  INFO 4353 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_14
+2017-05-17 15:13:03.034  INFO 4353 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_15
+2017-05-17 15:13:03.069  INFO 4353 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: PerformancePageUsingGET_1
+2017-05-17 15:13:03.124  INFO 4353 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_16
+2017-05-17 15:13:03.155  INFO 4353 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_17
+2017-05-17 15:13:03.159  INFO 4353 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingHEAD_1
+2017-05-17 15:13:03.163  INFO 4353 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingPOST_1
+2017-05-17 15:13:03.166  INFO 4353 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingPUT_1
+2017-05-17 15:13:03.169  INFO 4353 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingPATCH_1
+2017-05-17 15:13:03.172  INFO 4353 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingDELETE_1
+2017-05-17 15:13:03.175  INFO 4353 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingOPTIONS_1
+2017-05-17 15:13:03.180  INFO 4353 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingTRACE_1
+2017-05-17 15:13:03.187  INFO 4353 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_18
+2017-05-17 15:13:03.192  INFO 4353 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_19
+2017-05-17 15:13:03.198  INFO 4353 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_20
+2017-05-17 15:13:03.200  INFO 4353 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingHEAD_2
+2017-05-17 15:13:03.203  INFO 4353 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_21
+2017-05-17 15:13:03.207  INFO 4353 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingHEAD_3
+2017-05-17 15:13:03.209  INFO 4353 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_22
+2017-05-17 15:13:03.210  INFO 4353 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_23
+2017-05-17 15:13:03.214  INFO 4353 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: valueUsingGET_1
+2017-05-17 15:13:03.233  INFO 4353 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: SearchKeywordUsingPOST_1
+2017-05-17 15:13:03.248  INFO 4353 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: PerformancePageUsingGET_2
+2017-05-17 15:13:03.273  INFO 4353 --- [main] s.a.ScheduledAnnotationBeanPostProcessor : No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2017-05-17 15:13:03.281  INFO 4353 --- [pool-1-thread-1] c.r.s.search.IndexSearchSharderManager   : start load index foldername:1494777600 abspath:/Users/changlongxu/vagrant/share/GitHub/fiery/index/1494777600
+2017-05-17 15:13:03.342  INFO 4353 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 9090 (http)
+2017-05-17 15:13:03.348  INFO 4353 --- [main] c.ragnar.server.RagnarserverApplication  : Started RagnarserverApplication in 6.012 seconds (JVM running for 7.224)
+2017-05-17 15:13:03.473  INFO 4353 --- [pool-1-thread-1] c.r.s.search.IndexSearchSharderManager   : Load Index Success:1494777600 path:/Users/changlongxu/vagrant/share/GitHub/fiery/index/1494777600
+2017-05-17 15:13:03.520  INFO 4353 --- [http-nio-9090-exec-3] o.a.c.c.C.[.[localhost].[/ragnar]        : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2017-05-17 15:13:03.520  INFO 4353 --- [http-nio-9090-exec-3] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization started
+2017-05-17 15:13:03.539  INFO 4353 --- [http-nio-9090-exec-3] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization completed in 19 ms
+2017-05-17 15:13:03.789 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:03.791 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:04.283 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:04.284 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:04.285 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:04.783 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:04.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:04.785 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:05.284 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:05.285 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:05.286 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:05.785 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:05.786 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:05.787 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:06.286 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:06.286 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:06.287 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:06.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:06.785 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:06.785 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:07.285 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:07.285 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:07.286 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:07.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:07.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:07.785 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:08.285 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:08.285 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:08.286 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:08.785 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:08.785 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:08.786 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:09.284 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:09.285 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:09.285 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:09.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:09.785 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:09.785 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:10.285 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:10.286 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:10.286 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:10.782 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:10.783 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:10.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:10.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:11.286 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:11.286 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:11.287 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:11.785 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:11.786 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:11.786 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:12.285 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:12.285 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:12.286 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:12.782 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:12.783 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:12.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:13.281 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:13.282 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:13.282 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:13.783 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:13.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:13.785 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:14.285 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:14.286 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:14.286 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:14.785 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:14.785 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:14.785 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:15.281 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:15.282 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:15.282 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:15.783 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:15.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:15.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:16.283 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:16.284 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:16.284 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:16.785 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:16.786 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:16.786 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:17.283 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:17.283 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:17.284 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:17.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:17.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:17.785 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:18.284 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:18.285 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:18.286 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:18.782 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:18.782 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:18.783 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:19.284 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:19.284 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:19.285 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:19.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:19.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:19.785 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:20.285 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:20.285 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:20.285 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:20.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:20.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:20.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:20.785 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:21.282 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:21.282 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:21.283 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:21.782 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:21.783 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:21.783 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:22.285 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:22.285 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:22.285 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:22.782 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:22.783 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:22.783 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:23.283 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:23.284 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:23.284 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:23.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:23.785 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:23.785 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:24.282 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:24.283 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:24.283 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:24.782 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:24.782 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:24.783 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:25.285 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:25.286 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:25.286 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:25.287 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:25.780 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:25.780 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:25.781 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:26.281 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:26.281 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:26.281 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:26.780 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:26.781 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:26.781 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:27.281 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:27.282 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:27.282 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:27.782 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:27.782 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:28.282 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:28.282 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:28.283 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:28.283 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:28.783 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:28.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:28.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:29.283 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:29.283 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:29.284 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:29.783 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:29.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:29.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:30.283 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:30.283 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:30.283 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:30.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:30.785 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:30.785 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:31.284 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:31.284 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:31.284 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:31.783 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:31.783 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:31.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:32.283 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:32.284 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:32.284 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:32.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:32.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:32.785 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:33.284  INFO 4353 --- [pool-1-thread-1] c.r.server.statistics.LogAPIStatics      : del out time url:http://gaia.biz.weibo.com/link,log create_time:2017-02-08 15:00:00
+2017-05-17 15:13:33.284  INFO 4353 --- [pool-1-thread-1] c.r.server.statistics.LogAPIStatics      : del out time url:http://i2.api.weibo.com/statuses/show_batch.json,log create_time:2017-02-08 15:00:00
+2017-05-17 15:13:33.285 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:33.286 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:33.286 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:33.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:33.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:33.785 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:34.282 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:34.282 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:34.283 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:34.783 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:34.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:34.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:35.283 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:35.283 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:35.283 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:35.781 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:35.782 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:35.782 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:36.283 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:36.283 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:36.284 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:36.783 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:36.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:36.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:37.284 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:37.285 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:37.285 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:37.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:37.785 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:37.785 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:38.283 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:38.285 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:38.286 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:38.783 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:38.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:38.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:39.282 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:39.282 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:39.282 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:39.780 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:39.781 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:39.781 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:40.284 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:40.284 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:40.284 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:40.782 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:40.783 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:40.783 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:41.283 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:41.283 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:41.284 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:41.284 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:41.783 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:41.783 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:42.284 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:42.284 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:42.284 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:42.782 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:42.782 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:42.782 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:42.782 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:43.283 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:43.283 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:43.283 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:43.782 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:43.782 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:43.783 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:44.281 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:44.282 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:44.282 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:44.783 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:44.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:44.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:44.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:45.281 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:45.281 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:45.282 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:45.783 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:45.783 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:45.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:46.282 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:46.282 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:46.283 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:46.783 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:46.783 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:46.783 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:47.281 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:47.282 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:47.282 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:47.781 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:47.782 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:47.782 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:48.283 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:48.284 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:48.284 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:48.783 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:48.783 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:48.784 ERROR 4353 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:13:48.927  INFO 4353 --- [Thread-2] ationConfigEmbeddedWebApplicationContext : Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@2b662a77: startup date [Wed May 17 15:12:58 CST 2017]; root of context hierarchy
+2017-05-17 15:13:48.929  INFO 4353 --- [Thread-2] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
+2017-05-17 15:13:48.930  INFO 4353 --- [Thread-2] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 0
+2017-05-17 15:13:48.931  INFO 4353 --- [Thread-2] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+2017-05-17 15:14:22.717  INFO 4358 --- [main] c.ragnar.server.RagnarserverApplication  : Starting RagnarserverApplication on thinkpc.local with PID 4358 (/Users/changlongxu/vagrant/share/GitHub/fiery/target/classes started by changlong1 in /Users/changlongxu/vagrant/share/GitHub/fiery)
+2017-05-17 15:14:22.727  INFO 4358 --- [main] c.ragnar.server.RagnarserverApplication  : The following profiles are active: prod
+2017-05-17 15:14:22.863  INFO 4358 --- [main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@2b662a77: startup date [Wed May 17 15:14:22 CST 2017]; root of context hierarchy
+2017-05-17 15:14:24.747  INFO 4358 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 9090 (http)
+2017-05-17 15:14:24.761  INFO 4358 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2017-05-17 15:14:24.762  INFO 4358 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.11
+2017-05-17 15:14:24.871  INFO 4358 --- [localhost-startStop-1] o.a.c.c.C.[.[localhost].[/ragnar]        : Initializing Spring embedded WebApplicationContext
+2017-05-17 15:14:24.871  INFO 4358 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2014 ms
+2017-05-17 15:14:25.102  INFO 4358 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2017-05-17 15:14:25.106  INFO 4358 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'metricsFilter' to: [/*]
+2017-05-17 15:14:25.107  INFO 4358 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2017-05-17 15:14:25.107  INFO 4358 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2017-05-17 15:14:25.107  INFO 4358 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2017-05-17 15:14:25.107  INFO 4358 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2017-05-17 15:14:25.107  INFO 4358 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'webRequestLoggingFilter' to: [/*]
+2017-05-17 15:14:25.107  INFO 4358 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'applicationContextIdFilter' to: [/*]
+2017-05-17 15:14:25.143  INFO 4358 --- [main] com.ragnar.server.storage.DBManage       : DB Manger init...
+2017-05-17 15:14:25.166  INFO 4358 --- [main] com.ragnar.server.search.IndexService    : Init the Index Service
+2017-05-17 15:14:25.700  INFO 4358 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/log/bizlog/put],methods=[POST]}" onto public com.ragnar.server.data.responseJson com.ragnar.server.contorller.ragnarlog.PutBizLog.appendLog(java.lang.String)
+2017-05-17 15:14:25.708  INFO 4358 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/log/metalog/put],methods=[POST]}" onto public com.ragnar.server.data.responseJson com.ragnar.server.contorller.ragnarlog.PutMetalog.appendindex(java.lang.String)
+2017-05-17 15:14:25.709  INFO 4358 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/group],methods=[POST]}" onto public com.ragnar.server.data.responseJson com.ragnar.server.contorller.search.Group.SearchKeyword(java.lang.String,java.lang.String,java.lang.String)
+2017-05-17 15:14:25.710  INFO 4358 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/recent],methods=[POST]}" onto public com.ragnar.server.data.responseJson com.ragnar.server.contorller.search.Recent.RecentRequest(java.lang.String,java.lang.String,java.lang.String)
+2017-05-17 15:14:25.710  INFO 4358 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/fulltext],methods=[POST]}" onto public com.ragnar.server.data.responseJson com.ragnar.server.contorller.search.SearchField.SearchKeyword(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)
+2017-05-17 15:14:25.710  INFO 4358 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/apitopdetail],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.APITopDetailPage.currentlog(org.springframework.ui.Model,java.lang.String)
+2017-05-17 15:14:25.711  INFO 4358 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/apitop],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.APITopPage.currentlog(org.springframework.ui.Model,java.lang.String)
+2017-05-17 15:14:25.711  INFO 4358 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/aboutus],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.AboutUs.aboutusPage(org.springframework.ui.Model)
+2017-05-17 15:14:25.712  INFO 4358 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/currentlog],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.CurrentLog.currentlog(org.springframework.ui.Model)
+2017-05-17 15:14:25.712  INFO 4358 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public java.lang.String com.ragnar.server.contorller.web.ErrorPage.error(org.springframework.ui.Model,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-05-17 15:14:25.713  INFO 4358 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/errorstatic],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.ExceptionStatics.PerformancePage(org.springframework.ui.Model,java.lang.Integer)
+2017-05-17 15:14:25.713  INFO 4358 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/errorstatic/del],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.ExceptionStatics.PerformancePage(org.springframework.ui.Model,java.lang.String,java.lang.String,java.lang.String)
+2017-05-17 15:14:25.713  INFO 4358 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.Index.IndexPage(org.springframework.ui.Model)
+2017-05-17 15:14:25.713  INFO 4358 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/search],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.Search.searchPage(org.springframework.ui.Model,java.lang.String)
+2017-05-17 15:14:25.714  INFO 4358 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/showtrace],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.ShowTrace.ShowTracePage(org.springframework.ui.Model,java.lang.String,java.lang.String,java.lang.String)
+2017-05-17 15:14:25.716  INFO 4358 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/sqlperformshow],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.SqlPerformance.SqlperformShowPage(org.springframework.ui.Model,java.lang.Integer,java.lang.String)
+2017-05-17 15:14:25.716  INFO 4358 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/sqlperformance],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.SqlPerformance.SqlperformancePage(org.springframework.ui.Model,java.lang.Integer)
+2017-05-17 15:14:25.717  INFO 4358 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/performance],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.UrlPerformance.PerformancePage(org.springframework.ui.Model,java.lang.Integer)
+2017-05-17 15:14:25.717  INFO 4358 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/performanceshow],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.UrlPerformance.PerformanceShowPage(org.springframework.ui.Model,java.lang.Integer,java.lang.String)
+2017-05-17 15:14:25.718  INFO 4358 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/v2/api-docs],methods=[GET],produces=[application/json || application/hal+json]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)
+2017-05-17 15:14:25.722  INFO 4358 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/swagger-resources/configuration/ui]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.UiConfiguration> springfox.documentation.swagger.web.ApiResourceController.uiConfiguration()
+2017-05-17 15:14:25.722  INFO 4358 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/swagger-resources/configuration/security]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.SecurityConfiguration> springfox.documentation.swagger.web.ApiResourceController.securityConfiguration()
+2017-05-17 15:14:25.723  INFO 4358 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/swagger-resources]}" onto org.springframework.http.ResponseEntity<java.util.List<springfox.documentation.swagger.web.SwaggerResource>> springfox.documentation.swagger.web.ApiResourceController.swaggerResources()
+2017-05-17 15:14:25.946  INFO 4358 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/heapdump || /heapdump.json],methods=[GET],produces=[application/octet-stream]}" onto public void org.springframework.boot.actuate.endpoint.mvc.HeapdumpMvcEndpoint.invoke(boolean,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse) throws java.io.IOException,javax.servlet.ServletException
+2017-05-17 15:14:25.949  INFO 4358 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/mappings || /mappings.json],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-17 15:14:25.951  INFO 4358 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/info || /info.json],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-17 15:14:25.952  INFO 4358 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/dump || /dump.json],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-17 15:14:25.953  INFO 4358 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/trace || /trace.json],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-17 15:14:25.954  INFO 4358 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/autoconfig || /autoconfig.json],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-17 15:14:25.955  INFO 4358 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/health || /health.json],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.HealthMvcEndpoint.invoke(java.security.Principal)
+2017-05-17 15:14:25.956  INFO 4358 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/logfile || /logfile.json],methods=[GET || HEAD]}" onto public void org.springframework.boot.actuate.endpoint.mvc.LogFileMvcEndpoint.invoke(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse) throws javax.servlet.ServletException,java.io.IOException
+2017-05-17 15:14:25.958  INFO 4358 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/env/{name:.*}],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EnvironmentMvcEndpoint.value(java.lang.String)
+2017-05-17 15:14:25.959  INFO 4358 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/env || /env.json],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-17 15:14:25.962  INFO 4358 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/metrics/{name:.*}],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.MetricsMvcEndpoint.value(java.lang.String)
+2017-05-17 15:14:25.963  INFO 4358 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/metrics || /metrics.json],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-17 15:14:25.964  INFO 4358 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/configprops || /configprops.json],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-17 15:14:25.964  INFO 4358 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/beans || /beans.json],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-17 15:14:26.125  INFO 4358 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@2b662a77: startup date [Wed May 17 15:14:22 CST 2017]; root of context hierarchy
+2017-05-17 15:14:26.197  INFO 4358 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-05-17 15:14:26.197  INFO 4358 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-05-17 15:14:26.258  INFO 4358 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-05-17 15:14:26.504  INFO 4358 --- [main] o.s.w.s.v.f.FreeMarkerConfigurer         : ClassTemplateLoader for Spring macros added to FreeMarker configuration
+2017-05-17 15:14:26.587  INFO 4358 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2017-05-17 15:14:26.598  INFO 4358 --- [main] o.s.c.support.DefaultLifecycleProcessor  : Starting beans in phase 0
+2017-05-17 15:14:26.650  INFO 4358 --- [main] o.s.c.support.DefaultLifecycleProcessor  : Starting beans in phase 2147483647
+2017-05-17 15:14:26.651  INFO 4358 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2017-05-17 15:14:26.677  INFO 4358 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2017-05-17 15:14:26.824  INFO 4358 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2017-05-17 15:14:26.901  INFO 4358 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: currentlogUsingGET_1
+2017-05-17 15:14:26.904  INFO 4358 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: currentlogUsingGET_2
+2017-05-17 15:14:26.912  INFO 4358 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_1
+2017-05-17 15:14:26.915  INFO 4358 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_2
+2017-05-17 15:14:26.916  INFO 4358 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_3
+2017-05-17 15:14:26.921  INFO 4358 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_4
+2017-05-17 15:14:26.924  INFO 4358 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_5
+2017-05-17 15:14:26.926  INFO 4358 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_6
+2017-05-17 15:14:26.928  INFO 4358 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_7
+2017-05-17 15:14:26.931  INFO 4358 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_8
+2017-05-17 15:14:26.933  INFO 4358 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_9
+2017-05-17 15:14:26.934  INFO 4358 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_10
+2017-05-17 15:14:26.936  INFO 4358 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_11
+2017-05-17 15:14:26.938  INFO 4358 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_12
+2017-05-17 15:14:26.939  INFO 4358 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_13
+2017-05-17 15:14:26.943  INFO 4358 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_14
+2017-05-17 15:14:26.945  INFO 4358 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_15
+2017-05-17 15:14:26.974  INFO 4358 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: PerformancePageUsingGET_1
+2017-05-17 15:14:27.011  INFO 4358 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_16
+2017-05-17 15:14:27.036  INFO 4358 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_17
+2017-05-17 15:14:27.040  INFO 4358 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingHEAD_1
+2017-05-17 15:14:27.043  INFO 4358 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingPOST_1
+2017-05-17 15:14:27.046  INFO 4358 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingPUT_1
+2017-05-17 15:14:27.049  INFO 4358 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingPATCH_1
+2017-05-17 15:14:27.057  INFO 4358 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingDELETE_1
+2017-05-17 15:14:27.060  INFO 4358 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingOPTIONS_1
+2017-05-17 15:14:27.064  INFO 4358 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingTRACE_1
+2017-05-17 15:14:27.071  INFO 4358 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_18
+2017-05-17 15:14:27.077  INFO 4358 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_19
+2017-05-17 15:14:27.086  INFO 4358 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_20
+2017-05-17 15:14:27.090  INFO 4358 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingHEAD_2
+2017-05-17 15:14:27.095  INFO 4358 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_21
+2017-05-17 15:14:27.099  INFO 4358 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingHEAD_3
+2017-05-17 15:14:27.102  INFO 4358 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_22
+2017-05-17 15:14:27.103  INFO 4358 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_23
+2017-05-17 15:14:27.108  INFO 4358 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: valueUsingGET_1
+2017-05-17 15:14:27.126  INFO 4358 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: SearchKeywordUsingPOST_1
+2017-05-17 15:14:27.138  INFO 4358 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: PerformancePageUsingGET_2
+2017-05-17 15:14:27.167  INFO 4358 --- [main] s.a.ScheduledAnnotationBeanPostProcessor : No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2017-05-17 15:14:27.173  INFO 4358 --- [pool-1-thread-1] c.r.s.search.IndexSearchSharderManager   : start load index foldername:1494777600 abspath:/Users/changlongxu/vagrant/share/GitHub/fiery/index/1494777600
+2017-05-17 15:14:27.218  INFO 4358 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 9090 (http)
+2017-05-17 15:14:27.225  INFO 4358 --- [main] c.ragnar.server.RagnarserverApplication  : Started RagnarserverApplication in 5.032 seconds (JVM running for 5.453)
+2017-05-17 15:14:27.348  INFO 4358 --- [pool-1-thread-1] c.r.s.search.IndexSearchSharderManager   : Load Index Success:1494777600 path:/Users/changlongxu/vagrant/share/GitHub/fiery/index/1494777600
+2017-05-17 15:14:27.450  INFO 4358 --- [http-nio-9090-exec-1] o.a.c.c.C.[.[localhost].[/ragnar]        : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2017-05-17 15:14:27.450  INFO 4358 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization started
+2017-05-17 15:14:27.461  INFO 4358 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization completed in 11 ms
+2017-05-17 15:14:27.677 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:27.680 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:28.177 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:28.178 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:28.179 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:28.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:28.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:28.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:29.177 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:29.178 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:29.178 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:29.678 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:29.680 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:29.681 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:29.682 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:30.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:30.177 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:30.178 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:30.678 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:30.679 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:30.679 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:31.177 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:31.178 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:31.178 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:31.678 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:31.678 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:31.679 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:32.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:32.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:32.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:32.678 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:32.678 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:32.679 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:33.177 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:33.178 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:33.180 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:33.677 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:33.678 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:33.678 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:34.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:34.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:34.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:34.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:34.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:34.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:35.177 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:35.177 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:35.178 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:35.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:35.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:35.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:36.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:36.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:36.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:36.677 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:36.678 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:36.678 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:37.173 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:37.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:37.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:37.677 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:37.678 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:37.678 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:38.177 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:38.178 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:38.178 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:38.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:38.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:38.677 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:39.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:39.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:39.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:39.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:39.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:39.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:40.177 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:40.177 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:40.178 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:40.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:40.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:40.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:41.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:41.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:41.177 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:41.677 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:41.677 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:41.678 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:42.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:42.177 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:42.177 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:42.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:42.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:42.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:43.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:43.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:43.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:43.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:43.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:43.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:44.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:44.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:44.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:44.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:44.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:44.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:45.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:45.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:45.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:45.677 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:45.677 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:45.678 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:46.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:46.177 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:46.177 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:46.177 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:46.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:46.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:46.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:47.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:47.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:47.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:47.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:47.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:47.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:48.177 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:48.177 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:48.177 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:48.677 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:48.677 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:48.677 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:49.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:49.177 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:49.177 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:49.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:49.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:49.677 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:50.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:50.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:50.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:50.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:50.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:50.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:51.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:51.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:51.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:51.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:51.672 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:51.673 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:51.673 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:52.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:52.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:52.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:52.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:52.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:52.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:53.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:53.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:53.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:53.677 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:53.677 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:54.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:54.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:54.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:54.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:54.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:54.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:55.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:55.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:55.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:55.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:55.677 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:55.677 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:56.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:56.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:56.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:56.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:56.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:56.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:57.173  INFO 4358 --- [pool-1-thread-1] c.r.server.statistics.LogAPIStatics      : del out time url:http://gaia.biz.weibo.com/link,log create_time:2017-02-08 15:00:00
+2017-05-17 15:14:57.173  INFO 4358 --- [pool-1-thread-1] c.r.server.statistics.LogAPIStatics      : del out time url:http://i2.api.weibo.com/statuses/show_batch.json,log create_time:2017-02-08 15:00:00
+2017-05-17 15:14:57.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:57.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:57.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:57.673 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:57.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:57.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:58.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:58.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:58.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:58.677 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:58.677 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:58.678 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:59.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:59.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:59.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:59.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:59.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:14:59.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:00.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:00.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:00.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:00.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:00.677 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:00.677 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:01.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:01.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:01.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:01.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:01.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:01.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:02.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:02.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:02.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:02.673 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:02.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:02.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:03.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:03.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:03.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:03.177 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:03.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:03.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:03.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:04.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:04.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:04.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:04.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:04.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:04.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:05.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:05.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:05.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:05.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:05.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:05.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:06.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:06.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:06.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:06.672 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:06.672 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:06.672 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:07.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:07.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:07.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:07.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:07.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:07.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:08.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:08.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:08.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:08.672 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:08.672 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:08.672 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:09.173 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:09.173 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:09.173 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:09.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:09.677 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:09.677 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:10.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:10.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:10.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:10.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:10.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:10.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:11.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:11.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:11.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:11.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:11.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:11.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:11.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:12.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:12.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:12.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:12.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:12.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:12.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:13.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:13.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:13.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:13.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:13.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:13.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:14.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:14.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:14.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:14.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:14.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:14.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:15.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:15.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:15.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:15.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:15.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:15.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:16.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:16.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:16.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:16.673 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:16.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:16.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:17.173 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:17.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:17.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:17.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:17.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:17.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:18.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:18.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:18.176 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:18.672 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:18.673 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:18.673 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:19.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:19.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:19.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:19.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:19.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:19.676 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:20.173 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:20.173 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:20.173 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:20.671 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:20.671 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:20.672 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:21.171 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:21.172 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:21.172 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:21.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:21.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:21.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:21.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:22.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:22.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:22.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:22.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:22.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:22.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:23.172 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:23.173 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:23.173 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:23.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:23.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:23.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:24.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:24.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:24.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:24.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:24.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:24.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:25.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:25.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:25.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:25.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:25.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:25.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:25.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:26.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:26.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:26.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:26.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:26.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:26.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:27.174  INFO 4358 --- [pool-1-thread-1] c.r.server.statistics.LogAPIStatics      : del out time url:http://gaia.biz.weibo.com/link,log create_time:2017-02-08 15:00:00
+2017-05-17 15:15:27.174  INFO 4358 --- [pool-1-thread-1] c.r.server.statistics.LogAPIStatics      : del out time url:http://i2.api.weibo.com/statuses/show_batch.json,log create_time:2017-02-08 15:00:00
+2017-05-17 15:15:27.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:27.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:27.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:27.673 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:27.673 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:27.673 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:28.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:28.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:28.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:28.671 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:28.671 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:28.672 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:29.173 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:29.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:29.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:29.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:29.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:29.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:30.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:30.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:30.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:30.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:30.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:30.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:31.173 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:31.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:31.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:31.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:31.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:31.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:31.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:32.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:32.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:32.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:32.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:32.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:32.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:33.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:33.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:33.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:33.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:33.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:33.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:34.172 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:34.173 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:34.173 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:34.673 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:34.673 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:34.673 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:35.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:35.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:35.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:35.672 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:35.673 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:35.673 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:36.173 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:36.173 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:36.173 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:36.673 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:36.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:36.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:37.173 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:37.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:37.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:37.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:37.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:37.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:38.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:38.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:38.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:38.673 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:38.673 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:38.673 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:39.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:39.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:39.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:39.672 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:39.672 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:39.672 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:40.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:40.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:40.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:40.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:40.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:40.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:41.170 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:41.170 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:41.170 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:41.673 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:41.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:41.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:42.173 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:42.173 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:42.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:42.672 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:42.673 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:42.673 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:43.171 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:43.172 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:43.172 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:43.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:43.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:43.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:43.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:44.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:44.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:44.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:44.673 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:44.673 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:44.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:45.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:45.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:45.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:45.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:45.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:45.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:46.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:46.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:46.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:46.671 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:46.672 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:46.672 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:47.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:47.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:47.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:47.673 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:47.673 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:47.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:48.172 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:48.173 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:48.173 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:48.673 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:48.673 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:48.673 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:49.170 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:49.170 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:49.170 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:49.670 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:49.671 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:49.671 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:50.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:50.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:50.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:50.673 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:50.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:50.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:51.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:51.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:51.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:51.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:51.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:51.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:52.171 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:52.171 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:52.172 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:52.672 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:52.673 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:52.673 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:53.173 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:53.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:53.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:53.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:53.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:53.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:54.173 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:54.173 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:54.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:54.673 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:54.673 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:54.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:55.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:55.174 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:55.175 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:55.673 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:55.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:55.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:56.172 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:56.173 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:56.173 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:56.671 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:56.672 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:56.672 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:57.170  INFO 4358 --- [pool-1-thread-1] c.r.server.statistics.LogAPIStatics      : del out time url:http://gaia.biz.weibo.com/link,log create_time:2017-02-08 15:00:00
+2017-05-17 15:15:57.170  INFO 4358 --- [pool-1-thread-1] c.r.server.statistics.LogAPIStatics      : del out time url:http://i2.api.weibo.com/statuses/show_batch.json,log create_time:2017-02-08 15:00:00
+2017-05-17 15:15:57.171 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:57.171 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:57.171 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:57.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:57.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:57.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:58.173 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:58.173 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:58.173 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:58.672 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:58.672 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:58.673 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:59.172 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:59.173 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:59.173 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:59.673 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:15:59.673 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:16:00.171 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:16:00.171 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:16:00.171 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:16:00.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:16:00.674 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:16:00.675 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:16:01.171 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:16:01.172 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:16:01.172 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:16:01.173 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:16:01.671 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:16:01.671 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:16:01.671 ERROR 4358 --- [pool-1-thread-1] c.r.server.Processor.BizLogProcessor     : null
+2017-05-17 15:16:01.875  INFO 4358 --- [Thread-2] ationConfigEmbeddedWebApplicationContext : Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@2b662a77: startup date [Wed May 17 15:14:22 CST 2017]; root of context hierarchy
+2017-05-17 15:16:01.877  INFO 4358 --- [Thread-2] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
+2017-05-17 15:16:01.878  INFO 4358 --- [Thread-2] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 0
+2017-05-17 15:16:01.879  INFO 4358 --- [Thread-2] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+2017-05-17 15:16:03.606  INFO 4361 --- [main] c.ragnar.server.RagnarserverApplication  : Starting RagnarserverApplication on thinkpc.local with PID 4361 (/Users/changlongxu/vagrant/share/GitHub/fiery/target/classes started by changlong1 in /Users/changlongxu/vagrant/share/GitHub/fiery)
+2017-05-17 15:16:03.610  INFO 4361 --- [main] c.ragnar.server.RagnarserverApplication  : The following profiles are active: prod
+2017-05-17 15:16:03.685  INFO 4361 --- [main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@2b662a77: startup date [Wed May 17 15:16:03 CST 2017]; root of context hierarchy
+2017-05-17 15:16:05.586  INFO 4361 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 9090 (http)
+2017-05-17 15:16:05.601  INFO 4361 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2017-05-17 15:16:05.602  INFO 4361 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.11
+2017-05-17 15:16:05.725  INFO 4361 --- [localhost-startStop-1] o.a.c.c.C.[.[localhost].[/ragnar]        : Initializing Spring embedded WebApplicationContext
+2017-05-17 15:16:05.726  INFO 4361 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2045 ms
+2017-05-17 15:16:05.928  INFO 4361 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2017-05-17 15:16:05.932  INFO 4361 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'metricsFilter' to: [/*]
+2017-05-17 15:16:05.933  INFO 4361 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2017-05-17 15:16:05.933  INFO 4361 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2017-05-17 15:16:05.933  INFO 4361 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2017-05-17 15:16:05.933  INFO 4361 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2017-05-17 15:16:05.934  INFO 4361 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'webRequestLoggingFilter' to: [/*]
+2017-05-17 15:16:05.934  INFO 4361 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'applicationContextIdFilter' to: [/*]
+2017-05-17 15:16:05.976  INFO 4361 --- [main] com.ragnar.server.storage.DBManage       : DB Manger init...
+2017-05-17 15:16:06.001  INFO 4361 --- [main] com.ragnar.server.search.IndexService    : Init the Index Service
+2017-05-17 15:16:06.524  INFO 4361 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/log/bizlog/put],methods=[POST]}" onto public com.ragnar.server.data.responseJson com.ragnar.server.contorller.ragnarlog.PutBizLog.appendLog(java.lang.String)
+2017-05-17 15:16:06.525  INFO 4361 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/log/metalog/put],methods=[POST]}" onto public com.ragnar.server.data.responseJson com.ragnar.server.contorller.ragnarlog.PutMetalog.appendindex(java.lang.String)
+2017-05-17 15:16:06.525  INFO 4361 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/group],methods=[POST]}" onto public com.ragnar.server.data.responseJson com.ragnar.server.contorller.search.Group.SearchKeyword(java.lang.String,java.lang.String,java.lang.String)
+2017-05-17 15:16:06.525  INFO 4361 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/recent],methods=[POST]}" onto public com.ragnar.server.data.responseJson com.ragnar.server.contorller.search.Recent.RecentRequest(java.lang.String,java.lang.String,java.lang.String)
+2017-05-17 15:16:06.526  INFO 4361 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/fulltext],methods=[POST]}" onto public com.ragnar.server.data.responseJson com.ragnar.server.contorller.search.SearchField.SearchKeyword(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)
+2017-05-17 15:16:06.526  INFO 4361 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/apitopdetail],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.APITopDetailPage.currentlog(org.springframework.ui.Model,java.lang.String)
+2017-05-17 15:16:06.527  INFO 4361 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/apitop],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.APITopPage.currentlog(org.springframework.ui.Model,java.lang.String)
+2017-05-17 15:16:06.527  INFO 4361 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/aboutus],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.AboutUs.aboutusPage(org.springframework.ui.Model)
+2017-05-17 15:16:06.527  INFO 4361 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/currentlog],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.CurrentLog.currentlog(org.springframework.ui.Model)
+2017-05-17 15:16:06.528  INFO 4361 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public java.lang.String com.ragnar.server.contorller.web.ErrorPage.error(org.springframework.ui.Model,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-05-17 15:16:06.528  INFO 4361 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/errorstatic],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.ExceptionStatics.PerformancePage(org.springframework.ui.Model,java.lang.Integer)
+2017-05-17 15:16:06.528  INFO 4361 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/errorstatic/del],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.ExceptionStatics.PerformancePage(org.springframework.ui.Model,java.lang.String,java.lang.String,java.lang.String)
+2017-05-17 15:16:06.528  INFO 4361 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.Index.IndexPage(org.springframework.ui.Model)
+2017-05-17 15:16:06.529  INFO 4361 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/search],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.Search.searchPage(org.springframework.ui.Model,java.lang.String)
+2017-05-17 15:16:06.529  INFO 4361 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/showtrace],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.ShowTrace.ShowTracePage(org.springframework.ui.Model,java.lang.String,java.lang.String,java.lang.String)
+2017-05-17 15:16:06.531  INFO 4361 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/sqlperformshow],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.SqlPerformance.SqlperformShowPage(org.springframework.ui.Model,java.lang.Integer,java.lang.String)
+2017-05-17 15:16:06.531  INFO 4361 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/sqlperformance],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.SqlPerformance.SqlperformancePage(org.springframework.ui.Model,java.lang.Integer)
+2017-05-17 15:16:06.531  INFO 4361 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/performance],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.UrlPerformance.PerformancePage(org.springframework.ui.Model,java.lang.Integer)
+2017-05-17 15:16:06.531  INFO 4361 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/performanceshow],methods=[GET]}" onto public java.lang.String com.ragnar.server.contorller.web.UrlPerformance.PerformanceShowPage(org.springframework.ui.Model,java.lang.Integer,java.lang.String)
+2017-05-17 15:16:06.532  INFO 4361 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/v2/api-docs],methods=[GET],produces=[application/json || application/hal+json]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)
+2017-05-17 15:16:06.535  INFO 4361 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/swagger-resources/configuration/security]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.SecurityConfiguration> springfox.documentation.swagger.web.ApiResourceController.securityConfiguration()
+2017-05-17 15:16:06.536  INFO 4361 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/swagger-resources/configuration/ui]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.UiConfiguration> springfox.documentation.swagger.web.ApiResourceController.uiConfiguration()
+2017-05-17 15:16:06.537  INFO 4361 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/swagger-resources]}" onto org.springframework.http.ResponseEntity<java.util.List<springfox.documentation.swagger.web.SwaggerResource>> springfox.documentation.swagger.web.ApiResourceController.swaggerResources()
+2017-05-17 15:16:06.764  INFO 4361 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/beans || /beans.json],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-17 15:16:06.765  INFO 4361 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/trace || /trace.json],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-17 15:16:06.766  INFO 4361 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/info || /info.json],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-17 15:16:06.767  INFO 4361 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/dump || /dump.json],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-17 15:16:06.768  INFO 4361 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/configprops || /configprops.json],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-17 15:16:06.769  INFO 4361 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/health || /health.json],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.HealthMvcEndpoint.invoke(java.security.Principal)
+2017-05-17 15:16:06.770  INFO 4361 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/logfile || /logfile.json],methods=[GET || HEAD]}" onto public void org.springframework.boot.actuate.endpoint.mvc.LogFileMvcEndpoint.invoke(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse) throws javax.servlet.ServletException,java.io.IOException
+2017-05-17 15:16:06.771  INFO 4361 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/autoconfig || /autoconfig.json],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-17 15:16:06.774  INFO 4361 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/heapdump || /heapdump.json],methods=[GET],produces=[application/octet-stream]}" onto public void org.springframework.boot.actuate.endpoint.mvc.HeapdumpMvcEndpoint.invoke(boolean,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse) throws java.io.IOException,javax.servlet.ServletException
+2017-05-17 15:16:06.777  INFO 4361 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/mappings || /mappings.json],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-17 15:16:06.781  INFO 4361 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/metrics/{name:.*}],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.MetricsMvcEndpoint.value(java.lang.String)
+2017-05-17 15:16:06.781  INFO 4361 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/metrics || /metrics.json],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-17 15:16:06.784  INFO 4361 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/env/{name:.*}],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EnvironmentMvcEndpoint.value(java.lang.String)
+2017-05-17 15:16:06.785  INFO 4361 --- [main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/env || /env.json],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-17 15:16:06.972  INFO 4361 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@2b662a77: startup date [Wed May 17 15:16:03 CST 2017]; root of context hierarchy
+2017-05-17 15:16:07.053  INFO 4361 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-05-17 15:16:07.053  INFO 4361 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-05-17 15:16:07.105  INFO 4361 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-05-17 15:16:07.390  INFO 4361 --- [main] o.s.w.s.v.f.FreeMarkerConfigurer         : ClassTemplateLoader for Spring macros added to FreeMarker configuration
+2017-05-17 15:16:07.475  INFO 4361 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2017-05-17 15:16:07.486  INFO 4361 --- [main] o.s.c.support.DefaultLifecycleProcessor  : Starting beans in phase 0
+2017-05-17 15:16:07.540  INFO 4361 --- [main] o.s.c.support.DefaultLifecycleProcessor  : Starting beans in phase 2147483647
+2017-05-17 15:16:07.541  INFO 4361 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2017-05-17 15:16:07.561  INFO 4361 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2017-05-17 15:16:07.721  INFO 4361 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2017-05-17 15:16:07.802  INFO 4361 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: currentlogUsingGET_1
+2017-05-17 15:16:07.805  INFO 4361 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: currentlogUsingGET_2
+2017-05-17 15:16:07.811  INFO 4361 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_1
+2017-05-17 15:16:07.814  INFO 4361 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_2
+2017-05-17 15:16:07.815  INFO 4361 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_3
+2017-05-17 15:16:07.818  INFO 4361 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_4
+2017-05-17 15:16:07.820  INFO 4361 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_5
+2017-05-17 15:16:07.822  INFO 4361 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_6
+2017-05-17 15:16:07.824  INFO 4361 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_7
+2017-05-17 15:16:07.827  INFO 4361 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_8
+2017-05-17 15:16:07.829  INFO 4361 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_9
+2017-05-17 15:16:07.831  INFO 4361 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_10
+2017-05-17 15:16:07.834  INFO 4361 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_11
+2017-05-17 15:16:07.836  INFO 4361 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_12
+2017-05-17 15:16:07.837  INFO 4361 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_13
+2017-05-17 15:16:07.840  INFO 4361 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_14
+2017-05-17 15:16:07.844  INFO 4361 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_15
+2017-05-17 15:16:07.869  INFO 4361 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: PerformancePageUsingGET_1
+2017-05-17 15:16:07.913  INFO 4361 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_16
+2017-05-17 15:16:07.937  INFO 4361 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_17
+2017-05-17 15:16:07.941  INFO 4361 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingHEAD_1
+2017-05-17 15:16:07.945  INFO 4361 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingPOST_1
+2017-05-17 15:16:07.948  INFO 4361 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingPUT_1
+2017-05-17 15:16:07.952  INFO 4361 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingPATCH_1
+2017-05-17 15:16:07.955  INFO 4361 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingDELETE_1
+2017-05-17 15:16:07.958  INFO 4361 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingOPTIONS_1
+2017-05-17 15:16:07.962  INFO 4361 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingTRACE_1
+2017-05-17 15:16:07.967  INFO 4361 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_18
+2017-05-17 15:16:07.971  INFO 4361 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_19
+2017-05-17 15:16:07.978  INFO 4361 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_20
+2017-05-17 15:16:07.982  INFO 4361 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingHEAD_2
+2017-05-17 15:16:07.986  INFO 4361 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_21
+2017-05-17 15:16:07.989  INFO 4361 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingHEAD_3
+2017-05-17 15:16:07.990  INFO 4361 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_22
+2017-05-17 15:16:07.993  INFO 4361 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: invokeUsingGET_23
+2017-05-17 15:16:07.996  INFO 4361 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: valueUsingGET_1
+2017-05-17 15:16:08.013  INFO 4361 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: SearchKeywordUsingPOST_1
+2017-05-17 15:16:08.025  INFO 4361 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: PerformancePageUsingGET_2
+2017-05-17 15:16:08.052  INFO 4361 --- [main] s.a.ScheduledAnnotationBeanPostProcessor : No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2017-05-17 15:16:08.058  INFO 4361 --- [pool-1-thread-1] c.r.s.search.IndexSearchSharderManager   : start load index foldername:1494777600 abspath:/Users/changlongxu/vagrant/share/GitHub/fiery/index/1494777600
+2017-05-17 15:16:08.126  INFO 4361 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 9090 (http)
+2017-05-17 15:16:08.132  INFO 4361 --- [main] c.ragnar.server.RagnarserverApplication  : Started RagnarserverApplication in 5.086 seconds (JVM running for 5.508)
+2017-05-17 15:16:08.238  INFO 4361 --- [pool-1-thread-1] c.r.s.search.IndexSearchSharderManager   : Load Index Success:1494777600 path:/Users/changlongxu/vagrant/share/GitHub/fiery/index/1494777600
+2017-05-17 15:16:11.045  INFO 4361 --- [http-nio-9090-exec-8] o.a.c.c.C.[.[localhost].[/ragnar]        : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2017-05-17 15:16:11.046  INFO 4361 --- [http-nio-9090-exec-8] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization started
+2017-05-17 15:16:11.065  INFO 4361 --- [http-nio-9090-exec-8] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization completed in 19 ms
+2017-05-17 15:16:11.934  INFO 4361 --- [http-nio-9090-exec-1] c.r.s.search.IndexWriterShaderManager    : Create Write Index:1494777600
+2017-05-17 15:16:18.084  INFO 4361 --- [pool-1-thread-1] c.r.s.search.IndexSearchSharderManager   : Reload Index:1494777600 cost:27 totalcount:5000
+2017-05-17 15:18:18.058  INFO 4361 --- [pool-1-thread-1] c.r.s.search.IndexSearchSharderManager   : Reload Index:1494777600 cost:5 totalcount:6000
+2017-05-17 15:25:33.040 ERROR 4361 --- [pool-1-thread-1] c.r.s.search.IndexSearchSharderManager   : /Users/changlongxu/vagrant/share/GitHub/fiery/index/1494777600
+2017-05-17 15:25:38.038 ERROR 4361 --- [pool-1-thread-1] c.r.s.search.IndexSearchSharderManager   : /Users/changlongxu/vagrant/share/GitHub/fiery/index/1494777600
+2017-05-17 15:25:43.038 ERROR 4361 --- [pool-1-thread-1] c.r.s.search.IndexSearchSharderManager   : /Users/changlongxu/vagrant/share/GitHub/fiery/index/1494777600
+2017-05-17 15:25:48.037 ERROR 4361 --- [pool-1-thread-1] c.r.s.search.IndexSearchSharderManager   : /Users/changlongxu/vagrant/share/GitHub/fiery/index/1494777600
+2017-05-17 15:25:53.039 ERROR 4361 --- [pool-1-thread-1] c.r.s.search.IndexSearchSharderManager   : /Users/changlongxu/vagrant/share/GitHub/fiery/index/1494777600
+2017-05-17 15:25:58.034 ERROR 4361 --- [pool-1-thread-1] c.r.s.search.IndexSearchSharderManager   : /Users/changlongxu/vagrant/share/GitHub/fiery/index/1494777600
+2017-05-17 15:26:03.036 ERROR 4361 --- [pool-1-thread-1] c.r.s.search.IndexSearchSharderManager   : /Users/changlongxu/vagrant/share/GitHub/fiery/index/1494777600
+2017-05-17 15:26:08.036 ERROR 4361 --- [pool-1-thread-1] c.r.s.search.IndexSearchSharderManager   : /Users/changlongxu/vagrant/share/GitHub/fiery/index/1494777600
+2017-05-17 15:26:13.038 ERROR 4361 --- [pool-1-thread-1] c.r.s.search.IndexSearchSharderManager   : /Users/changlongxu/vagrant/share/GitHub/fiery/index/1494777600
+2017-05-17 15:26:18.036 ERROR 4361 --- [pool-1-thread-1] c.r.s.search.IndexSearchSharderManager   : /Users/changlongxu/vagrant/share/GitHub/fiery/index/1494777600
