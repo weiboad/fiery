@@ -1,5 +1,7 @@
 ### Ragnar Fiery分布式性能跟踪系统
 
+![logo](https://img.shields.io/badge/status-alpha-red.svg)
+
 ### 项目简介
  * Fiery跟踪系统是基于内部Ragnar分布式跟踪设计做的嵌入式精简版
  * 此系统针对小容量的PHP系统提供分布式调用跟踪及性能监控服务(APM-Application Performance Management)
