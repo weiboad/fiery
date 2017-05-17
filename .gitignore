@@ -1,5 +1,7 @@
 target/
 logs/
+db/
+index/
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
