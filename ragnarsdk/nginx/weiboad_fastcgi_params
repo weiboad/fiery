@@ -1,0 +1,22 @@
+# ===================================
+# Ragnar Fiery Dig Point Nginx 配置文件
+#
+# ===================================
+
+# Ragnar 日志落地根目录路径
+fastcgi_param  WEIBO_ADINF_DEFAULT_LOGPATH "/data1/ragnar/";
+
+# Ragnar 消息日志路径（落地后kafka抓取区域）
+fastcgi_param  WEIBO_ADINF_BRAGI_MSG_FOLDER "log";
+
+# IDC机房标识 目前预留了0~3取值范围  0 北显 1 永丰
+fastcgi_param  WEIBO_ADINF_IDC "0";
+
+# 本机服务器IP
+fastcgi_param  WEIBO_ADINF_SERVERIP  "192.168.1.123";
+
+# Ragnar运行工作模式可选：dev | prod | test 其中除了prod使用初始化传入的项目名作为topic外，dev发送日志到ragnar_dev  test发送日志到ragnar_test
+fastcgi_param  WEIBO_ADINF_ENV "prod";
+
+# Ragnar 可选项，此功能一旦定义，会根据这个进行随机判断，如下为万分之一机会启动xhprof记录，用于随机记录性能日志
+# fastcgi_param X-RAGNAR-XHPROF-CHANCE 10000;

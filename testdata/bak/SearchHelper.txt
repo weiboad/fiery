@@ -1,0 +1,100 @@
+package bak;
+
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.lang.String;
+
+import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.document.Document;
+import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.index.IndexReader;
+import org.apache.lucene.queryparser.classic.QueryParser;
+import org.apache.lucene.search.IndexSearcher;
+import org.apache.lucene.search.Query;
+import org.apache.lucene.search.ScoreDoc;
+import org.apache.lucene.search.TopDocs;
+import org.apache.lucene.store.FSDirectory;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+@Component
+@Scope("singleton")
+public class SearchHelper {
+
+    private Logger log;
+
+    private IndexSearcher searcher;
+    private Analyzer analyzer;
+    private IndexReader reader;
+
+    public void loadindex(String index) {
+        log = LoggerFactory.getLogger(SearchHelper.class);
+
+        try {
+
+            reader = DirectoryReader.open(FSDirectory.open(Paths.get(index)));
+            searcher = new IndexSearcher(reader);
+            analyzer = new StandardAnalyzer();
+
+            //reader.close();
+        } catch (Exception e) {
+            //do nothing
+            log.error("init Search Helper Exception:" + e.getMessage());
+        }
+    }
+
+
+    public void doSearch(String field, String keyword, int offset, int pagesize, boolean raw) {
+        try {
+            QueryParser parser = new QueryParser(field, analyzer);
+
+            Query query = parser.parse(keyword);
+
+            doPagingSearch(searcher, query, offset, pagesize, raw);
+        } catch (Exception e) {
+            log.error("Search Helper Search Exception:" + e.getMessage());
+        }
+    }
+
+    private void doPagingSearch(IndexSearcher searcher, Query query,
+                                int start, int limit, boolean raw) throws IOException {
+
+        TopDocs results = searcher.search(query, limit);
+
+        ScoreDoc[] hits = results.scoreDocs;
+
+        int numTotalHits = results.totalHits;
+
+        System.out.println(numTotalHits + " total matching documents");
+
+        limit = Math.min(numTotalHits, limit);
+
+        for (int i = start; i < limit; i++) {
+            if (raw) {                              // output raw format
+                System.out.println("doc=" + hits[i].doc + " score=" + hits[i].score);
+                continue;
+            }
+
+            Document doc = searcher.doc(hits[i].doc);
+            String path = doc.get("url");
+            if (path != null) {
+                System.out.println((i + 1) + ". " + path);
+
+                String title = doc.get("traceid");
+                if (title != null) {
+                    System.out.println("traceid: " + title);
+                }
+            } else {
+                System.out.println((i + 1) + ". " + "No url for this document");
+            }
+
+        }
+
+    }
+}
+
