@@ -29,7 +29,7 @@
 埋点库使用PHP制作,请参考ragnarsdk目录内 INSTALL.md 及 README.md
 
 ##### RagnarSDK埋点库-环境依赖：
- * PHP 5.4+
+ * PHP 5.3
  * bcmath
 
 ---------------------------------------
@@ -37,11 +37,11 @@
 #### 服务端
  * 主要服务，用于记录、索引、展示所有相关日志及性能信息
 
-##### 服务端-建议系统要求
+##### 服务器建议配置
  * 内存 8G
- * CPU 四线程以上限制
+ * CPU 四线程
  * 存储空间取决于日志量大小及存储天数
- * Java 8 Runtime http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+ * 安装 Java 8 Runtime http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
 
 ##### 服务端-安装
  * 安装 Java 8 Runtime 
@@ -56,7 +56,7 @@
 ---------------------------------------
 
 #### 日志收集服务
- * 安装 JDK8
+ * 安装 Java 8 Runtime
  * 拷贝 ragnarserver-0.5.1-SNAPSHOT.jar 包到服务器
  * 启动：nohup java -Xms128m -Xmx750m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar target/ragnarserver-0.5.1-SNAPSHOT.jar -type logpush -path 这里写ragnarsdk产生日志的目录地址 -host 主服务IP:主服务端口（9090） -outtime 7 &
  * 其他方式 nohup php logcollector/tail.php ragnarsdk日志目录 0 & （仅用于测试，服务器地址等信息需要在文件内更改）
