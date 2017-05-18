@@ -18,9 +18,11 @@
         .sorttable th[data-sort] {
             cursor: pointer;
         }
+
         .sorttable tr:nth-of-type(odd) {
             background: #FFFFFF;
         }
+
         .sorttable tr:nth-of-type(even) {
             background: #d9edf7;
         }

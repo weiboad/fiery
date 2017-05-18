@@ -41,7 +41,7 @@
             <ul>
                 <li> Team: <a href="https://github.com/weiboad" target="_blank">微博广告平台</a></li>
                 <li> GitHub: <a href="https://github.com/weiboad/fiery" target="_blank">Fiery</a></li>
-                <li> QQ Group: 318051466 </li>
+                <li> QQ Group: 318051466</li>
             </ul>
         </div>
     </div>

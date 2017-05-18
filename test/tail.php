@@ -203,6 +203,6 @@ if ($argc == 3) {
         usleep(200);
     }
 } else {
-    echo "cmd: php logpusher.php path posturl";
+    echo "cmd: php org.weiboad.ragnar.server.logpusher.php path posturl";
     exit;
 }

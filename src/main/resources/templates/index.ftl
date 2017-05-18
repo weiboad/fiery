@@ -36,7 +36,8 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <div style="width: 600px;height: 200px;margin: auto;"><span style="font-size: 100px">Ragnar Fiery</span></div>
+            <div style="width: 600px;height: 200px;margin: auto;"><span style="font-size: 100px">Ragnar Fiery</span>
+            </div>
         </div>
 
         <div class="col-md-4">

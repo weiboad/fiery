@@ -1,6 +1,6 @@
 ###Start up
  * run cmd on log collect server:java -jar Fiery-xxxx.jar -type server
- * run cmd on server : java -jar Fiery-xxxx.jar -type logpusher
+ * run cmd on server : java -jar Fiery-xxxx.jar -type org.weiboad.ragnar.server.logpusher
  * browser open 127.0.0.1:8888/ragnar/ to see the trace ui
 
 ###Windows 7 64 Version depend

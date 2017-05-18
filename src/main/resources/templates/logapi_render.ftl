@@ -18,9 +18,11 @@
         .sorttable th[data-sort] {
             cursor: pointer;
         }
+
         .sorttable tr:nth-of-type(odd) {
             background: #FFFFFF;
         }
+
         .sorttable tr:nth-of-type(even) {
             background: #d9edf7;
         }
@@ -63,24 +65,24 @@
                     <th>操作</th>
                 </tr>
                 </thead>
-                <#list perfomancelist as key,item>
-                    <tr>
-                        <td style="word-break:break-all;">${key}</td>
-                        <td>${item.sumcount}</td>
-                        <td>${showStaticsTime(item.slowtime?number)}</td>
-                        <td>${showStaticsTime(item.fasttime?number)}</td>
-                        <td>${item.two}</td>
-                        <td>${item.five}</td>
-                        <td>${item.ten}</td>
-                        <td>${item.twenty}</td>
-                        <td>${item.code}</td>
-                        <td>
-                            <a type="button" class="btn btn-primary"
-                               href='performanceshow?url=${key?url}&daytime=${daytime}'>查看
-                            </a>
-                        </td>
-                    </tr>
-                </#list>
+            <#list perfomancelist as key,item>
+                <tr>
+                    <td style="word-break:break-all;">${key}</td>
+                    <td>${item.sumcount}</td>
+                    <td>${showStaticsTime(item.slowtime?number)}</td>
+                    <td>${showStaticsTime(item.fasttime?number)}</td>
+                    <td>${item.two}</td>
+                    <td>${item.five}</td>
+                    <td>${item.ten}</td>
+                    <td>${item.twenty}</td>
+                    <td>${item.code}</td>
+                    <td>
+                        <a type="button" class="btn btn-primary"
+                           href='performanceshow?url=${key?url}&daytime=${daytime}'>查看
+                        </a>
+                    </td>
+                </tr>
+            </#list>
             </table>
             <hr/>
         </div>

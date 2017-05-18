@@ -18,9 +18,11 @@
         .sorttable th[data-sort] {
             cursor: pointer;
         }
+
         .sorttable tr:nth-of-type(odd) {
             background: #FFFFFF;
         }
+
         .sorttable tr:nth-of-type(even) {
             background: #d9edf7;
         }
@@ -93,10 +95,10 @@
     <div class="table-responsive">
         <h4>紧急警报日志(${alarm_count})</h4>
         <table class="table table-hover table-condensed">
-            <#--<#if alarm>-->
+        <#--<#if alarm>-->
                 <#list alarm as key,val>
-                    ${renderLog(val,6,key)}
-                </#list>
+        ${renderLog(val,6,key)}
+        </#list>
             <#--<#else>
                 <tr><td>服务暂未开通...</td></tr>
             </#if>-->
@@ -105,8 +107,8 @@
         <table class="table table-hover table-condensed">
         <#--<#if exception>-->
             <#list exception as key,val>
-            ${renderLog(val,7,key)}
-            </#list>
+        ${renderLog(val,7,key)}
+        </#list>
         <#--<#else>
             <tr><td>服务暂未开通...</td></tr>
         </#if>-->
@@ -115,8 +117,8 @@
         <table class="table table-hover table-condensed">
         <#--<#if error!=0>-->
             <#list error as key,val>
-            ${renderLog(val,5,key)}
-            </#list>
+        ${renderLog(val,5,key)}
+        </#list>
         <#--<#else>
             <tr><td>服务暂未开通...</td></tr>
         </#if>-->

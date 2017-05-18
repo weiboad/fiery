@@ -69,7 +69,10 @@
         </div>
         <div class="col-md-12">
             <div class="form-group">
-                <h4>调用关系<#if oldstyle == "1"> <a href="?traceid=${traceid}&rpcid=0&oldstyle=0" type="button" class="btn btn-danger">切换递归渲染</a><#else> <a href="?traceid=${traceid}&rpcid=0&oldstyle=1" type="button" class="btn btn-danger">兼容渲染模式</a></#if></h4>
+                <h4>调用关系<#if oldstyle == "1"> <a href="?traceid=${traceid}&rpcid=0&oldstyle=0" type="button"
+                                                 class="btn btn-danger">切换递归渲染</a><#else> <a
+                        href="?traceid=${traceid}&rpcid=0&oldstyle=1" type="button"
+                        class="btn btn-danger">兼容渲染模式</a></#if></h4>
 
                 <div class="form-group" style="overflow-y: scroll">
                     <table class="table table-hover" style="width: 1600px">
