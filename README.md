@@ -26,10 +26,10 @@
 ---------------------------------------
 
 #### RagnarSDK埋点库
-埋点库使用PHP制作,请参考ragnarsdk目录内 INSTALL.md 及 README.md 
+埋点库使用PHP制作,请参考ragnarsdk目录内 INSTALL.md 及 README.md
 
 ##### RagnarSDK埋点库-环境依赖：
- * PHP 5.5+
+ * PHP 5.4+
  * bcmath
 
 ---------------------------------------
@@ -37,8 +37,8 @@
 #### 服务端
  * 主要服务，用于记录、索引、展示所有相关日志及性能信息
 
-##### 服务端-系统要求
- * 16G 内存，闲置 8G 以上。
+##### 服务端-建议系统要求
+ * 内存 8G
  * CPU 四线程以上限制
  * 存储空间取决于日志量大小及存储天数
  * Java 8 Runtime http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
