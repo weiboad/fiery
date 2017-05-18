@@ -4,6 +4,8 @@ Fiery
 ![logo](https://img.shields.io/badge/status-alpha-red.svg)
 [![License](https://img.shields.io/badge/license-apache2-blue.svg)](LICENSE)
 
+![showtrace](docs/imgs/showtrace.png)
+
 Fiery is an APM-Application Performance Management for the PHP
 
 ### Introduction
