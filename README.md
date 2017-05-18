@@ -7,21 +7,21 @@ Fiery
 Fiery is an APM-Application Performance Management for the PHP
 
 ### Introduction
- * All Service in a Jar.easy to deploy
+ * All Service in a jar.easy to deploy
  * Burial SDK: integrated burial package for php project
  * Log Pusher: collect the ragnarsdk logs and push to the server
- * Server: Index, storage, statistics, web management interface
+ * Server: index, storage, statistics the logs, web Management interface
  
 ### Requirements
  * PHP 5.3 or later with bcmath
  * Linux, OS X and Windows
  * Memory: 2G or more 
- * [Java 8 Runtime](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+ * Java 8 Runtime
 
 ### Getting Started
  1. Download [Java 8 Runtime](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
  2. tar xvf jdk-1.8.tar.gz
- 3. Download Recent [Relasese Jar](https://github.com/weiboad/fiery/releases) on Release page
+ 3. Download Recent Relasese Jar on [Release page]((https://github.com/weiboad/fiery/releases))
  4. mkdir logs index db
  5. Startup the Fiery Server by command:
  ```
@@ -43,7 +43,7 @@ Fiery is an APM-Application Performance Management for the PHP
 #### Todo
  * Service Manage Shell(startup stop restart)
  * Persistent memory statistics
- * statsd
+ * Statsd
 
 
 ## Contact Us
