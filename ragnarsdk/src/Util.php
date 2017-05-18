@@ -43,8 +43,8 @@ class Util
     {
         $ip_value = self::ip2long($ip);
         return ($ip_value & 0xFF000000) === 0x0A000000 || //10.0.0.0-10.255.255.255
-        ($ip_value & 0xFFF00000) === 0xAC100000 || //172.16.0.0-172.31.255.255
-        ($ip_value & 0xFFFF0000) === 0xC0A80000; //192.168.0.0-192.168.255.255
+            ($ip_value & 0xFFF00000) === 0xAC100000 || //172.16.0.0-172.31.255.255
+            ($ip_value & 0xFFFF0000) === 0xC0A80000; //192.168.0.0-192.168.255.255
     }
 
     /**
@@ -174,14 +174,14 @@ class Util
         if (preg_match('/^[0-9\.]+$/', $ip)) {
             return $ip;
         } else {
-            return '60.28.175.24';
+            return '1.1.1.1';
         }
     }
 
     /**
      * Method  getSapi
      *
-     * @author huangchen <huangchen@staff.weibo.com>
+     * @author huangchen
      * @static
      * @return string
      */

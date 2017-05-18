@@ -1,21 +1,22 @@
 <?php
+require_once "../src/MidTool.php";
+require_once "../src/RagnarConst.php";
+require_once "../src/RagnarSDK.php";
+require_once "../src/Traceid.php";
+require_once "../src/Util.php";
 
 error_reporting(E_ALL);
-ini_set("display_errors","On");
-
-//任何人禁止调用此函数
-\Adinf\RagnarSDK\RagnarSDK::devmode();
+ini_set("display_errors", "On");
 
 //这俩必须在init之前
 //设置业务日志等级
 \Adinf\RagnarSDK\RagnarSDK::setLogLevel(\Adinf\RagnarSDK\RagnarConst::LOG_TYPE_INFO);
 
-//是否开启xhprof日志统计，如果开启会影响性能，开发时可以使用
-//参数为指定超过多长时间才记录xhprof日志，若为0则全量记录
-\Adinf\RagnarSDK\RagnarSDK::startXhprof(0);
+//初始化ragnar项目 实际生产环境用这个初始化,仅限FPM工作
+//\Adinf\RagnarSDK\RagnarSDK::init("ragnar_projectname");
 
-//初始化ragnar项目
-\Adinf\RagnarSDK\RagnarSDK::init("ragnar_projectname");
+//命令行测试使用，生产环境不适用
+\Adinf\RagnarSDK\RagnarSDK::devmode("ragnar_projectname");
 
 //设置要索引的日志附加数据，在ES搜索内能看到，不建议加太多
 \Adinf\RagnarSDK\RagnarSDK::setMeta(123, "", array("extrakey" => "extraval"));
@@ -31,8 +32,7 @@ $a = \Adinf\RagnarSDK\RagnarSDK::getChildCallParam();
 //url 内包含变量替换注册函数演示
 $url = "http://dev.weibo.c1om/v1/log/12312312/lists.json?a=1";
 
-
-\Adinf\RagnarSDK\RagnarSDK::setUrlFilterCallback(function ($url, $hashquery) {
+$filterURL = function ($url, $hashquery) {
     if (trim($url) == "") {
         return "";
     }
@@ -42,8 +42,8 @@ $url = "http://dev.weibo.c1om/v1/log/12312312/lists.json?a=1";
 
     $urlinfo = parse_url($url);
 
-    if(!$urlinfo){
-        return $url."#PARSERERROR";
+    if (!$urlinfo) {
+        return $url . "#PARSERERROR";
     }
 
     if (!isset($urlinfo["scheme"])) {
@@ -62,8 +62,8 @@ $url = "http://dev.weibo.c1om/v1/log/12312312/lists.json?a=1";
         $pathinfo = explode("/", $urlinfo["path"]);
         if (count($pathinfo) == 5) {
             $pathinfo[3] = "filted";//统一更换成固定字符
-            $pathinfo    = implode("/", $pathinfo);
-            $url         = $urlinfo["scheme"] . "://" . $urlinfo["host"] . $pathinfo;
+            $pathinfo = implode("/", $pathinfo);
+            $url = $urlinfo["scheme"] . "://" . $urlinfo["host"] . $pathinfo;
             if ($hashquery) {
                 $url .= "?" . $urlinfo["query"];
             }
@@ -72,11 +72,11 @@ $url = "http://dev.weibo.c1om/v1/log/12312312/lists.json?a=1";
         }
     }
 
-    if (isset($urlinfo["host"]) && $urlinfo["host"] == "10.1.1.1" ) {
-        if(stripos($urlinfo["path"],"/mid=")===0){
-            $mid = substr($urlinfo["path"],6);
+    if (isset($urlinfo["host"]) && $urlinfo["host"] == "10.1.1.1") {
+        if (stripos($urlinfo["path"], "/mid=") === 0) {
+            $mid = substr($urlinfo["path"], 6);
             $urlinfo["path"] = "/mid/";
-            $urlinfo["query"] = "mid=".$mid;
+            $urlinfo["query"] = "mid=" . $mid;
         }
     }
 
@@ -85,6 +85,8 @@ $url = "http://dev.weibo.c1om/v1/log/12312312/lists.json?a=1";
     } else {
         return $urlinfo["scheme"] . "://" . $urlinfo["host"] . $urlinfo["path"];
     }
-});
+};
+
+\Adinf\RagnarSDK\RagnarSDK::setUrlFilterCallback($filterURL);
 var_dump(\Adinf\RagnarSDK\RagnarSDK::getTraceID());
 var_dump(\Adinf\RagnarSDK\RagnarSDK::decodeTraceID(\Adinf\RagnarSDK\RagnarSDK::getTraceID()));

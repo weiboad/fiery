@@ -6,13 +6,13 @@
 > * 后续项目都会使用此SDK，之前Ragnar版本将不再提交新特性仅维护
 
 ### 安装及植入说明
-PHP5.5以上版本方可使用，并安装bcmath扩展
+PHP5.3以上版本方可使用，并安装bcmath扩展
 
 #### Nginx配置
 
-将此项目内的weiboad_fastcgi_pararms拷贝到nginx的conf目录内，在nginx配置内include weiboad_fastcgi_pararms   
- 
-配置例如：
+copy the nginx/fiery_fastcgi_pararms -> nginx/conf
+and edit the vhost config
+example：
 
 ```
     server{
@@ -55,36 +55,26 @@ PHP5.5以上版本方可使用，并安装bcmath扩展
     }
 ```
 
-配置好后需要reload加载此配置
-
-PHP入口加入：
 ```
-  requrire_once("ragnarsdk/src/MidTool.php");
-  requrire_once("ragnarsdk/src/RagnarConst.php");
-  requrire_once("ragnarsdk/src/RagnarSDK.php");
-  requrire_once("ragnarsdk/src/Traceid.php");
-  requrire_once("ragnarsdk/src/Util.php");
+# reload the nginx config
+nginx -s reload
 
 ```
-
-即可使用，具体使用方法请参考script内demo.php及README
-
 
 #### Ragnar 埋点库植入说明
 
 在项目框架初始化入口初始化Ragnar
 
 ```
+    requrire_once("ragnarsdk/src/MidTool.php");
+    requrire_once("ragnarsdk/src/RagnarConst.php");
+    requrire_once("ragnarsdk/src/RagnarSDK.php");
+    requrire_once("ragnarsdk/src/Traceid.php");
+    requrire_once("ragnarsdk/src/Util.php");
+    
     //若需要临时禁用Ragnar可以取消下面一行代码注释
     //\Adinf\RagnarSDK\RagnarSDK::disable();
     
-    //是否开启xhprof日志统计，如果开启会影响性能，开发时可以使用
-    //参数为指定超过多长时间才记录xhprof日志，若为0则全量记录
-    \Adinf\RagnarSDK\RagnarSDK::startXhprof(0);
-    
-    //是否使用随机方式启动xhprof
-    //\Adinf\RagnarSDK\RagnarSDK::startRandXhprof(1000) //随机 千分之一机会开启xhprof
-        
     //默认开启info日志级别,低于此级别的日志不会被记录,建议将此日志集成到框架内分级日志内
     \Adinf\RagnarSDK\RagnarSDK::setLogLevel(\Adinf\RagnarSDK\RagnarConst::LOG_TYPE_INFO); 
     
@@ -92,7 +82,7 @@ PHP入口加入：
     //ragnar_projectname为日志输出子路径目录名称，每个项目建议设置一个独立的名称
     \Adinf\RagnarSDK\RagnarSDK::init("ragnar_projectname");
      
-    //设置要索引的日志附加数据，在搜索内能看到，不建议加太多
+    //设置要索引的日志附加数据，在搜索内能看到，切勿过长
     //\Adinf\RagnarSDK\RagnarSDK::setMeta(123, "", array("extrakey" => "extraval"));
     
     //Ragnar 分级日志写入示范
@@ -124,7 +114,6 @@ PHP入口加入：
 > * LOG_TYPE_EMEGENCY 系统警报信息日志，此日志信息一旦产生会在平台错误统计内去重列出，并发送邮件短信通知
 > * LOG_TYPE_EXCEPTION 系统异常信息日志，此日志信息一旦产生会在平台错误统计内去重列出
 
-> * LOG_TYPE_XHPROF PHP性能日志插件产生的日志，分级日志写入功能不会输出此类日志，只有Ragnar自行产生
 > * LOG_TYPE_PERFORMENCE 所有性能埋点函数产生的日志信息，使用的时候请使用示范的标准格式，否则平台渲染会出现问题
 
 
@@ -135,12 +124,12 @@ curl埋点建议，key请沿用否则会在ragnar展示有问题，如果按照�
     //curl字符串不要改
     $digpooint = \Adinf\RagnarSDK\RagnarSDK::digLogStart(__FILE__, __LINE__, "curl");
     
-    //curl init 略 
+    //curl init 代码 省略...
     
     $nextrpcidheader = \Adinf\RagnarSDK\RagnarSDK::getCurlChildCallParam($digpooint);//这里很关键
     curl_setopt($this->ch, CURLOPT_HTTPHEADER, $nextrpcidheader);
     
-    $result = //curl exec 略
+    $result = //curl exec 代码 省略...
     
     $ext = array("errorno" => $errno, "error" => curl_error($this->ch));
     $info = curl_getinfo($this->ch);
@@ -151,7 +140,7 @@ curl埋点建议，key请沿用否则会在ragnar展示有问题，如果按照�
                 "param" => array("post" => $this->post_fields, "get" => $this->query_fields),
                 "info" => $info,
                 "error" => $ext,
-                "result" => $result,//长度请勿超过20480,超过请切断
+                "result" => $result,
     );
 
 ```
@@ -183,6 +172,4 @@ Mysql埋点建议，请沿用key及常量字段，按以下方式埋点后可以
     X-RAGNAR-TRACEID   此次请求的唯一标识uuid 不建议请求时带这个
     X-RAGNAR-RPCID     此次请求的调用层级计数器
     X-RAGNAR-LOGLEVEL  此次要记录的日志等级，可以实时更改此次请求输出的日志级别
-    X-RAGNAR-XHPROF    此次是否开启xhprof记录，若为1则开启记录，所有依赖的埋点Ragnar接口也会同时记录
-    X-RAGNAR-XHPROFTIME 可选：此次运行超过多少秒记录xhprof日志，如果超过这个秒数
 ```
