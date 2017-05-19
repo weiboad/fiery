@@ -11,7 +11,7 @@ install:
  - mvn -N io.takari:maven:wrapper
 
 script:
- - mvn test
+ - mvn test -B
  - mvn cobertura:cobertura
 
 after_success:
