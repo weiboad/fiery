@@ -23,7 +23,7 @@ public class RagnarApplication {
                 TomcatEmbeddedServletContainerFactory tomcat = (TomcatEmbeddedServletContainerFactory) container;
                 tomcat.addConnectorCustomizers(
                         (connector) -> {
-                            connector.setMaxPostSize(1000000000); // 10 MB
+                            connector.setMaxPostSize(1000000000);
                         }
                 );
             }
