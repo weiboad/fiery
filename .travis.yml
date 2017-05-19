@@ -3,9 +3,6 @@ language: java
 jdk:
   - oraclejdk8
 
-os:
-  - linux
-
 env:
 JAVA_8_HOME=/usr/lib/jvm/java-8-oracle
 
