@@ -3,15 +3,18 @@ language: java
 jdk:
   - oraclejdk8
 
-env: JAVA_8_HOME=/usr/lib/jvm/java-8-oracle
+os:
+  - linux
+
+env:
+JAVA_8_HOME=/usr/lib/jvm/java-8-oracle
 
 cache:
   directories:
   - $HOME/.m2
 
 script:
-  - ./mvn clean install
-  - bash <(curl -s https://codecov.io/bash)
+
 
 install:
  - set -o pipefail
