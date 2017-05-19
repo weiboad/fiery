@@ -3,11 +3,11 @@ Fiery
 
 ![logo](https://img.shields.io/badge/status-alpha-red.svg)
 [![Build Status](https://travis-ci.org/weiboad/fiery.png)](https://travis-ci.org/weiboad/fiery)
-[![License](https://img.shields.io/badge/license-apache2-blue.svg)](LICENSE)
+[![License](https://img.shields.io/badge/license-apache2-blue.svg)](LICENSE) 
 
 ![showtrace](docs/imgs/showtrace.png)
 
-Fiery is an APM-Application Performance Management for the PHP
+Fiery is an APM-Application Performance Management for the PHP  [More Infomation](https://github.com/weiboad/fiery/wiki)
 
 ### Introduction
  * All Service in a jar.easy to deploy
@@ -51,3 +51,4 @@ Fiery is an APM-Application Performance Management for the PHP
 ## Contact Us
  * WeiboAD ADINF Team
  * QQ Group: 318051466
+ 
