@@ -10,10 +10,9 @@ cache:
   - $HOME/.m2
 
 script:
-  - ./mvnw clean install
+  - ./mvn clean install
   - bash <(curl -s https://codecov.io/bash)
 
 install:
  - set -o pipefail
  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-
