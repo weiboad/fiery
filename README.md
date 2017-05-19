@@ -2,6 +2,7 @@ Fiery
 ====== 
 
 ![logo](https://img.shields.io/badge/status-alpha-red.svg)
+[![Build Status](https://travis-ci.org/weiboad/fiery.png)](https://travis-ci.org/weiboad/fiery)
 [![License](https://img.shields.io/badge/license-apache2-blue.svg)](LICENSE)
 
 ![showtrace](docs/imgs/showtrace.png)

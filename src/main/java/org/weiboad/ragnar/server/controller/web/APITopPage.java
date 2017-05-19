@@ -39,7 +39,7 @@ public class APITopPage {
         List<String> timelist = new ArrayList<>();
 
         long timestamp = DateTimeHelper.getCurrentTime();
-        long moringTime = DateTimeHelper.getTimesmorning(timestamp);
+        long moringTime = DateTimeHelper.getTimesMorning(timestamp);
 
         for (int interDay = 0; interDay < fieryConfig.getKeepdataday(); interDay++) {
             timelist.add(

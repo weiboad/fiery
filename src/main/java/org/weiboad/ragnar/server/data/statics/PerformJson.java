@@ -1,8 +1,5 @@
 package org.weiboad.ragnar.server.data.statics;
 
-/**
- * Created by shuaibing on 2017/3/24.
- */
 public class PerformJson {
     //public String _url;
     //耗时最短的时间

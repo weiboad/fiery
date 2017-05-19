@@ -10,17 +10,12 @@ public class DateTimeHelper {
         return date;
     }
 
-    //get before week
-    public static long getBeforeBeforeWeek() {
-        return (System.currentTimeMillis() / 1000) - 7 * 24 * 3600;
-    }
-
     public static long getBeforeDay(int day) {
         return (System.currentTimeMillis() / 1000) - day * 24 * 3600;
     }
 
     //获取今天0点 timestamp
-    public static long getTimesmorning(Long timestamp) {
+    public static long getTimesMorning(Long timestamp) {
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(timestamp * 1000);
         cal.set(Calendar.HOUR_OF_DAY, 0);
@@ -30,7 +25,7 @@ public class DateTimeHelper {
         return (int) (cal.getTimeInMillis() / 1000);
     }
 
-    //获取今天0点 timestamp
+    //获取小时整数 timestamp
     public static Integer getHourTime(Long timestamp) {
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(timestamp * 1000);

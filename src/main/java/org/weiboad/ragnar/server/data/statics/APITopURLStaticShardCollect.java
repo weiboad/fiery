@@ -20,7 +20,7 @@ public class APITopURLStaticShardCollect {
     public void analyzeMetaLog(MetaLog metainfo) {
         Long shardTime = metainfo.getTime().longValue();
         if (shardTime > 0) {
-            shardTime = DateTimeHelper.getTimesmorning(shardTime);
+            shardTime = DateTimeHelper.getTimesMorning(shardTime);
             if (!apiTopStaticHelper.containsKey(shardTime)) {
 
                 APITopURLStaticURLCollect apiTopURLStaticURLCollect = new APITopURLStaticURLCollect(shardTime);
@@ -44,7 +44,7 @@ public class APITopURLStaticShardCollect {
     }
 
     public APITopURLStaticURLCollect getSharder(Long timestamp, boolean create) {
-        Long shardTime = DateTimeHelper.getTimesmorning(timestamp);
+        Long shardTime = DateTimeHelper.getTimesMorning(timestamp);
         if (!apiTopStaticHelper.containsKey(shardTime)) {
             if (create) {
                 APITopURLStaticURLCollect apiTopURLStaticURLCollect = new APITopURLStaticURLCollect(shardTime);

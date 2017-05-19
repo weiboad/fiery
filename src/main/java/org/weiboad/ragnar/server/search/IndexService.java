@@ -37,7 +37,7 @@ public class IndexService {
     }
 
     public boolean insertProcessQueue(MetaLog metalog) {
-        long shardtime = DateTimeHelper.getTimesmorning(Math.round(metalog.getTime()));
+        long shardtime = DateTimeHelper.getTimesMorning(Math.round(metalog.getTime()));
 
         if (shardtime > DateTimeHelper.getBeforeDay(fieryConfig.getKeepdataday()) && shardtime <= DateTimeHelper.getCurrentTime()) {
             return writerSharderManager.insertProcessQueue(Long.toString(shardtime), metalog);

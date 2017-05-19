@@ -25,7 +25,7 @@ public class SqlPerformance {
         }
         Map<String, Map<String, String>> performList = logSql.getAllList(daytime);
         long timestamp = DateTimeHelper.getCurrentTime();
-        long moringTime = DateTimeHelper.getTimesmorning(timestamp);
+        long moringTime = DateTimeHelper.getTimesMorning(timestamp);
         model.addAttribute("list", performList);
         model.addAttribute("daytime", daytime);
         model.addAttribute("current_date", DateTimeHelper.TimeStamp2Date(String.valueOf(moringTime), "yyyy-MM-dd"));
@@ -50,7 +50,7 @@ public class SqlPerformance {
                                      @RequestParam(value = "sql", required = false) String sql) {
 
         long timestamp = DateTimeHelper.getCurrentTime();
-        long moringTime = DateTimeHelper.getTimesmorning(timestamp);
+        long moringTime = DateTimeHelper.getTimesMorning(timestamp);
 
         model.addAttribute("daytime", daytime);
         model.addAttribute("current_date", DateTimeHelper.TimeStamp2Date(String.valueOf(moringTime), "yyyy-MM-dd"));

@@ -102,25 +102,25 @@ public class LogAPIStatics {
     public Long getStartTime(Integer daytime) {
         Long StartTime = null;
         if (daytime == null || daytime == 0) {
-            StartTime = Long.valueOf(String.valueOf(DateTimeHelper.getTimesmorning(System.currentTimeMillis() / 1000)));
+            StartTime = Long.valueOf(String.valueOf(DateTimeHelper.getTimesMorning(System.currentTimeMillis() / 1000)));
         } else if (daytime == 1) {
             StartTime = Long.valueOf(String.valueOf(
-                    DateTimeHelper.getTimesmorning(System.currentTimeMillis() / 1000 - 1 * 24 * 60 * 60)));
+                    DateTimeHelper.getTimesMorning(System.currentTimeMillis() / 1000 - 1 * 24 * 60 * 60)));
         } else if (daytime == 2) {
             StartTime = Long.valueOf(String.valueOf(
-                    DateTimeHelper.getTimesmorning(System.currentTimeMillis() / 1000 - 2 * 24 * 60 * 60)));
+                    DateTimeHelper.getTimesMorning(System.currentTimeMillis() / 1000 - 2 * 24 * 60 * 60)));
         } else if (daytime == 3) {
             StartTime = Long.valueOf(String.valueOf(
-                    DateTimeHelper.getTimesmorning(System.currentTimeMillis() / 1000 - 3 * 24 * 60 * 60)));
+                    DateTimeHelper.getTimesMorning(System.currentTimeMillis() / 1000 - 3 * 24 * 60 * 60)));
         } else if (daytime == 4) {
             StartTime = Long.valueOf(String.valueOf(
-                    DateTimeHelper.getTimesmorning(System.currentTimeMillis() / 1000 - 4 * 24 * 60 * 60)));
+                    DateTimeHelper.getTimesMorning(System.currentTimeMillis() / 1000 - 4 * 24 * 60 * 60)));
         } else if (daytime == 5) {
             StartTime = Long.valueOf(String.valueOf(
-                    DateTimeHelper.getTimesmorning(System.currentTimeMillis() / 1000 - 5 * 24 * 60 * 60)));
+                    DateTimeHelper.getTimesMorning(System.currentTimeMillis() / 1000 - 5 * 24 * 60 * 60)));
         } else if (daytime == 6) {
             StartTime = Long.valueOf(String.valueOf(
-                    DateTimeHelper.getTimesmorning(System.currentTimeMillis() / 1000 - 6 * 24 * 60 * 60)));
+                    DateTimeHelper.getTimesMorning(System.currentTimeMillis() / 1000 - 6 * 24 * 60 * 60)));
         }
         return StartTime;
     }

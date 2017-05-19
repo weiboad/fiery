@@ -36,7 +36,7 @@ public class DBManage {
     public DBSharder getDB(Long timestamp) {
         try {
 
-            Long timeshard = DateTimeHelper.getTimesmorning(timestamp);
+            Long timeshard = DateTimeHelper.getTimesMorning(timestamp);
 
             //log.info("timestamp:" + timestamp + " shard:" + timeshard + " befor:" + DateTimeHelper.getBeforeDay(fieryConfig.getKeepdataday()));
             if (timeshard > DateTimeHelper.getBeforeDay(fieryConfig.getKeepdataday())

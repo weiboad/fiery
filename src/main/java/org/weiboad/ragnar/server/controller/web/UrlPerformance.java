@@ -25,7 +25,7 @@ public class UrlPerformance {
         }
         Map<String, Map<String, String>> performList = logApi.getPerformList(daytime);
         long timestamp = DateTimeHelper.getCurrentTime();
-        long moringTime = DateTimeHelper.getTimesmorning(timestamp);
+        long moringTime = DateTimeHelper.getTimesMorning(timestamp);
         model.addAttribute("perfomancelist", performList);
         model.addAttribute("daytime", daytime);
         model.addAttribute("current_date", DateTimeHelper.TimeStamp2Date(String.valueOf(moringTime), "yyyy-MM-dd"));
@@ -51,7 +51,7 @@ public class UrlPerformance {
         Long StartTime = logApi.getStartTime(daytime);
         Long EndTime = StartTime + 24 * 60 * 60 - 1;
         long timestamp = DateTimeHelper.getCurrentTime();
-        long moringTime = DateTimeHelper.getTimesmorning(timestamp);
+        long moringTime = DateTimeHelper.getTimesMorning(timestamp);
         model.addAttribute("url", url);
         model.addAttribute("daytime", daytime);
         model.addAttribute("current_date", DateTimeHelper.TimeStamp2Date(String.valueOf(moringTime), "yyyy-MM-dd"));

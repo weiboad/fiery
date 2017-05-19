@@ -37,7 +37,7 @@ public class ExceptionStatics {
         model.addAttribute("alarm_count", alarmList.size());
         model.addAttribute("exception_count", exceptionList.size());
         long timestamp = DateTimeHelper.getCurrentTime();
-        long moringTime = DateTimeHelper.getTimesmorning(timestamp);
+        long moringTime = DateTimeHelper.getTimesMorning(timestamp);
         model.addAttribute("daytime", daytime);
         model.addAttribute("current_date", DateTimeHelper.TimeStamp2Date(String.valueOf(moringTime), "yyyy-MM-dd"));
         model.addAttribute("current_date_1", DateTimeHelper

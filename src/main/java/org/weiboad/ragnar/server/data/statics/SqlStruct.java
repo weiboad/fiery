@@ -1,8 +1,5 @@
 package org.weiboad.ragnar.server.data.statics;
 
-/**
- * Created by shuaibing on 2017/3/7.
- */
 public class SqlStruct {
     //sql语句
     public String sqlStr;

@@ -81,7 +81,7 @@ public class ErrorStatics {
     }
 
     private void addLogInfo(Map<Long, Map<String, LogInfo>> logMap, String logStr, String token, Long nowTime, String filePath, Integer line, SimHash hash) {
-        long dayTime = DateTimeHelper.getTimesmorning(nowTime);
+        long dayTime = DateTimeHelper.getTimesMorning(nowTime);
         boolean issame = false;
         if (logMap.size() != 0 && logMap.get(dayTime) != null) {
             for (Map.Entry<String, LogInfo> entry : logMap.get(dayTime).entrySet()) {
