@@ -114,7 +114,7 @@ public class CurlThread extends Thread {
         }
         if (postData.trim().length() > 0) {
             String retString = postHttp(url, postData);
-            if (retString == "") {
+            if (retString.equals("")) {
                 return;
             }
             try {
