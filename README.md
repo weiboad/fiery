@@ -32,7 +32,7 @@ Fiery is an APM-Application Performance Management for the PHP
  6. Browse the web address http://127.0.0.1:9090/ragnar/
 
 ### Burial SDK
- * [Integrated On Project](./ragnarsdk/INSTALL.md)
+ * [Integrated On Project](./ragnarsdk/README.md)
 
 
 ### LogPusher
