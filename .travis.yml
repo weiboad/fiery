@@ -3,3 +3,9 @@ language: java
 jdk:
   - oraclejdk8
   - openjdk7
+
+env: JAVA_7_HOME=/usr/lib/jvm/java-7-oracle JAVA_8_HOME=/usr/lib/jvm/java-8-oracle
+
+install:
+ - set -o pipefail
+ - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V 
