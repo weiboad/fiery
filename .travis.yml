@@ -8,11 +8,10 @@ env: JAVA_6_HOME=/usr/lib/jvm/java-6-openjdk-amd64 JAVA_7_HOME=/usr/lib/jvm/java
 install:
  - set -o pipefail
  - mkdir logs index db
- - mvn install -Dmaven.javadoc.skip=true -B -V | grep -Fv '[copy'
+ - mvn install  -DskipTests=true -Dmaven.javadoc.skip=true -B -V | grep -Fv '[copy'
  - mvn -N io.takari:maven:wrapper
 
 script:
- - mvn test -B
  - mvn cobertura:cobertura
 
 after_success:
