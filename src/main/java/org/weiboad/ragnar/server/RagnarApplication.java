@@ -16,19 +16,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 
 public class RagnarApplication {
-    @Bean
-    EmbeddedServletContainerCustomizer containerCustomizer() throws Exception {
-        return (ConfigurableEmbeddedServletContainer container) -> {
-            if (container instanceof TomcatEmbeddedServletContainerFactory) {
-                TomcatEmbeddedServletContainerFactory tomcat = (TomcatEmbeddedServletContainerFactory) container;
-                tomcat.addConnectorCustomizers(
-                        (connector) -> {
-                            connector.setMaxPostSize(1000000000);
-                        }
-                );
-            }
-        };
-    }
+
 
     public static void main(String[] args) {
         String usage =
