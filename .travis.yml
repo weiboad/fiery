@@ -13,8 +13,6 @@ cache:
   directories:
   - $HOME/.m2
 
-script:
-
 
 install:
  - set -o pipefail
