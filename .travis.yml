@@ -3,18 +3,17 @@ language: java
 jdk:
   - oraclejdk8
 
-env:
-JAVA_8_HOME=/usr/lib/jvm/java-8-oracle
+env:JAVA_8_HOME=/usr/lib/jvm/java-8-oracle
 
 cache:
   directories:
   - $HOME/.m2
 
-script:
-  - ./mvnw clean install
-  - bash <(curl -s https://codecov.io/bash)
-
 install:
  - set -o pipefail
  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
  - mvn -N io.takari:maven:wrapper
+
+script:
+  - ./mvnw clean install
+  - bash <(curl -s https://codecov.io/bash)
