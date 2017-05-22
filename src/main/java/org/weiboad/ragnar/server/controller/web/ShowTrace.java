@@ -491,6 +491,11 @@ public class ShowTrace {
 
                     //两个埋点时间间隔
                     Double logInterTime = logItemObj.get("e").getAsDouble() - beforEndTimeStamp;
+                    //fixed the inter time wrong
+                    if (logItemObj.has("c")) {
+                        logInterTime = logInterTime - logItemObj.get("c").getAsDouble();
+                    }
+
                     traceLogInfo.put("logintertimewarning", df.format(logInterTime));
                     traceLogInfo.put("logindex", logItemIndex + "");
 
