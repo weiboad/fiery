@@ -169,25 +169,39 @@ public class IndexWriterShaderManager {
             Long dbtime = Long.parseLong(dbname);
             if (dbtime < DateTimeHelper.getBeforeDay(fieryConfig.getKeepdataday())) {
                 log.info("Remove the Old Writer Index:" + dbname);
+
+                analyzerList.get(dbname).close();
+                analyzerList.remove(dbname);
+                diskConfigList.remove(dbname);
+
+                //clean up
                 try {
-                    analyzerList.get(dbname).close();
-                    analyzerList.remove(dbname);
-
-                    diskConfigList.remove(dbname);
-
                     diskWriterList.get(dbname).deleteAll();
-                    diskWriterList.get(dbname).close();
-                    diskWriterList.remove(dbname);
-
-                    diskDirectoryList.get(dbname).close();
-                    diskDirectoryList.remove(dbname);
-
-                    IndexInputQueueList.remove(dbname);
-
                 } catch (Exception e) {
                     e.printStackTrace();
                     log.error(e.getMessage());
                 }
+
+                //close writer
+                try {
+                    diskWriterList.get(dbname).close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    log.error(e.getMessage());
+                }
+
+                //close reader
+                try {
+                    diskDirectoryList.get(dbname).close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    log.error(e.getMessage());
+                }
+
+                //remove from the list
+                diskWriterList.remove(dbname);
+                diskDirectoryList.remove(dbname);
+                IndexInputQueueList.remove(dbname);
                 continue;
             }
 
