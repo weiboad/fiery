@@ -72,29 +72,32 @@ nginx -s reload
     requrire_once("ragnarsdk/src/Traceid.php");
     requrire_once("ragnarsdk/src/Util.php");
     
+    use \Adinf\RagnarSDK\RagnarSDK as RagnarSDK;
+    use \Adinf\RagnarSDK\RagnarConst as RagnarConst;
+    
     //若需要临时禁用Ragnar可以取消下面一行代码注释
-    //\Adinf\RagnarSDK\RagnarSDK::disable();
+    //RagnarSDK::disable();
     
     //默认开启info日志级别,低于此级别的日志不会被记录,建议将此日志集成到框架内分级日志内
-    \Adinf\RagnarSDK\RagnarSDK::setLogLevel(\Adinf\RagnarSDK\RagnarConst::LOG_TYPE_INFO); 
+    RagnarSDK::setLogLevel(RagnarConst::LOG_TYPE_INFO); 
     
     //这个函数一定要在所有shutdown之后执行，否则会少记录一些内容
     //ragnar_projectname为日志输出子路径目录名称，每个项目建议设置一个独立的名称
-    \Adinf\RagnarSDK\RagnarSDK::init("ragnar_projectname");
+    RagnarSDK::init("ragnar_projectname");
      
     //设置要索引的日志附加数据，在搜索内能看到，切勿过长
-    //\Adinf\RagnarSDK\RagnarSDK::setMeta(123, "", array("extrakey" => "extraval"));
+    //RagnarSDK::setMeta(123, "", array("extrakey" => "extraval"));
     
     //Ragnar 分级日志写入示范
-    \Adinf\RagnarSDK\RagnarSDK::RecordLog(\Adinf\RagnarSDK\RagnarConst::LOG_TYPE_INFO, __FILE__, __LINE__, "module1_msg", "i wish i can fly!");
-    \Adinf\RagnarSDK\RagnarSDK::RecordLog(\Adinf\RagnarSDK\RagnarConst::LOG_TYPE_INFO, __FILE__, __LINE__, "module2_msg", "i wish i'm rich!");
+    RagnarSDK::RecordLog(RagnarConst::LOG_TYPE_INFO, __FILE__, __LINE__, "module1_msg", "i wish i can fly!");
+    RagnarSDK::RecordLog(RagnarConst::LOG_TYPE_INFO, __FILE__, __LINE__, "module2_msg", "i wish i'm rich!");
     
     //Ragnar 性能日志手动性能埋点示范  ragnar_test 建议格式 curl mysql 等 （curl mysql在下面已经定义了格式，请参考如下使用）
-    $digpooint = \Adinf\RagnarSDK\RagnarSDK::digLogStart(__FILE__,__LINE__,"ragnar_test");
+    $digpooint = RagnarSDK::digLogStart(__FILE__,__LINE__,"ragnar_test");
     
         //run something.....
     
-    \Adinf\RagnarSDK\RagnarSDK::digLogEnd($digpooint,array("happy"=>1));
+    RagnarSDK::digLogEnd($digpooint,array("happy"=>1));
     
 
 ```
@@ -122,11 +125,11 @@ curl埋点建议，key请沿用否则会在ragnar展示有问题，如果按照�
 
 ```
     //curl字符串不要改
-    $digpooint = \Adinf\RagnarSDK\RagnarSDK::digLogStart(__FILE__, __LINE__, "curl");
+    $digpooint = RagnarSDK::digLogStart(__FILE__, __LINE__, "curl");
     
     //curl init 代码 省略...
     
-    $nextrpcidheader = \Adinf\RagnarSDK\RagnarSDK::getCurlChildCallParam($digpooint);//这里很关键
+    $nextrpcidheader = RagnarSDK::getCurlChildCallParam($digpooint);//这里很关键
     curl_setopt($this->ch, CURLOPT_HTTPHEADER, $nextrpcidheader);
     
     $result = //curl exec 代码 省略...
@@ -135,7 +138,7 @@ curl埋点建议，key请沿用否则会在ragnar展示有问题，如果按照�
     $info = curl_getinfo($this->ch);
     
     
-    \Adinf\RagnarSDK\RagnarSDK::digLogEnd($digpooint, array(
+    RagnarSDK::digLogEnd($digpooint, array(
                 "url" => $info['url'], "method" => self::get_method(),
                 "param" => array("post" => $this->post_fields, "get" => $this->query_fields),
                 "info" => $info,
@@ -149,19 +152,19 @@ curl埋点建议，key请沿用否则会在ragnar展示有问题，如果按照�
 Mysql埋点建议，请沿用key及常量字段，按以下方式埋点后可以记录每个sql的执行情况及性能，并且能够清晰记录异常
 ```
     //这个放在query操作上出现exception情况，用于记录异常信息
-    \Adinf\RagnarSDK\RagnarSDK::RecordLog(\Adinf\Ragnar\Ragnar::LOG_TYPE_EXCEPTION, __FILE__, __LINE__, "mysql", array("fun" => "query", "sql" => $sql, "error" => $ex->getMessage()));
+    RagnarSDK::RecordLog(\Adinf\Ragnar\Ragnar::LOG_TYPE_EXCEPTION, __FILE__, __LINE__, "mysql", array("fun" => "query", "sql" => $sql, "error" => $ex->getMessage()));
     
     //这个放在查询前,用于性能监控
-    $digpooint = \Adinf\RagnarSDK\RagnarSDK::digLogStart(__FILE__, __LINE__, "mysql");
+    $digpooint = RagnarSDK::digLogStart(__FILE__, __LINE__, "mysql");
     
     //do some sql execute
     
     //这个放在查询后,用于性能监控
-    \Adinf\RagnarSDK\RagnarSDK::digLogEnd($digpooint, array("sql" => $sql, "data" => "sql的参数", "op" => "select\delete\update\...", "fun" => "execute_sql"));
+    RagnarSDK::digLogEnd($digpooint, array("sql" => $sql, "data" => "sql的参数", "op" => "select\delete\update\...", "fun" => "execute_sql"));
     
     //如果查询后错误
     if(error){
-        \Adinf\RagnarSDK\RagnarSDK::RecordLog(\Adinf\RagnarSDK\RagnarSDK::LOG_TYPE_EXCEPTION, __FILE__, __LINE__, "mysql", array("fun" => "execute", "sql" => $sql, "error" => $error));
+        RagnarSDK::RecordLog(RagnarSDK::LOG_TYPE_EXCEPTION, __FILE__, __LINE__, "mysql", array("fun" => "execute", "sql" => $sql, "error" => $error));
     }
 ```
 
