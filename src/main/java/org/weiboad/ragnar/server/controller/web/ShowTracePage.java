@@ -83,7 +83,6 @@ public class ShowTracePage {
             Date startdate = new Date(Long.parseLong(traceIdInfo.get("time")) * 1000L);
             model.addAttribute("starttimedate", startdate);
 
-            //rpcid and logs data map
             //rpcid and logs struct map
             Map<String, String> loglist = new TreeMap<String, String>(new RPCIDKeySortComparator());
 
