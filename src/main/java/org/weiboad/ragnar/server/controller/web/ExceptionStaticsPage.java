@@ -13,7 +13,7 @@ import org.weiboad.ragnar.server.util.DateTimeHelper;
 import java.util.Map;
 
 @Controller
-public class ExceptionStatics {
+public class ExceptionStaticsPage {
     @Autowired
     ErrorStatics errorlog;
     @Autowired
@@ -48,7 +48,7 @@ public class ExceptionStatics {
                 .TimeStamp2Date(String.valueOf(moringTime - 24 * 60 * 60 * 3), "yyyy-MM-dd"));
         model.addAttribute("current_date_4", DateTimeHelper
                 .TimeStamp2Date(String.valueOf(moringTime - 24 * 60 * 60 * 4), "yyyy-MM-dd"));
-        return "errorlog_render";
+        return "exceptionstaticpage";
     }
 
     @RequestMapping(value = "/errorstatic/del", method = RequestMethod.GET)
@@ -60,6 +60,6 @@ public class ExceptionStatics {
         String retMsg = errorlog.DelLogInfo(hashcode, day, Integer.valueOf(type));
         model.addAttribute("msg", retMsg);
         model.addAttribute("daytime", daytime);
-        return "delerrorlog";
+        return "exceptionstaticremove";
     }
 }

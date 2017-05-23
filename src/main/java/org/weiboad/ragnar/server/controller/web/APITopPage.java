@@ -59,6 +59,6 @@ public class APITopPage {
             model.addAttribute("urllist", new ArrayList<APITopURLStaticData>());
         }
 
-        return "apitop";
+        return "apitoppage";
     }
 }

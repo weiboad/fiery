@@ -6,27 +6,27 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.weiboad.ragnar.server.statistics.LogAPIStatics;
+import org.weiboad.ragnar.server.statistics.SQLStatics;
 import org.weiboad.ragnar.server.util.DateTimeHelper;
 
 import java.util.Map;
 
 @Controller
-public class UrlPerformance {
+public class SqlPerformancePage {
     @Autowired
-    LogAPIStatics logApi;
+    SQLStatics logSql;
 
-    @RequestMapping(value = "/performance", method = RequestMethod.GET)
-    public String PerformancePage(Model model,
-                                  @RequestParam(value = "daytime", required = false) Integer daytime) {
+    @RequestMapping(value = "/sqlperformance", method = RequestMethod.GET)
+    public String SqlperformancePage(Model model,
+                                     @RequestParam(value = "daytime", required = false) Integer daytime) {
         //校验参数
         if (daytime == null) {
             daytime = 0;
         }
-        Map<String, Map<String, String>> performList = logApi.getPerformList(daytime);
+        Map<String, Map<String, String>> performList = logSql.getAllList(daytime);
         long timestamp = DateTimeHelper.getCurrentTime();
         long moringTime = DateTimeHelper.getTimesMorning(timestamp);
-        model.addAttribute("perfomancelist", performList);
+        model.addAttribute("list", performList);
         model.addAttribute("daytime", daytime);
         model.addAttribute("current_date", DateTimeHelper.TimeStamp2Date(String.valueOf(moringTime), "yyyy-MM-dd"));
         model.addAttribute("current_date_1", DateTimeHelper
@@ -41,18 +41,17 @@ public class UrlPerformance {
                 .TimeStamp2Date(String.valueOf(moringTime - 24 * 60 * 60 * 5), "yyyy-MM-dd"));
         model.addAttribute("current_date_6", DateTimeHelper
                 .TimeStamp2Date(String.valueOf(moringTime - 24 * 60 * 60 * 6), "yyyy-MM-dd"));
-        return "logapi_render";
+        return "sqlstaticpage";
     }
 
-    @RequestMapping(value = "/performanceshow", method = RequestMethod.GET)
-    public String PerformanceShowPage(Model model,
-                                      @RequestParam(value = "daytime", required = false) Integer daytime,
-                                      @RequestParam(value = "url", required = false) String url) {
-        Long StartTime = logApi.getStartTime(daytime);
-        Long EndTime = StartTime + 24 * 60 * 60 - 1;
+    @RequestMapping(value = "/sqlperformshow", method = RequestMethod.GET)
+    public String SqlperformShowPage(Model model,
+                                     @RequestParam(value = "daytime", required = false) Integer daytime,
+                                     @RequestParam(value = "sql", required = false) String sql) {
+
         long timestamp = DateTimeHelper.getCurrentTime();
         long moringTime = DateTimeHelper.getTimesMorning(timestamp);
-        model.addAttribute("url", url);
+
         model.addAttribute("daytime", daytime);
         model.addAttribute("current_date", DateTimeHelper.TimeStamp2Date(String.valueOf(moringTime), "yyyy-MM-dd"));
         model.addAttribute("current_date_1", DateTimeHelper
@@ -67,8 +66,12 @@ public class UrlPerformance {
                 .TimeStamp2Date(String.valueOf(moringTime - 24 * 60 * 60 * 5), "yyyy-MM-dd"));
         model.addAttribute("current_date_6", DateTimeHelper
                 .TimeStamp2Date(String.valueOf(moringTime - 24 * 60 * 60 * 6), "yyyy-MM-dd"));
-        Map<String, Map<String, String>> performList = logApi.getPerformShowList(StartTime, EndTime, url);
+        Map<String, Map<String, String>> performList = logSql.getOneData(daytime, sql);
+
+        model.addAttribute("sql", performList.get("sql").get("sql"));
+        performList.remove("sql");
+        model.addAttribute("sqlpre", sql);
         model.addAttribute("perfomancelist", performList);
-        return "logapigroup_render";
+        return "sqlgrouppage";
     }
 }

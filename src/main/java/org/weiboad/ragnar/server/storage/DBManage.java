@@ -50,6 +50,7 @@ public class DBManage {
                 return dbSharderList.get(timeshard);
 
             } else {
+                log.info("out of the date:" + timeshard);
                 return null;
             }
 

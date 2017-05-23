@@ -13,7 +13,7 @@
             </ul>
             <ul class="nav navbar-nav">
                 <li class="">
-                    <a href="/ragnar/currentlog">最近访问<span class="sr-only">(current)</span></a>
+                    <a href="/ragnar/recentrequest">最近访问<span class="sr-only">(current)</span></a>
                 </li>
             </ul>
             <ul class="nav navbar-nav">

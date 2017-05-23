@@ -30,9 +30,9 @@ import java.text.DecimalFormat;
 import java.util.*;
 
 @Controller
-public class ShowTrace {
+public class ShowTracePage {
 
-    Logger log = LoggerFactory.getLogger(ShowTrace.class);
+    Logger log = LoggerFactory.getLogger(ShowTracePage.class);
 
     @Autowired
     DBManage dbmanager;
@@ -47,6 +47,8 @@ public class ShowTrace {
 
     private int _renderIndex = 0;
 
+    private boolean oldstyle = false;
+
     @RequestMapping(value = "/showtrace", method = RequestMethod.GET)
     public String ShowTracePage(Model model,
                                 @RequestParam(value = "traceid", required = false) String traceid,
@@ -54,12 +56,9 @@ public class ShowTrace {
                                 @RequestParam(value = "oldstyle", required = false, defaultValue = "0") String oldstylebool) {
         DecimalFormat df = new DecimalFormat("######0.0000");
 
-        boolean oldstyle = false;
-        if (oldstylebool.trim().equals("1")) {
+        //trace render mode
+        if(oldstylebool.trim().equals("1")){
             oldstyle = true;
-            model.addAttribute("oldstyle", 1);
-        } else {
-            model.addAttribute("oldstyle", 0);
         }
 
         //clean up the tracelist
@@ -147,7 +146,7 @@ public class ShowTrace {
                 e.printStackTrace();
                 log.error(e.getMessage());
             }
-            renderTrace("0", traceid, selectedrpcid, loglist, indexlist, oldstyle);
+            renderTrace("0", traceid, selectedrpcid, loglist, indexlist);
 
             model.addAttribute("tracelist", _tracelist);
 
@@ -211,6 +210,15 @@ public class ShowTrace {
                 }
             }
             model.addAttribute("loglist", selectLogList);
+
+            //render by different style
+            //when the log not complete
+
+            if (oldstyle) {
+                model.addAttribute("oldstyle", 1);
+            } else {
+                model.addAttribute("oldstyle", 0);
+            }
 
             return "showtrace_render";
         } else {
@@ -372,7 +380,7 @@ public class ShowTrace {
 
     //主流方式：递归方式渲染
     public void renderTrace(String renderrRPCid, String renderTraceid, String selectKey,
-                            Map<String, String> loglist, Map<String, MetaLog> indexlist, boolean oldstyle
+                            Map<String, String> loglist, Map<String, MetaLog> indexlist
     ) {
 
         //todo: 标题过长隐藏功能
@@ -419,6 +427,7 @@ public class ShowTrace {
             //traceinfo.put("url", "====== Meta Info Not Found ===");
             if (renderrRPCid.equals("0")) {
                 renderByLog(renderrRPCid, renderTraceid, selectKey, loglist, indexlist);
+                oldstyle = true;
             }
             return;
         }
@@ -609,7 +618,7 @@ public class ShowTrace {
                     _tracelist.put(_renderIndex + "", traceLogInfo);
                     _renderIndex++;
 
-                    renderTrace(logRpcid, renderTraceid, selectKey, loglist, indexlist, oldstyle);
+                    renderTrace(logRpcid, renderTraceid, selectKey, loglist, indexlist);
                 }
                 //walk the log content
 

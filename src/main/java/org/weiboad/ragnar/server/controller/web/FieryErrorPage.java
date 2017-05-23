@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 @Controller
-public class ErrorPage implements ErrorController {
+public class FieryErrorPage implements ErrorController {
 
     private static final String PATH = "/error";
 
@@ -27,7 +27,7 @@ public class ErrorPage implements ErrorController {
     @Value("${spring.profiles.active}")
     private String active;
 
-    Logger log = LoggerFactory.getLogger(ErrorPage.class);
+    Logger log = LoggerFactory.getLogger(FieryErrorPage.class);
 
     @RequestMapping(value = PATH)
     public String error(Model model, HttpServletRequest request, HttpServletResponse response) {
@@ -39,14 +39,17 @@ public class ErrorPage implements ErrorController {
         model.addAttribute("trace", (String) mapobj.get("trace"));
         model.addAttribute("msg", (String) getErrorAttributes(request, true).get("message"));
 
-        return "errorpage";
+        return "fieryerrorpage";
     }
 
     public boolean isDebug() {
+        //will display all 500
+        return true;
+        /*
         if (this.active.equalsIgnoreCase("dev")) {
             return true;
         }
-        return false;
+        return false;*/
     }
 
     @Override

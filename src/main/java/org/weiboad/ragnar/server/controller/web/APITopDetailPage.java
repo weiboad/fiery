@@ -38,13 +38,8 @@ public class APITopDetailPage {
     public String currentlog(Model model, @RequestParam(value = "url", required = false, defaultValue = "") String keyword) {
 
         Query query;
-        try {
-            Term term = new Term("url", keyword.trim());
-            query = new TermQuery(term);
-        } catch (Exception e) {
-            model.addAttribute("msg", "query parser error");
-            return "search";
-        }
+        Term term = new Term("url", keyword.trim());
+        query = new TermQuery(term);
 
         Sort sort = new Sort(new SortField("elapsed_ms", SortField.Type.DOUBLE, true));
 
@@ -52,7 +47,7 @@ public class APITopDetailPage {
         model.addAttribute("resultlist", result.getResult());
         model.addAttribute("url", keyword);
 
-        return "apitopdetail";
+        return "apitopdetailpage";
     }
 }
 

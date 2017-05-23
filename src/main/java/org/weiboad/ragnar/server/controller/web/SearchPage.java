@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-public class Search {
+public class SearchPage {
     @Autowired
     IndexService indexHelper;
 
@@ -54,7 +54,7 @@ public class Search {
             query = mulFieldQueryParser.parse(keyword);
         } catch (Exception e) {
             model.addAttribute("msg", "query parser error");
-            return "search";
+            return "searchpage";
         }
 
         Sort sort = new Sort(new SortField("time", SortField.Type.DOUBLE, true));
@@ -62,6 +62,6 @@ public class Search {
         ResponseJson result = indexHelper.searchByQuery(DateTimeHelper.getCurrentTime(), query, 0, 1000, sort);
         model.addAttribute("resultlist", result.getResult());
         model.addAttribute("keyword", keyword);
-        return "search";
+        return "searchpage";
     }
 }
