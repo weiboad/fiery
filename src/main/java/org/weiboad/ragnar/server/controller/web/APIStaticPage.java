@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class APITopPage {
+public class APIStaticPage {
 
     //@Autowired
     //IndexService indexHelper;
@@ -32,26 +32,16 @@ public class APITopPage {
 
     Logger log = LoggerFactory.getLogger(PutMetalog.class);
 
-    @RequestMapping(value = "/apitop", method = RequestMethod.GET)
+    @RequestMapping(value = "/apistatistic", method = RequestMethod.GET)
     public String currentlog(Model model, @RequestParam(value = "topdatarange", required = false, defaultValue = "0") String topdaterange) {
 
-        //render the list of date
-        List<String> timelist = new ArrayList<>();
-
-        long timestamp = DateTimeHelper.getCurrentTime();
-        long moringTime = DateTimeHelper.getTimesMorning(timestamp);
-
-        for (int interDay = 0; interDay < fieryConfig.getKeepdataday(); interDay++) {
-            timelist.add(
-                    DateTimeHelper.TimeStamp2Date(String.valueOf(moringTime - (24 * 60 * 60) * interDay), "yyyy-MM-dd"));
-        }
-
+        //date list
+        List<String> timelist = DateTimeHelper.getDateTimeListForPage(fieryConfig.getKeepdataday());
         model.addAttribute("datelist", timelist);
         model.addAttribute("datelist_selected", topdaterange);
 
         //now the date render
-        int datetimeshard = Integer.parseInt(topdaterange);
-        long shardtime = moringTime - (24 * 60 * 60) * datetimeshard;
+        long shardtime = DateTimeHelper.getTimesMorning(DateTimeHelper.getBeforeDay(Integer.parseInt(topdaterange)));
         APITopURLStaticURLCollect urllist = apiTopURLStaticShardCollect.getSharder(shardtime, false);
         if (urllist != null) {
             model.addAttribute("urllist", urllist.getCollectList());
@@ -59,6 +49,6 @@ public class APITopPage {
             model.addAttribute("urllist", new ArrayList<APITopURLStaticData>());
         }
 
-        return "apitoppage";
+        return "apistatistic";
     }
 }

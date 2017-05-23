@@ -197,7 +197,7 @@ public class ErrorStatics {
             return "daytime param is error";
         }
         logMap.get(dayTime).remove(hashcode);
-        return "del success";
+        return "delete success";
     }
 
     public Map<String, Integer> getAlaramStatics() {

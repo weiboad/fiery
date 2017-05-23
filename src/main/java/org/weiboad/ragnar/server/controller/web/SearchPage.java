@@ -54,7 +54,7 @@ public class SearchPage {
             query = mulFieldQueryParser.parse(keyword);
         } catch (Exception e) {
             model.addAttribute("msg", "query parser error");
-            return "searchpage";
+            return "search";
         }
 
         Sort sort = new Sort(new SortField("time", SortField.Type.DOUBLE, true));
@@ -62,6 +62,6 @@ public class SearchPage {
         ResponseJson result = indexHelper.searchByQuery(DateTimeHelper.getCurrentTime(), query, 0, 1000, sort);
         model.addAttribute("resultlist", result.getResult());
         model.addAttribute("keyword", keyword);
-        return "searchpage";
+        return "search";
     }
 }

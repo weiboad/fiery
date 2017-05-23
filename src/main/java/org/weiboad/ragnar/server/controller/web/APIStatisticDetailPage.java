@@ -21,7 +21,7 @@ import org.weiboad.ragnar.server.search.IndexService;
 import org.weiboad.ragnar.server.util.DateTimeHelper;
 
 @Controller
-public class APITopDetailPage {
+public class APIStatisticDetailPage {
 
     @Autowired
     IndexService indexHelper;
@@ -34,7 +34,7 @@ public class APITopDetailPage {
 
     Logger log = LoggerFactory.getLogger(PutMetalog.class);
 
-    @RequestMapping(value = "/apitopdetail", method = RequestMethod.GET)
+    @RequestMapping(value = "/apistatisticdetail", method = RequestMethod.GET)
     public String currentlog(Model model, @RequestParam(value = "url", required = false, defaultValue = "") String keyword) {
 
         Query query;
@@ -47,7 +47,7 @@ public class APITopDetailPage {
         model.addAttribute("resultlist", result.getResult());
         model.addAttribute("url", keyword);
 
-        return "apitopdetailpage";
+        return "apistatisticdetail";
     }
 }
 

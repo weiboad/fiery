@@ -57,7 +57,7 @@
                   onsubmit="return checkContinue()">
                 <input type="hidden" name="hashcode" value=\"${id}\" />
                 <input type="hidden" name="type" value=\"${type}\" />
-                <input type="hidden" name="daytime" value=\"${daytime}\" />
+                <input type="hidden" name="daytime" value=\"${datelist_selected}\" />
                 <input type="submit" name="submit" value="清除日志" class="btn btn-danger" style="float: right"/>
             </form>
         </td>
@@ -83,11 +83,9 @@
     <div style="float:right;width: 160px;">
         <label class="control-label">时间范围:</label>
         <select name="daytime" class="input-sm" id="datarange">
-            <option value=0>${current_date}</option>
-            <option value=1>${current_date_1}</option>
-            <option value=2>${current_date_2}</option>
-            <option value=3>${current_date_3}</option>
-            <option value=4>${current_date_4}</option>
+        <#list datelist as dateitem>
+            <option value="${dateitem?index}">${dateitem}</option>
+        </#list>
         </select>
     </div>
 </form>
@@ -139,7 +137,7 @@
         $("#datarange").change(function () {
             $("#message").submit();
         });
-        $("#datarange").val("${daytime}");
+        $("#datarange").val("${datelist_selected}");
     });
 </script>
 <#include "footer.ftl">

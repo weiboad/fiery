@@ -27,34 +27,32 @@
             background: #d9edf7;
         }
     </style>
-
 </head>
 <body>
 <#include "common.ftl">
 <#include "header.ftl">
+
 <div class="container-fluid" style="min-height: 850px;">
     <div class="row">
         <div class="col-md-12">
-            <h3>依赖SQL性能</h3>
-            <form action="?" method="get" class="form-horizontal" id="message" accept-charset="utf-8">
+            <h3>服务性能统计</h3>
+            <h4>url:${url}</h4>
+            <form action="?" method="get" class="form-horizontal" id="message">
                 <div style="float:right;width: 160px;">
                     <label class="control-label">时间范围:</label>
                     <select name="daytime" class="input-sm" id="datarange">
-                        <option value=0>${current_date}</option>
-                        <option value=1>${current_date_1}</option>
-                        <option value=2>${current_date_2}</option>
-                        <option value=3>${current_date_3}</option>
-                        <option value=4>${current_date_4}</option>
-                        <option value=5>${current_date_5}</option>
-                        <option value=6>${current_date_6}</option>
+                    <#list datelist as dateitem>
+                        <option value="${dateitem?index}">${dateitem}</option>
+                    </#list>
                     </select>
+                    <input type="hidden" name="url" value="${url}"/>
                 </div>
             </form>
             <table class="table sorttable table-hover" id="listtable">
                 <thead>
                 <tr>
-                    <th style="width: 500px;word-wrap: break-word" data-sort="string-ins">SQL<span
-                            aria-hidden="true"> </span></th>
+                    <!--<th data-sort="string-ins">URL<span aria-hidden="true"> </span></th>-->
+                    <th data-sort="int">时间段<span aria-hidden="true"> </span></th>
                     <th data-sort="int">调用次数<span aria-hidden="true"> </span></th>
                     <th data-sort="float">最长响应(ms)<span aria-hidden="true"> </span></th>
                     <th data-sort="float">最短响应(ms)<span aria-hidden="true"> </span></th>
@@ -62,12 +60,12 @@
                     <th data-sort="float">500(ms)<span aria-hidden="true"> </span></th>
                     <th data-sort="float">1000(ms)<span aria-hidden="true"> </span></th>
                     <th data-sort="float">1000+(ms)<span aria-hidden="true"> </span></th>
-                    <th>操作</th>
+                    <th data-sort="float">http_code百分比<span aria-hidden="true"> </span></th>
                 </tr>
                 </thead>
-            <#list list as key,item>
+            <#list perfomancelist as key,item>
                 <tr>
-                    <td style="width:500px;word-break:break-all">${item.sql}</td>
+                    <td>${key}</td>
                     <td>${item.sumcount}</td>
                     <td>${showStaticsTime(item.slowtime?number)}</td>
                     <td>${showStaticsTime(item.fasttime?number)}</td>
@@ -75,11 +73,7 @@
                     <td>${item.five}</td>
                     <td>${item.ten}</td>
                     <td>${item.twenty}</td>
-                    <td>
-                        <a type="button" class="btn btn-primary"
-                           href='sqlperformshow?sql=${key?url}&daytime=${daytime}'>查看
-                        </a>
-                    </td>
+                    <td>${item.code}</td>
                 </tr>
             </#list>
             </table>
@@ -87,12 +81,14 @@
         </div>
     </div>
 </div>
+
 <script type="text/javascript">
     $(document).ready(function () {
-        var table = $("#listtable").stupidtable();
-        var th_to_sort = table.find("thead th").eq(4);
-        th_to_sort.stupidsort("asc");
-        table.bind('aftertablesort', function (event, data) {
+        var $table = $("#listtable").stupidtable();
+        var $th_to_sort = $table.find("thead th").eq(0);
+        $th_to_sort.stupidsort("asc");
+
+        $table.bind('aftertablesort', function (event, data) {
             // data.column - the ragnarlog of the column sorted after a click
             // data.direction - the sorting direction (either asc or desc)
             // $(this) - this table object
@@ -109,16 +105,17 @@
             }
 
         });
+
         $("#datarange").change(function () {
             $("#message").submit();
         });
-        $("#datarange").val("${daytime}");
+        $("#datarange").val("${datelist_selected}");
 
 
-        /*$("#project").change(function () {
+        $("#project").change(function () {
             $("#message").submit();
-        });*/
-        //$("#project").val("<?=$projectkey?>");
+        });
+        $("#project").val("<?=$projectkey?>");
     });
 </script>
 <#include "footer.ftl">

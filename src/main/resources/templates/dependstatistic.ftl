@@ -40,14 +40,11 @@
                 <div style="float:right;width: 160px;">
                     <label class="control-label">时间范围:</label>
                     <select name="daytime" class="input-sm" id="datarange">
-                        <option value=0>${current_date}</option>
-                        <option value=1>${current_date_1}</option>
-                        <option value=2>${current_date_2}</option>
-                        <option value=3>${current_date_3}</option>
-                        <option value=4>${current_date_4}</option>
-                        <option value=5>${current_date_5}</option>
-                        <option value=6>${current_date_6}</option>
+                    <#list datelist as dateitem>
+                        <option value="${dateitem?index}">${dateitem}</option>
+                    </#list>
                     </select>
+
                 </div>
             </form>
             <table class="table sorttable table-hover" id="listtable">
@@ -78,7 +75,7 @@
                     <td>${item.code}</td>
                     <td>
                         <a type="button" class="btn btn-primary"
-                           href='performanceshow?url=${key?url}&daytime=${daytime}'>查看
+                           href='dependstatisticdetail?url=${key?url}&daytime=${datelist_selected}'>查看
                         </a>
                     </td>
                 </tr>
@@ -113,7 +110,7 @@
         $("#datarange").change(function () {
             $("#message").submit();
         });
-        $("#datarange").val("${daytime}");
+        $("#datarange").val("${datelist_selected}");
 
 
         /*$("#project").change(function () {

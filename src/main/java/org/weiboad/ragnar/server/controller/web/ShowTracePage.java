@@ -59,6 +59,8 @@ public class ShowTracePage {
         //trace render mode
         if(oldstylebool.trim().equals("1")){
             oldstyle = true;
+        }else{
+            oldstyle = false;
         }
 
         //clean up the tracelist
@@ -246,10 +248,7 @@ public class ShowTracePage {
             traceinfo.put("r", itemrpcid);
 
             //entrance was no tag
-            traceinfo.put("tag", "");
-
-            //type 日志类型
-            traceinfo.put("type", "");
+            traceinfo.put("tag", "api");
 
             //if the metaloginfo existed
             MetaLog metaloginfo;
@@ -286,7 +285,6 @@ public class ShowTracePage {
             _tracelist.put(renderIndex + "", traceinfo);
             renderIndex++;
 
-            //todo:xhprof日志
             //render the biz log
             //now check
             if (loglist.containsKey(itemrpcid)) {
@@ -383,8 +381,6 @@ public class ShowTracePage {
                             Map<String, String> loglist, Map<String, MetaLog> indexlist
     ) {
 
-        //todo: 标题过长隐藏功能
-
         //metalog current render
         MetaLog metaloginfo;
 
@@ -449,7 +445,7 @@ public class ShowTracePage {
         }
 
         //indent
-        traceinfo.put("indent", StringUtils.repeat("&nbsp;&nbsp;&nbsp;&nbsp;", renderrRPCid.split("\\.").length));
+        traceinfo.put("indent", StringUtils.repeat("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", renderrRPCid.split("\\.").length));
 
         //type
         traceinfo.put("type", metaloginfo.getHttpcode());
@@ -511,7 +507,7 @@ public class ShowTracePage {
                     traceLogInfo.put("rpcid", renderrRPCid);
                     traceLogInfo.put("r", logRpcid);
 
-                    traceLogInfo.put("indent", StringUtils.repeat("&nbsp;&nbsp;&nbsp;&nbsp;", logRpcid.split("\\.").length));
+                    traceLogInfo.put("indent", StringUtils.repeat("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", logRpcid.split("\\.").length));
                     traceLogInfo.put("selected", "");
                     traceLogInfo.put("type", type);
 

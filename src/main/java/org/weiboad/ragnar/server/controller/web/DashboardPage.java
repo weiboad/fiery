@@ -17,7 +17,7 @@ import org.weiboad.ragnar.server.storage.DBManage;
 import java.util.Map;
 
 @Controller
-public class IndexPage {
+public class DashboardPage {
 
     @Autowired
     IndexService indexService;
@@ -82,6 +82,6 @@ public class IndexPage {
 
         model.addAttribute("bizlogQueueLen", bizLogProcessor.getQueueLen());
 
-        return "indexpage";
+        return "dashboard";
     }
 }

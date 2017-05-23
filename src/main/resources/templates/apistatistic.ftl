@@ -84,7 +84,7 @@
                     </#list></td>
                     <td>
                         <a type="button" class="btn btn-primary"
-                           href='apitopdetail?url=${item.url?url}&topdatarange=${datelist_selected}'>排行</a>
+                           href='apistatisticdetail?url=${item.url?url}&topdatarange=${datelist_selected}'>排行</a>
                     </td>
                 </tr>
             </#list>

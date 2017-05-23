@@ -30,6 +30,6 @@ public class RecentRequestPage {
         Query query = new MatchAllDocsQuery();
         ResponseJson result = indexHelper.searchByQuery(DateTimeHelper.getCurrentTime(), query, 0, 500, sort);
         model.addAttribute("resultlist", result.getResult());
-        return "recentrequestpage";
+        return "recentrequest";
     }
 }
