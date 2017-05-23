@@ -1,13 +1,13 @@
-package org.weiboad.ragnar.server.data.statics;
+package org.weiboad.ragnar.server.struct.statics;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.weiboad.ragnar.server.data.MetaLog;
+import org.weiboad.ragnar.server.struct.MetaLog;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class APITopURLStaticData {
+public class APIStaticStruct {
 
     public String url = "";
 
@@ -32,9 +32,9 @@ public class APITopURLStaticData {
     //code && count
     public ConcurrentHashMap<String, AtomicLong> code_count = new ConcurrentHashMap<String, AtomicLong>();
 
-    Logger log = LoggerFactory.getLogger(APITopURLStaticData.class);
+    Logger log = LoggerFactory.getLogger(APIStaticStruct.class);
 
-    public APITopURLStaticData(String url) {
+    public APIStaticStruct(String url) {
         this.url = url;
     }
 

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.weiboad.ragnar.server.config.FieryConfig;
 import org.weiboad.ragnar.server.statistics.ErrorStatics;
-import org.weiboad.ragnar.server.statistics.LogAPIStatics;
+import org.weiboad.ragnar.server.statistics.DependAPIStatics;
 import org.weiboad.ragnar.server.util.DateTimeHelper;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class ErrorStatisticPage {
     ErrorStatics errorlog;
 
     @Autowired
-    LogAPIStatics logApi;
+    DependAPIStatics logApi;
 
     @Autowired
     FieryConfig fieryConfig;

@@ -5,15 +5,18 @@ Fiery
 [![Build Status](https://travis-ci.org/weiboad/fiery.png)](https://travis-ci.org/weiboad/fiery)
 [![License](https://img.shields.io/badge/license-apache2-blue.svg)](LICENSE) 
 
+[中文文档](./README_CN.md)
+ 
 ![showtrace](docs/imgs/showtrace.png)
 
-Fiery is an APM-Application Performance Management for the PHP  [More Infomation](https://github.com/weiboad/fiery/wiki)
+ Fiery is an APM-Application Performance Management for the PHP
 
 ### Introduction
  * All Service in a jar.easy to deploy
  * Burial SDK: integrated burial package for php project
  * Log Pusher: collect the ragnarsdk logs and push to the server
  * Server: index, storage, statistics the logs, web Management interface
+ * Goto [wiki](https://github.com/weiboad/fiery/wiki) to get More Infomation
  
 ### Requirements
  * PHP 5.3 or later with bcmath

@@ -1,4 +1,4 @@
-package org.weiboad.ragnar.server.data;
+package org.weiboad.ragnar.server.struct;
 
 import org.apache.lucene.document.*;
 import org.apache.lucene.util.BytesRef;

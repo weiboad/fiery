@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.weiboad.ragnar.server.config.FieryConfig;
 import org.weiboad.ragnar.server.controller.ragnarlog.PutMetalog;
-import org.weiboad.ragnar.server.data.statics.APITopURLStaticData;
-import org.weiboad.ragnar.server.data.statics.APITopURLStaticShardCollect;
-import org.weiboad.ragnar.server.data.statics.APITopURLStaticURLCollect;
+import org.weiboad.ragnar.server.struct.statics.APIStaticStruct;
+import org.weiboad.ragnar.server.struct.statics.APIStaticTimeSet;
+import org.weiboad.ragnar.server.struct.statics.APIStaticURLSet;
 import org.weiboad.ragnar.server.util.DateTimeHelper;
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class APIStaticPage {
     FieryConfig fieryConfig;
 
     @Autowired
-    APITopURLStaticShardCollect apiTopURLStaticShardCollect;
+    APIStaticTimeSet apiStaticTimeSet;
 
     Logger log = LoggerFactory.getLogger(PutMetalog.class);
 
@@ -42,11 +42,11 @@ public class APIStaticPage {
 
         //now the date render
         long shardtime = DateTimeHelper.getTimesMorning(DateTimeHelper.getBeforeDay(Integer.parseInt(topdaterange)));
-        APITopURLStaticURLCollect urllist = apiTopURLStaticShardCollect.getSharder(shardtime, false);
+        APIStaticURLSet urllist = apiStaticTimeSet.getSharder(shardtime, false);
         if (urllist != null) {
             model.addAttribute("urllist", urllist.getCollectList());
         } else {
-            model.addAttribute("urllist", new ArrayList<APITopURLStaticData>());
+            model.addAttribute("urllist", new ArrayList<APIStaticStruct>());
         }
 
         return "apistatistic";

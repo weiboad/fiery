@@ -1,31 +1,31 @@
-package org.weiboad.ragnar.server.data.statics;
+package org.weiboad.ragnar.server.struct.statics;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.weiboad.ragnar.server.data.MetaLog;
+import org.weiboad.ragnar.server.struct.MetaLog;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class APITopURLStaticURLCollect {
+public class APIStaticURLSet {
 
-    private ConcurrentHashMap<String, APITopURLStaticData> urlList = new ConcurrentHashMap<String, APITopURLStaticData>();
+    private ConcurrentHashMap<String, APIStaticStruct> urlList = new ConcurrentHashMap<String, APIStaticStruct>();
 
     private Long shardTime;
 
-    public APITopURLStaticURLCollect(Long shardtime) {
+    public APIStaticURLSet(Long shardtime) {
         this.shardTime = shardtime;
     }
 
-    Logger log = LoggerFactory.getLogger(APITopURLStaticURLCollect.class);
+    Logger log = LoggerFactory.getLogger(APIStaticURLSet.class);
 
     public void analyzeMetaLog(MetaLog metainfo) {
         String url = metainfo.getUrl().trim();
         if (urlList.containsKey(url)) {
             urlList.get(url).analyzeMetaLog(metainfo);
         } else {
-            APITopURLStaticData apidata = new APITopURLStaticData(url);
+            APIStaticStruct apidata = new APIStaticStruct(url);
             apidata.analyzeMetaLog(metainfo);
             urlList.put(url, apidata);
         }
@@ -35,11 +35,11 @@ public class APITopURLStaticURLCollect {
         return urlList.size();
     }
 
-    public List<APITopURLStaticData> getCollectList() {
+    public List<APIStaticStruct> getCollectList() {
         try {
-            return new ArrayList<APITopURLStaticData>(urlList.values());
+            return new ArrayList<APIStaticStruct>(urlList.values());
         } catch (Exception e) {
-            return new ArrayList<APITopURLStaticData>();
+            return new ArrayList<APIStaticStruct>();
         }
     }
 

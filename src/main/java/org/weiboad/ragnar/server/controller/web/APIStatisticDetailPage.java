@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.weiboad.ragnar.server.config.FieryConfig;
 import org.weiboad.ragnar.server.controller.ragnarlog.PutMetalog;
-import org.weiboad.ragnar.server.data.ResponseJson;
-import org.weiboad.ragnar.server.data.statics.APITopURLStaticShardCollect;
+import org.weiboad.ragnar.server.struct.ResponseJson;
+import org.weiboad.ragnar.server.struct.statics.APIStaticTimeSet;
 import org.weiboad.ragnar.server.search.IndexService;
 import org.weiboad.ragnar.server.util.DateTimeHelper;
 
@@ -30,7 +30,7 @@ public class APIStatisticDetailPage {
     FieryConfig fieryConfig;
 
     @Autowired
-    APITopURLStaticShardCollect apiTopURLStaticShardCollect;
+    APIStaticTimeSet apiStaticTimeSet;
 
     Logger log = LoggerFactory.getLogger(PutMetalog.class);
 
@@ -50,4 +50,3 @@ public class APIStatisticDetailPage {
         return "apistatisticdetail";
     }
 }
-

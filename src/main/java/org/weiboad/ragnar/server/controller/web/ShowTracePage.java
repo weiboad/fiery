@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.weiboad.ragnar.server.config.FieryConfig;
-import org.weiboad.ragnar.server.data.MetaLog;
-import org.weiboad.ragnar.server.data.ResponseJson;
+import org.weiboad.ragnar.server.struct.MetaLog;
+import org.weiboad.ragnar.server.struct.ResponseJson;
 import org.weiboad.ragnar.server.search.IndexService;
 import org.weiboad.ragnar.server.storage.DBManage;
 import org.weiboad.ragnar.server.storage.DBSharder;
@@ -84,9 +84,10 @@ public class ShowTracePage {
             model.addAttribute("starttimedate", startdate);
 
             //rpcid and logs data map
+            //rpcid and logs struct map
             Map<String, String> loglist = new TreeMap<String, String>(new RPCIDKeySortComparator());
 
-            //rpcid and ragnarlog data map
+            //rpcid and ragnarlog struct map
             Map<String, MetaLog> indexlist = new TreeMap<String, MetaLog>(new RPCIDKeySortComparator());
 
             //get the log from kvDB

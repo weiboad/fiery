@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.weiboad.ragnar.server.config.FieryConfig;
-import org.weiboad.ragnar.server.data.statics.PerformInfo;
+import org.weiboad.ragnar.server.struct.statics.PerformInfo;
 import org.weiboad.ragnar.server.storage.DBManage;
 import org.weiboad.ragnar.server.util.DateTimeHelper;
 
@@ -20,12 +20,12 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 @Scope("singleton")
-public class LogAPIStatics {
+public class DependAPIStatics {
 
     @Autowired
     DBManage dbmanager;
 
-    private Logger log = LoggerFactory.getLogger(LogAPIStatics.class);
+    private Logger log = LoggerFactory.getLogger(DependAPIStatics.class);
 
     private Map<String, Map<Integer, PerformInfo>> _performMap = new ConcurrentHashMap<>();
 

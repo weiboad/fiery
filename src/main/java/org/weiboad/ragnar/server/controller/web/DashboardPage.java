@@ -5,12 +5,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.weiboad.ragnar.server.data.statics.APITopURLStaticShardCollect;
+import org.weiboad.ragnar.server.struct.statics.APIStaticTimeSet;
 import org.weiboad.ragnar.server.processor.BizLogProcessor;
 import org.weiboad.ragnar.server.processor.MetaLogProcessor;
 import org.weiboad.ragnar.server.search.IndexService;
 import org.weiboad.ragnar.server.statistics.ErrorStatics;
-import org.weiboad.ragnar.server.statistics.LogAPIStatics;
+import org.weiboad.ragnar.server.statistics.DependAPIStatics;
 import org.weiboad.ragnar.server.statistics.SQLStatics;
 import org.weiboad.ragnar.server.storage.DBManage;
 
@@ -29,13 +29,13 @@ public class DashboardPage {
     ErrorStatics errorStatics;
 
     @Autowired
-    LogAPIStatics logAPIStatics;
+    DependAPIStatics dependAPIStatics;
 
     @Autowired
     SQLStatics sqlStatics;
 
     @Autowired
-    APITopURLStaticShardCollect apiTopURLStaticShardCollect;
+    APIStaticTimeSet apiStaticTimeSet;
 
     @Autowired
     BizLogProcessor bizLogProcessor;
@@ -75,7 +75,7 @@ public class DashboardPage {
         model.addAttribute("exceptionStatic", exceptionStatic);
 
         //api top statics
-        Map<String, Integer> apitopStatic = apiTopURLStaticShardCollect.getAPITOPStatics();
+        Map<String, Integer> apitopStatic = apiStaticTimeSet.getAPITOPStatics();
         model.addAttribute("apitopStatic", apitopStatic);
 
         model.addAttribute("metalogQueueLen", metaLogProcessor.getQueueLen());

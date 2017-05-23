@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.weiboad.ragnar.server.config.FieryConfig;
-import org.weiboad.ragnar.server.data.statics.LogInfo;
+import org.weiboad.ragnar.server.struct.statics.LogInfo;
 import org.weiboad.ragnar.server.util.DateTimeHelper;
 import org.weiboad.ragnar.server.util.SimHash;
 

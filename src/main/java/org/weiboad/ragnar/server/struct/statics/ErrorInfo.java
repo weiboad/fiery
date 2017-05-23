@@ -1,4 +1,4 @@
-package org.weiboad.ragnar.server.data.statics;
+package org.weiboad.ragnar.server.struct.statics;
 
 public class ErrorInfo {
     //first and second log str

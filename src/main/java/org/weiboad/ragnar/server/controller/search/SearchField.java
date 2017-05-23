@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.weiboad.ragnar.server.controller.ragnarlog.PutMetalog;
-import org.weiboad.ragnar.server.data.ResponseJson;
+import org.weiboad.ragnar.server.struct.ResponseJson;
 import org.weiboad.ragnar.server.search.IndexService;
 
 import java.util.HashMap;

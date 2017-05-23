@@ -35,9 +35,9 @@
     <#return
     '<tr class="info">
         <td>
-            <label class="label label-info">开始时间:</label>${val.starttime}
-            <label class="label label-info">最后更新:</label>${val.endtime}
-            <label class="label label-info">捕获次数:</label>${val.count}
+            <label class="label label-info">开始时间: </label>${val.starttime}
+            <label class="label label-info">最后更新: </label>${val.endtime}
+            <label class="label label-info">捕获次数: </label>${val.count}
             <form method="get" action="showtrace" target="_blank"
                   style="margin:0;display:inline-block; width: 120px;float: right;">
                 <input type="hidden" name="traceid" value="${val.oldtraceid}"/>
