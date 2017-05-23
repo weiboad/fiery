@@ -69,7 +69,7 @@ nginx -s reload
     ServerName my.demo.com
     ErrorLog "logs/my.demo.com-error.log"
     CustomLog "logs/my.demo.com-access.log" common
-    SetEnv RAGNAR_LOGPATH "DEV"  # 这里
+    SetEnv RAGNAR_LOGPATH "/data1/ragnar/"  # 这里
     SetEnv RAGNAR_IDC "0"  # 这里
     SetEnv RAGNAR_IP "192.168.1.123"  # 这里
 
