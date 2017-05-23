@@ -39,7 +39,7 @@ example：
             fastcgi_index index.php;
             fastcgi_pass 127.0.0.1:9000;
             include fastcgi_params;
-            include weiboad_fastcgi_params; # 这里
+            include fiery_fastcgi_params; # 这里
             fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
             fastcgi_read_timeout 600;
         }
