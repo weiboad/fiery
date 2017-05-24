@@ -77,6 +77,15 @@ public class LogPusherMain {
             }
         } catch (Exception e) {
             log.error(e.getMessage());
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (Exception e) {
+
+                }
+            }
+
         }
 
         fileInfo.get(filepath).put("offset", offset);

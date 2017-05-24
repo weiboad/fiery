@@ -31,7 +31,7 @@ Fiery
  4. mkdir logs index db
  5. Startup the Fiery Server by command:
  ```
- java -Xms3750m -Xmx3750m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar ragnarserver-0.5.1-SNAPSHOT.jar -type server --server.port=9090
+ java -XX:-MaxFDLimit -Xms3750m -Xmx3750m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar ragnarserver-0.5.1-SNAPSHOT.jar -type server --server.port=9090
  ```
  6. Browse the web address http://127.0.0.1:9090/ragnar/
 
@@ -42,7 +42,7 @@ Fiery
 ### LogPusher
 
  ```
- nohup java -Xms128m -Xmx450m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar ragnarserver-0.5.1-SNAPSHOT.jar -type logpush -path [ragnarsdklogpath] -host [ip:port] -outtime 7 &
+ nohup java -XX:-MaxFDLimit -Xms128m -Xmx450m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar ragnarserver-0.5.1-SNAPSHOT.jar -type logpush -path [ragnarsdklogpath] -host [ip:port] -outtime 7 &
  ```
 
 #### Todo
