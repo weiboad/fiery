@@ -467,6 +467,10 @@ public class ShowTracePage {
         ///////////////////////
         String logString = loglist.get(renderrRPCid);
 
+        if(logString == null){
+            return;
+        }
+
         try {
 
             JsonParser jsonparserHelper = new JsonParser();

@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.weiboad.ragnar.server.statistics.error.ErrorStatistic;
 import org.weiboad.ragnar.server.statistics.dependapi.DependAPIStatistic;
+import org.weiboad.ragnar.server.statistics.error.ErrorStatistic;
 import org.weiboad.ragnar.server.statistics.sql.SQLStatistic;
 import org.weiboad.ragnar.server.storage.DBManage;
 import org.weiboad.ragnar.server.storage.DBSharder;
@@ -134,13 +134,19 @@ public class BizLogProcessor {
 
                     //curl mysql
                     if (bflog.equals("curl")) {
-                        if (msgObj.get("url").isJsonNull()) {
+                        if (!msgObj.has("url")) {
                             continue;
                         }
 
                         String url = msgObj.get("url").getAsString();
+
+                        //ignore the not have
+                        if (!msgObj.has("info")) {
+                            continue;
+                        }
                         JsonObject infoObj = msgObj.get("info").getAsJsonObject();
-                        if (infoObj.get("http_code").isJsonNull()) {
+
+                        if (!infoObj.has("http_code")) {
                             continue;
                         }
 
