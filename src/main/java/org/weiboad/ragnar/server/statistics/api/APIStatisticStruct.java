@@ -1,4 +1,4 @@
-package org.weiboad.ragnar.server.struct.statics;
+package org.weiboad.ragnar.server.statistics.api;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,7 +7,7 @@ import org.weiboad.ragnar.server.struct.MetaLog;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class APIStaticStruct {
+public class APIStatisticStruct {
 
     public String url = "";
 
@@ -32,9 +32,9 @@ public class APIStaticStruct {
     //code && count
     public ConcurrentHashMap<String, AtomicLong> code_count = new ConcurrentHashMap<String, AtomicLong>();
 
-    Logger log = LoggerFactory.getLogger(APIStaticStruct.class);
+    Logger log = LoggerFactory.getLogger(APIStatisticStruct.class);
 
-    public APIStaticStruct(String url) {
+    public APIStatisticStruct(String url) {
         this.url = url;
     }
 

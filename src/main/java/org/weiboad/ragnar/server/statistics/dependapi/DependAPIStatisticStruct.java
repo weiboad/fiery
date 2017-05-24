@@ -1,9 +1,9 @@
-package org.weiboad.ragnar.server.struct.statics;
+package org.weiboad.ragnar.server.statistics.dependapi;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class PerformInfo {
+public class DependAPIStatisticStruct {
     //耗时最短的时间
     public Double fastTime;
 

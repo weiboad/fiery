@@ -1,4 +1,4 @@
-package org.weiboad.ragnar.server.statistics;
+package org.weiboad.ragnar.server.statistics.sql;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.weiboad.ragnar.server.config.FieryConfig;
-import org.weiboad.ragnar.server.struct.statics.SqlStruct;
+import org.weiboad.ragnar.server.statistics.dependapi.DependAPIStatistic;
 import org.weiboad.ragnar.server.storage.DBManage;
 import org.weiboad.ragnar.server.util.DateTimeHelper;
 
@@ -20,19 +20,19 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 @Scope("singleton")
-public class SQLStatics {
+public class SQLStatistic {
 
     @Autowired
     DBManage dbmanager;
 
     @Autowired
-    DependAPIStatics logAPi;
+    DependAPIStatistic logAPi;
 
     @Autowired
     FieryConfig fieryConfig;
 
-    private Map<String, Map<Integer, SqlStruct>> _sqlMap = new ConcurrentHashMap<>();
-    private Logger log = LoggerFactory.getLogger(SQLStatics.class);
+    private Map<String, Map<Integer, SqlStatisticStruct>> _sqlMap = new ConcurrentHashMap<>();
+    private Logger log = LoggerFactory.getLogger(SQLStatistic.class);
 
     public void addSqlMap(String sqlStr, Integer hour, Double costTime) {
         if (sqlStr == null) {
@@ -101,7 +101,7 @@ public class SQLStatics {
             sqlStrPre = sqlStrPre.substring(0, index);
         }
         boolean issame = false;
-        for (Map.Entry<String, Map<Integer, SqlStruct>> entry : _sqlMap.entrySet()) {
+        for (Map.Entry<String, Map<Integer, SqlStatisticStruct>> entry : _sqlMap.entrySet()) {
             if (sqlStrPre.equals(entry.getKey())) {
                 addHourMap(entry.getValue(), sqlStr, hour, costTime);
                 issame = true;
@@ -109,16 +109,16 @@ public class SQLStatics {
             }
         }
         if (!issame) {
-            Map<Integer, SqlStruct> hourMap = new HashMap<Integer, SqlStruct>();
+            Map<Integer, SqlStatisticStruct> hourMap = new HashMap<Integer, SqlStatisticStruct>();
             addHourMap(hourMap, sqlStr, hour, costTime);
             _sqlMap.put(sqlStrPre, hourMap);
         }
     }
 
-    private void addHourMap(Map<Integer, SqlStruct> hourMap, String sqlStr, Integer hour, Double cost) {
-        SqlStruct struct;
+    private void addHourMap(Map<Integer, SqlStatisticStruct> hourMap, String sqlStr, Integer hour, Double cost) {
+        SqlStatisticStruct struct;
         if (!hourMap.containsKey(hour)) {
-            struct = new SqlStruct();
+            struct = new SqlStatisticStruct();
             struct.fastTime = cost;
             struct.slowTime = cost;
             struct.sqlStr = sqlStr;
@@ -168,48 +168,48 @@ public class SQLStatics {
         Long start = DateTimeHelper.getTimesMorning(DateTimeHelper.getBeforeDay(daytime));
         Long end = start + 24 * 60 * 60 - 1;
         Map<String, Map<String, String>> list = new HashMap<String, Map<String, String>>();
-        for (Map.Entry<String, Map<Integer, SqlStruct>> ent : _sqlMap.entrySet()) {
-            SqlStruct sqlStruct = new SqlStruct();
-            sqlStruct.fastTime = 0.0;
-            sqlStruct.slowTime = 0.0;
-            for (Map.Entry<Integer, SqlStruct> ent1 : ent.getValue().entrySet()) {
+        for (Map.Entry<String, Map<Integer, SqlStatisticStruct>> ent : _sqlMap.entrySet()) {
+            SqlStatisticStruct sqlStatisticStruct = new SqlStatisticStruct();
+            sqlStatisticStruct.fastTime = 0.0;
+            sqlStatisticStruct.slowTime = 0.0;
+            for (Map.Entry<Integer, SqlStatisticStruct> ent1 : ent.getValue().entrySet()) {
                 if (ent1.getKey() < start || ent1.getKey() > end) {
                     continue;
                 }
-                sqlStruct.sqlStr = ent1.getValue().sqlStr;
-                if (sqlStruct.fastTime == 0 || ent1.getValue().fastTime < sqlStruct.fastTime) {
-                    sqlStruct.fastTime = ent1.getValue().fastTime;
+                sqlStatisticStruct.sqlStr = ent1.getValue().sqlStr;
+                if (sqlStatisticStruct.fastTime == 0 || ent1.getValue().fastTime < sqlStatisticStruct.fastTime) {
+                    sqlStatisticStruct.fastTime = ent1.getValue().fastTime;
                 }
-                if (sqlStruct.slowTime == 0 || ent1.getValue().slowTime > sqlStruct.slowTime) {
-                    sqlStruct.slowTime = ent1.getValue().slowTime;
+                if (sqlStatisticStruct.slowTime == 0 || ent1.getValue().slowTime > sqlStatisticStruct.slowTime) {
+                    sqlStatisticStruct.slowTime = ent1.getValue().slowTime;
                 }
-                sqlStruct.sumTime[0] += ent1.getValue().sumTime[0];
-                sqlStruct.sumTime[1] += ent1.getValue().sumTime[1];
-                sqlStruct.sumTime[2] += ent1.getValue().sumTime[2];
-                sqlStruct.sumTime[3] += ent1.getValue().sumTime[3];
-                sqlStruct.sumCount[0] += ent1.getValue().sumCount[0];
-                sqlStruct.sumCount[1] += ent1.getValue().sumCount[1];
-                sqlStruct.sumCount[2] += ent1.getValue().sumCount[2];
-                sqlStruct.sumCount[3] += ent1.getValue().sumCount[3];
+                sqlStatisticStruct.sumTime[0] += ent1.getValue().sumTime[0];
+                sqlStatisticStruct.sumTime[1] += ent1.getValue().sumTime[1];
+                sqlStatisticStruct.sumTime[2] += ent1.getValue().sumTime[2];
+                sqlStatisticStruct.sumTime[3] += ent1.getValue().sumTime[3];
+                sqlStatisticStruct.sumCount[0] += ent1.getValue().sumCount[0];
+                sqlStatisticStruct.sumCount[1] += ent1.getValue().sumCount[1];
+                sqlStatisticStruct.sumCount[2] += ent1.getValue().sumCount[2];
+                sqlStatisticStruct.sumCount[3] += ent1.getValue().sumCount[3];
             }
             Map<String, String> performJson = new HashMap<String, String>();
-            Integer sumcount = sqlStruct.sumCount[0] + sqlStruct.sumCount[1] + sqlStruct.sumCount[2] + sqlStruct.sumCount[3];
+            Integer sumcount = sqlStatisticStruct.sumCount[0] + sqlStatisticStruct.sumCount[1] + sqlStatisticStruct.sumCount[2] + sqlStatisticStruct.sumCount[3];
             if (sumcount == 0) {
                 continue;
             }
-            performJson.put("sql", sqlStruct.sqlStr);
-            //Double fasttime = sqlStruct.fastTime*1000;
-            //Double slowtime = sqlStruct.slowTime*1000;
-            performJson.put("fasttime", getDoubleTime(sqlStruct.fastTime));
-            performJson.put("slowtime", getDoubleTime(sqlStruct.slowTime));
+            performJson.put("sql", sqlStatisticStruct.sqlStr);
+            //Double fasttime = sqlStatisticStruct.fastTime*1000;
+            //Double slowtime = sqlStatisticStruct.slowTime*1000;
+            performJson.put("fasttime", getDoubleTime(sqlStatisticStruct.fastTime));
+            performJson.put("slowtime", getDoubleTime(sqlStatisticStruct.slowTime));
             performJson.put("sumcount", sumcount.toString());
-            //System.out.print(sqlStruct.sumCount[0]);
+            //System.out.print(sqlStatisticStruct.sumCount[0]);
 
 
-            performJson.put("two", getPercent(sqlStruct.sumCount[0], sumcount));
-            performJson.put("five", getPercent(sqlStruct.sumCount[1], sumcount));
-            performJson.put("ten", getPercent(sqlStruct.sumCount[2], sumcount));
-            performJson.put("twenty", getPercent(sqlStruct.sumCount[3], sumcount));
+            performJson.put("two", getPercent(sqlStatisticStruct.sumCount[0], sumcount));
+            performJson.put("five", getPercent(sqlStatisticStruct.sumCount[1], sumcount));
+            performJson.put("ten", getPercent(sqlStatisticStruct.sumCount[2], sumcount));
+            performJson.put("twenty", getPercent(sqlStatisticStruct.sumCount[3], sumcount));
             list.put(ent.getKey(), performJson);
         }
         return list;
@@ -226,7 +226,7 @@ public class SQLStatics {
         Long start = DateTimeHelper.getTimesMorning(DateTimeHelper.getBeforeDay(daytime));
         Long end = start + 24 * 60 * 60 - 1;
         String sqlStr = "";
-        for (Map.Entry<Integer, SqlStruct> hourmap : _sqlMap.get(sql).entrySet()) {
+        for (Map.Entry<Integer, SqlStatisticStruct> hourmap : _sqlMap.get(sql).entrySet()) {
             if (hourmap.getKey() < start || hourmap.getKey() > end) {
                 continue;
             }
@@ -274,10 +274,10 @@ public class SQLStatics {
     public boolean DelOutTimeSqlLog() {
         if (_sqlMap.size() > 0) {
             Map<String, ArrayList<Integer>> delSqlMap = new Hashtable<>();
-            for (Map.Entry<String, Map<Integer, SqlStruct>> ent : _sqlMap.entrySet()) {
+            for (Map.Entry<String, Map<Integer, SqlStatisticStruct>> ent : _sqlMap.entrySet()) {
                 ArrayList<Integer> delList = new ArrayList<>();
                 if (ent.getValue().size() > 0) {
-                    for (Map.Entry<Integer, SqlStruct> hourent : ent.getValue().entrySet()) {
+                    for (Map.Entry<Integer, SqlStatisticStruct> hourent : ent.getValue().entrySet()) {
                         if (hourent.getKey() >= DateTimeHelper.getCurrentTime() - fieryConfig.getKeepdataday() * 86400) {
                             continue;
                         }

@@ -55,24 +55,6 @@ public class IndexSearchSharderManager {
         log = LoggerFactory.getLogger(IndexSearchSharderManager.class);
     }
 
-    /*
-
-public IndexSearchSharder acquireShardIndex(Long timestamp) {
-    long shardtime = DateTimeHelper.getTimesmorning(timestamp);
-    if (indexSharderList.containsKey(shardtime)) {
-        return indexSharderList.get(shardtime);
-    } else {
-        try {
-            log.info("Loading Index " + shardtime);
-            indexSharderList.put(shardtime, new IndexSearchSharder(fieryConfig.getIndexpath(), Long.toString(shardtime)));
-            return indexSharderList.get(shardtime);
-        } catch (Exception e) {
-            indexSharderList.remove(shardtime);
-            return null;
-        }
-    return null;
-}
-    }*/
     public Map<String, Map<String, String>> getSearchIndexInfo() {
         Map<String, Map<String, String>> result = new LinkedHashMap<>();
 

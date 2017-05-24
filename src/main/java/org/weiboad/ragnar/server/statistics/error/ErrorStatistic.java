@@ -1,4 +1,4 @@
-package org.weiboad.ragnar.server.statistics;
+package org.weiboad.ragnar.server.statistics.error;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.weiboad.ragnar.server.config.FieryConfig;
-import org.weiboad.ragnar.server.struct.statics.LogInfo;
 import org.weiboad.ragnar.server.util.DateTimeHelper;
 import org.weiboad.ragnar.server.util.SimHash;
 
@@ -18,15 +17,15 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 @Scope("singleton")
-public class ErrorStatics {
+public class ErrorStatistic {
 
-    Logger log = LoggerFactory.getLogger(ErrorStatics.class);
+    Logger log = LoggerFactory.getLogger(ErrorStatistic.class);
 
-    private Map<Long, Map<String, LogInfo>> _alarmLogMap = new ConcurrentHashMap<>();
+    private Map<Long, Map<String, ErrorStatisticStruct>> _alarmLogMap = new ConcurrentHashMap<>();
 
-    private Map<Long, Map<String, LogInfo>> _errorLogMap = new ConcurrentHashMap<>();
+    private Map<Long, Map<String, ErrorStatisticStruct>> _errorLogMap = new ConcurrentHashMap<>();
 
-    private Map<Long, Map<String, LogInfo>> _exceptionLogMap = new ConcurrentHashMap<>();
+    private Map<Long, Map<String, ErrorStatisticStruct>> _exceptionLogMap = new ConcurrentHashMap<>();
 
     @Autowired
     FieryConfig fieryConfig;
@@ -80,11 +79,11 @@ public class ErrorStatics {
         return token;
     }
 
-    private void addLogInfo(Map<Long, Map<String, LogInfo>> logMap, String logStr, String token, Long nowTime, String filePath, Integer line, SimHash hash) {
+    private void addLogInfo(Map<Long, Map<String, ErrorStatisticStruct>> logMap, String logStr, String token, Long nowTime, String filePath, Integer line, SimHash hash) {
         long dayTime = DateTimeHelper.getTimesMorning(nowTime);
         boolean issame = false;
         if (logMap.size() != 0 && logMap.get(dayTime) != null) {
-            for (Map.Entry<String, LogInfo> entry : logMap.get(dayTime).entrySet()) {
+            for (Map.Entry<String, ErrorStatisticStruct> entry : logMap.get(dayTime).entrySet()) {
                 if (entry.getValue().getFilePath().equals(filePath) && entry.getValue().getFileLine() == line) {
                     entry.getValue().setCount(entry.getValue().getCount() + 1);
                     entry.getValue().setNewLog(logStr);
@@ -112,7 +111,7 @@ public class ErrorStatics {
             }
         }
         if (!issame) {
-            LogInfo loginfo = new LogInfo();
+            ErrorStatisticStruct loginfo = new ErrorStatisticStruct();
             loginfo.setNewLog(logStr);
             loginfo.setCount(1);
             loginfo.setFileLine(line);
@@ -122,7 +121,7 @@ public class ErrorStatics {
             loginfo.setEndTime(nowTime);
             loginfo.hash = hash;
             if (logMap.get(dayTime) == null) {
-                Map<String, LogInfo> dayMap = new ConcurrentHashMap<>();
+                Map<String, ErrorStatisticStruct> dayMap = new ConcurrentHashMap<>();
                 dayMap.put(hash.getSimHash().toString(), loginfo);
                 logMap.put(dayTime, dayMap);
             } else {
@@ -132,7 +131,7 @@ public class ErrorStatics {
     }
 
     public Map<String, Map<String, String>> getErrorData(Integer type, Long dayTime) {
-        Map<Long, Map<String, LogInfo>> tempMap;
+        Map<Long, Map<String, ErrorStatisticStruct>> tempMap;
         Map<String, Map<String, String>> list = new Hashtable<>();
         if (type == 5) {
             tempMap = _errorLogMap;
@@ -149,7 +148,7 @@ public class ErrorStatics {
         if (tempMap.get(dayTime) == null) {
             return list;
         }
-        for (Map.Entry<String, LogInfo> ent : tempMap.get(dayTime).entrySet()) {
+        for (Map.Entry<String, ErrorStatisticStruct> ent : tempMap.get(dayTime).entrySet()) {
             Map<String, String> data = new HashMap<String, String>();
             data.put("starttime", DateTimeHelper
                     .TimeStamp2Date(String.valueOf(ent.getValue().getStartTime()), "yyyy-MM-dd HH:mm:ss"));
@@ -180,7 +179,7 @@ public class ErrorStatics {
     }
 
     public String DelLogInfo(String hashcode, Long dayTime, int type) {
-        Map<Long, Map<String, LogInfo>> logMap;
+        Map<Long, Map<String, ErrorStatisticStruct>> logMap;
         if (type == 5) {
             logMap = _errorLogMap;
         } else if (type == 6) {
@@ -203,7 +202,7 @@ public class ErrorStatics {
     public Map<String, Integer> getAlaramStatics() {
         Map<String, Integer> result = new LinkedHashMap<>();
 
-        for (Map.Entry<Long, Map<String, LogInfo>> ent : _alarmLogMap.entrySet()) {
+        for (Map.Entry<Long, Map<String, ErrorStatisticStruct>> ent : _alarmLogMap.entrySet()) {
             result.put(ent.getKey() + "", ent.getValue().size());
         }
         return result;
@@ -212,7 +211,7 @@ public class ErrorStatics {
     public Map<String, Integer> getErrorStatics() {
         Map<String, Integer> result = new LinkedHashMap<>();
 
-        for (Map.Entry<Long, Map<String, LogInfo>> ent : _errorLogMap.entrySet()) {
+        for (Map.Entry<Long, Map<String, ErrorStatisticStruct>> ent : _errorLogMap.entrySet()) {
             result.put(ent.getKey() + "", ent.getValue().size());
         }
         return result;
@@ -221,7 +220,7 @@ public class ErrorStatics {
     public Map<String, Integer> getExceptionStatics() {
         Map<String, Integer> result = new LinkedHashMap<>();
 
-        for (Map.Entry<Long, Map<String, LogInfo>> ent : _exceptionLogMap.entrySet()) {
+        for (Map.Entry<Long, Map<String, ErrorStatisticStruct>> ent : _exceptionLogMap.entrySet()) {
             result.put(ent.getKey() + "", ent.getValue().size());
         }
         return result;
@@ -231,7 +230,7 @@ public class ErrorStatics {
     public boolean DelOutTimeLog() {
         if (_errorLogMap.size() > 0) {
             ArrayList<Long> errorList = new ArrayList<>();
-            for (Map.Entry<Long, Map<String, LogInfo>> ent : _errorLogMap.entrySet()) {
+            for (Map.Entry<Long, Map<String, ErrorStatisticStruct>> ent : _errorLogMap.entrySet()) {
                 if (ent.getKey() >= DateTimeHelper.getCurrentTime() - fieryConfig.getKeepdataday() * 86400) {
                     continue;
                 }
@@ -245,7 +244,7 @@ public class ErrorStatics {
         }
         if (_alarmLogMap.size() >= 0) {
             ArrayList<Long> alarmList = new ArrayList<>();
-            for (Map.Entry<Long, Map<String, LogInfo>> ent : _alarmLogMap.entrySet()) {
+            for (Map.Entry<Long, Map<String, ErrorStatisticStruct>> ent : _alarmLogMap.entrySet()) {
                 if (ent.getKey() >= DateTimeHelper.getCurrentTime() - fieryConfig.getKeepdataday() * 86400) {
                     continue;
                 }
@@ -259,7 +258,7 @@ public class ErrorStatics {
         }
         if (_exceptionLogMap.size() > 0) {
             ArrayList<Long> exceptionList = new ArrayList<>();
-            for (Map.Entry<Long, Map<String, LogInfo>> ent : _exceptionLogMap.entrySet()) {
+            for (Map.Entry<Long, Map<String, ErrorStatisticStruct>> ent : _exceptionLogMap.entrySet()) {
                 if (ent.getKey() >= DateTimeHelper.getCurrentTime() - fieryConfig.getKeepdataday() * 86400) {
                     continue;
                 }

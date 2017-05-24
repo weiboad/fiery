@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.weiboad.ragnar.server.statistics.ErrorStatics;
-import org.weiboad.ragnar.server.statistics.DependAPIStatics;
-import org.weiboad.ragnar.server.statistics.SQLStatics;
+import org.weiboad.ragnar.server.statistics.error.ErrorStatistic;
+import org.weiboad.ragnar.server.statistics.dependapi.DependAPIStatistic;
+import org.weiboad.ragnar.server.statistics.sql.SQLStatistic;
 import org.weiboad.ragnar.server.storage.DBManage;
 import org.weiboad.ragnar.server.storage.DBSharder;
 import org.weiboad.ragnar.server.util.DateTimeHelper;
@@ -31,13 +31,13 @@ public class BizLogProcessor {
     private DBManage dbmanager;
 
     @Autowired
-    private DependAPIStatics logApi;
+    private DependAPIStatistic logApi;
 
     @Autowired
-    private SQLStatics sqlStatics;
+    private SQLStatistic sqlStatistic;
 
     @Autowired
-    private ErrorStatics errorStatics;
+    private ErrorStatistic errorStatistic;
 
     BizLogProcessor() {
 
@@ -84,7 +84,7 @@ public class BizLogProcessor {
                     log.error(e.getMessage());
                 }
 
-                //statics
+                //statistic
                 JsonArray arr = valueObj.get("val").getAsJsonArray();
                 for (int k = 0; k < arr.size(); k++) {
                     JsonObject obj = arr.get(k).getAsJsonObject();
@@ -92,6 +92,7 @@ public class BizLogProcessor {
                     String path = obj.get("p").getAsString();
                     String line = obj.get("l").getAsString();
 
+                    //error
                     if (5 == type || 6 == type || 7 == type) {
                         JsonObject mObj = obj.get("m").getAsJsonObject();
                         mObj.addProperty("mytraceid", traceid);
@@ -99,7 +100,7 @@ public class BizLogProcessor {
                         mObj.addProperty("filepath", path);
                         mObj.addProperty("fileline", line);
                         String msg = mObj.toString();
-                        errorStatics.addAlarmLogMap(type, msg, timestampLong);
+                        errorStatistic.addAlarmLogMap(type, msg, timestampLong);
                         continue;
                     }
 
@@ -131,6 +132,7 @@ public class BizLogProcessor {
                         }
                     }
 
+                    //curl mysql
                     if (bflog.equals("curl")) {
                         if (msgObj.get("url").isJsonNull()) {
                             continue;
@@ -152,7 +154,7 @@ public class BizLogProcessor {
                         }
 
                         String sql = msgObj.get("sql").getAsString();
-                        sqlStatics.addSqlMap(sql, hourTime, costTime);
+                        sqlStatistic.addSqlMap(sql, hourTime, costTime);
                     }
                 }
             }
