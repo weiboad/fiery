@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.weiboad.ragnar.server.controller.ragnarlog.PutMetalog;
-import org.weiboad.ragnar.server.data.ResponseJson;
+import org.weiboad.ragnar.server.struct.ResponseJson;
 import org.weiboad.ragnar.server.search.IndexService;
 import org.weiboad.ragnar.server.util.DateTimeHelper;
 
@@ -54,7 +54,7 @@ public class SearchPage {
             query = mulFieldQueryParser.parse(keyword);
         } catch (Exception e) {
             model.addAttribute("msg", "query parser error");
-            return "searchpage";
+            return "search";
         }
 
         Sort sort = new Sort(new SortField("time", SortField.Type.DOUBLE, true));
@@ -62,6 +62,6 @@ public class SearchPage {
         ResponseJson result = indexHelper.searchByQuery(DateTimeHelper.getCurrentTime(), query, 0, 1000, sort);
         model.addAttribute("resultlist", result.getResult());
         model.addAttribute("keyword", keyword);
-        return "searchpage";
+        return "search";
     }
 }

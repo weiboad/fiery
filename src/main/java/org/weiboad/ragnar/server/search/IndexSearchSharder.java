@@ -14,8 +14,8 @@ import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.BytesRef;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.weiboad.ragnar.server.data.MetaLog;
-import org.weiboad.ragnar.server.data.ResponseJson;
+import org.weiboad.ragnar.server.struct.MetaLog;
+import org.weiboad.ragnar.server.struct.ResponseJson;
 
 import java.nio.file.Paths;
 import java.util.ArrayList;

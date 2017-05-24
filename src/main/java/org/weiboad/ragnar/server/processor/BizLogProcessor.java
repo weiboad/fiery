@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.weiboad.ragnar.server.statistics.ErrorStatics;
-import org.weiboad.ragnar.server.statistics.LogAPIStatics;
+import org.weiboad.ragnar.server.statistics.DependAPIStatics;
 import org.weiboad.ragnar.server.statistics.SQLStatics;
 import org.weiboad.ragnar.server.storage.DBManage;
 import org.weiboad.ragnar.server.storage.DBSharder;
@@ -31,7 +31,7 @@ public class BizLogProcessor {
     private DBManage dbmanager;
 
     @Autowired
-    private LogAPIStatics logApi;
+    private DependAPIStatics logApi;
 
     @Autowired
     private SQLStatics sqlStatics;
@@ -47,7 +47,7 @@ public class BizLogProcessor {
         return BizLogQueue.size();
     }
 
-    //main process data
+    //main process struct
     public void insertDataQueue(JsonArray data) {
         if (data != null) {
             BizLogQueue.add(data);

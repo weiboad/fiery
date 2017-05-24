@@ -39,7 +39,7 @@ public class FieryErrorPage implements ErrorController {
         model.addAttribute("trace", (String) mapobj.get("trace"));
         model.addAttribute("msg", (String) getErrorAttributes(request, true).get("message"));
 
-        return "fieryerrorpage";
+        return "error";
     }
 
     public boolean isDebug() {

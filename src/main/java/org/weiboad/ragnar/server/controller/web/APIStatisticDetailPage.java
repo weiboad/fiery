@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.weiboad.ragnar.server.config.FieryConfig;
 import org.weiboad.ragnar.server.controller.ragnarlog.PutMetalog;
-import org.weiboad.ragnar.server.data.ResponseJson;
-import org.weiboad.ragnar.server.data.statics.APITopURLStaticShardCollect;
+import org.weiboad.ragnar.server.struct.ResponseJson;
+import org.weiboad.ragnar.server.struct.statics.APIStaticTimeSet;
 import org.weiboad.ragnar.server.search.IndexService;
 import org.weiboad.ragnar.server.util.DateTimeHelper;
 
 @Controller
-public class APITopDetailPage {
+public class APIStatisticDetailPage {
 
     @Autowired
     IndexService indexHelper;
@@ -30,11 +30,11 @@ public class APITopDetailPage {
     FieryConfig fieryConfig;
 
     @Autowired
-    APITopURLStaticShardCollect apiTopURLStaticShardCollect;
+    APIStaticTimeSet apiStaticTimeSet;
 
     Logger log = LoggerFactory.getLogger(PutMetalog.class);
 
-    @RequestMapping(value = "/apitopdetail", method = RequestMethod.GET)
+    @RequestMapping(value = "/apistatisticdetail", method = RequestMethod.GET)
     public String currentlog(Model model, @RequestParam(value = "url", required = false, defaultValue = "") String keyword) {
 
         Query query;
@@ -47,7 +47,6 @@ public class APITopDetailPage {
         model.addAttribute("resultlist", result.getResult());
         model.addAttribute("url", keyword);
 
-        return "apitopdetailpage";
+        return "apistatisticdetail";
     }
 }
-

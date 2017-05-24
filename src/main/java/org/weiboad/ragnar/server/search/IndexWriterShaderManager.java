@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.weiboad.ragnar.server.config.FieryConfig;
-import org.weiboad.ragnar.server.data.MetaLog;
+import org.weiboad.ragnar.server.struct.MetaLog;
 import org.weiboad.ragnar.server.util.DateTimeHelper;
 
 import java.nio.file.Paths;
@@ -38,7 +38,7 @@ public class IndexWriterShaderManager {
     //writer
     private HashMap<String, IndexWriter> diskWriterList;
 
-    //init the data queue
+    //init the struct queue
     private HashMap<String, ConcurrentLinkedQueue<MetaLog>> IndexInputQueueList;
 
     @Autowired

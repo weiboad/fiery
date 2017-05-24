@@ -14,8 +14,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.weiboad.ragnar.server.config.FieryConfig;
-import org.weiboad.ragnar.server.data.MetaLog;
-import org.weiboad.ragnar.server.data.ResponseJson;
+import org.weiboad.ragnar.server.struct.MetaLog;
+import org.weiboad.ragnar.server.struct.ResponseJson;
 import org.weiboad.ragnar.server.util.DateTimeHelper;
 import org.weiboad.ragnar.server.util.FileUtil;
 

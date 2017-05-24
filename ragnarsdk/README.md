@@ -61,6 +61,26 @@ nginx -s reload
 
 ```
 
+#### Apache 配置环境变量
+```
+<VirtualHost *:80>
+    ServerAdmin webmaster@demo.com
+    DocumentRoot "e:\wwwroot\demo"
+    ServerName my.demo.com
+    ErrorLog "logs/my.demo.com-error.log"
+    CustomLog "logs/my.demo.com-access.log" common
+    SetEnv RAGNAR_LOGPATH /data1/ragnar/  # 这里
+    SetEnv RAGNAR_IDC 0  # 这里
+    SetEnv RAGNAR_IP 192.168.1.123  # 这里
+
+    <Directory "e:\wwwroot\demo">
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+</VirtualHost>
+```
+
 #### Ragnar 埋点库植入说明
 
 在项目框架初始化入口初始化Ragnar

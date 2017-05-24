@@ -69,15 +69,18 @@
         </div>
         <div class="col-md-12">
             <div class="form-group">
-                <h4>调用关系<#if oldstyle == "1"> <a href="?traceid=${traceid}&rpcid=0&oldstyle=0" type="button"
-                                                 >兼容模式</a><#else> <a
-                        href="?traceid=${traceid}&rpcid=0&oldstyle=1" type="button"
-                        >递归渲染</a></#if></h4>
+                <h4>调用关系
+
+                </h4>
 
                 <div class="form-group" style="overflow-y: scroll">
                     <table class="table table-hover" style="width: 1600px">
                         <tr>
-                            <th>URL</th>
+                            <th>URL <#if oldstyle == "1">
+                                <a href="?traceid=${traceid}&rpcid=0&oldstyle=0" type="button" class="small" style="color: red;">兼容模式</a>
+                            <#else>
+                                <a href="?traceid=${traceid}&rpcid=0&oldstyle=1" type="button" class="small" style="color: blue;">递归渲染</a>
+                            </#if></th>
                             <th>RPCID</th>
                             <th>Type/Code</th>
                             <th>响应(ms)</th>

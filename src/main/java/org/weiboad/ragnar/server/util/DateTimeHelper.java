@@ -1,6 +1,8 @@
 package org.weiboad.ragnar.server.util;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class DateTimeHelper {
 
@@ -38,6 +40,19 @@ public class DateTimeHelper {
     //获取当前时间
     public static long getCurrentTime() {
         return System.currentTimeMillis() / 1000;
+    }
+
+    public static List<String> getDateTimeListForPage(int keepday) {
+        List<String> timelist = new ArrayList<>();
+
+        long timestamp = getCurrentTime();
+        long moringTime = getTimesMorning(timestamp);
+
+        for (int interDay = 0; interDay < keepday; interDay++) {
+            timelist.add(
+                    DateTimeHelper.TimeStamp2Date(String.valueOf(moringTime - (24 * 60 * 60) * interDay), "yyyy-MM-dd"));
+        }
+        return timelist;
     }
 
 }

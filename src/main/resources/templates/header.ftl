@@ -18,17 +18,17 @@
             </ul>
             <ul class="nav navbar-nav">
                 <li class="">
-                    <a href="/ragnar/apitop">性能排行<span class="sr-only">(current)</span></a>
+                    <a href="/ragnar/apistatistic">性能排行<span class="sr-only">(current)</span></a>
                 </li>
             </ul>
             <ul class="nav navbar-nav">
                 <li class="">
-                    <a href="/ragnar/performance">依赖服务性能<span class="sr-only">(current)</span></a>
+                    <a href="/ragnar/dependstatistic">依赖服务性能<span class="sr-only">(current)</span></a>
                 </li>
             </ul>
             <ul class="nav navbar-nav">
                 <li class="">
-                    <a href="/ragnar/sqlperformance">依赖SQL性能<span class="sr-only">(current)</span></a>
+                    <a href="/ragnar/sqlstatistic">依赖SQL性能<span class="sr-only">(current)</span></a>
                 </li>
             </ul>
             <ul class="nav navbar-nav">

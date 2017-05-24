@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.weiboad.ragnar.server.config.FieryConfig;
-import org.weiboad.ragnar.server.data.statics.PerformInfo;
+import org.weiboad.ragnar.server.struct.statics.PerformInfo;
 import org.weiboad.ragnar.server.storage.DBManage;
 import org.weiboad.ragnar.server.util.DateTimeHelper;
 
@@ -20,12 +20,12 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 @Scope("singleton")
-public class LogAPIStatics {
+public class DependAPIStatics {
 
     @Autowired
     DBManage dbmanager;
 
-    private Logger log = LoggerFactory.getLogger(LogAPIStatics.class);
+    private Logger log = LoggerFactory.getLogger(DependAPIStatics.class);
 
     private Map<String, Map<Integer, PerformInfo>> _performMap = new ConcurrentHashMap<>();
 
@@ -99,6 +99,7 @@ public class LogAPIStatics {
         }
     }
 
+    /*
     public Long getStartTime(Integer daytime) {
         Long StartTime = null;
         if (daytime == null || daytime == 0) {
@@ -123,10 +124,10 @@ public class LogAPIStatics {
                     DateTimeHelper.getTimesMorning(System.currentTimeMillis() / 1000 - 6 * 24 * 60 * 60)));
         }
         return StartTime;
-    }
+    }*/
 
     public Map<String, Map<String, String>> getPerformList(Integer daytime) {
-        Long StartTime = this.getStartTime(daytime);
+        Long StartTime = DateTimeHelper.getTimesMorning(DateTimeHelper.getBeforeDay(daytime));
         Long EndTime = StartTime + 24 * 60 * 60 - 1;
         Map<String, Map<String, String>> performList = new HashMap<String, Map<String, String>>();
         for (Map.Entry<String, Map<Integer, PerformInfo>> entry : _performMap.entrySet()) {

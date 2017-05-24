@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.weiboad.ragnar.server.config.FieryConfig;
-import org.weiboad.ragnar.server.data.statics.SqlStruct;
+import org.weiboad.ragnar.server.struct.statics.SqlStruct;
 import org.weiboad.ragnar.server.storage.DBManage;
 import org.weiboad.ragnar.server.util.DateTimeHelper;
 
@@ -26,7 +26,7 @@ public class SQLStatics {
     DBManage dbmanager;
 
     @Autowired
-    LogAPIStatics logAPi;
+    DependAPIStatics logAPi;
 
     @Autowired
     FieryConfig fieryConfig;
@@ -165,7 +165,7 @@ public class SQLStatics {
     }
 
     public Map<String, Map<String, String>> getAllList(Integer daytime) {
-        Long start = logAPi.getStartTime(daytime);
+        Long start = DateTimeHelper.getTimesMorning(DateTimeHelper.getBeforeDay(daytime));
         Long end = start + 24 * 60 * 60 - 1;
         Map<String, Map<String, String>> list = new HashMap<String, Map<String, String>>();
         for (Map.Entry<String, Map<Integer, SqlStruct>> ent : _sqlMap.entrySet()) {
@@ -223,7 +223,7 @@ public class SQLStatics {
         if (_sqlMap.get(sql) == null) {
             return null;
         }
-        Long start = logAPi.getStartTime(daytime);
+        Long start = DateTimeHelper.getTimesMorning(DateTimeHelper.getBeforeDay(daytime));
         Long end = start + 24 * 60 * 60 - 1;
         String sqlStr = "";
         for (Map.Entry<Integer, SqlStruct> hourmap : _sqlMap.get(sql).entrySet()) {
