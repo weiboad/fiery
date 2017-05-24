@@ -10,6 +10,8 @@ import org.weiboad.ragnar.server.struct.ResponseJson;
 import org.weiboad.ragnar.server.processor.MetaLogProcessor;
 import org.weiboad.ragnar.server.search.IndexService;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 public class PutMetalog {
 
@@ -18,6 +20,9 @@ public class PutMetalog {
 
     @Autowired
     MetaLogProcessor metaLogProcessor;
+
+    @Autowired
+    HttpServletRequest request;
 
     Logger log = LoggerFactory.getLogger(PutMetalog.class);
 

@@ -1,8 +1,8 @@
-package org.weiboad.ragnar.server.struct.statics;
+package org.weiboad.ragnar.server.statistics.error;
 
 import org.weiboad.ragnar.server.util.SimHash;
 
-public class LogInfo {
+public class ErrorStatisticStruct {
     public SimHash hash;
     //日志文件路径
     private String filePath;

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import org.weiboad.ragnar.server.struct.ResponseJson;
 import org.weiboad.ragnar.server.processor.BizLogProcessor;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 public class PutBizLog {
 
@@ -16,6 +18,9 @@ public class PutBizLog {
 
     @Autowired
     private BizLogProcessor bizLogProcessor;
+
+    @Autowired
+    HttpServletRequest request;
 
     @RequestMapping(value = "/log/bizlog/put", method = RequestMethod.POST)
     @ResponseBody

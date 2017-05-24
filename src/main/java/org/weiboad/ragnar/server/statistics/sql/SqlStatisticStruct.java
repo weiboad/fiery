@@ -1,6 +1,6 @@
-package org.weiboad.ragnar.server.struct.statics;
+package org.weiboad.ragnar.server.statistics.sql;
 
-public class SqlStruct {
+public class SqlStatisticStruct {
     //sql语句
     public String sqlStr;
     //执行sql所消耗最短时间

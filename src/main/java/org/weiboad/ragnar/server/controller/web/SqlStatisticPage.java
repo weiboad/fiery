@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.weiboad.ragnar.server.config.FieryConfig;
-import org.weiboad.ragnar.server.statistics.SQLStatics;
+import org.weiboad.ragnar.server.statistics.sql.SQLStatistic;
 import org.weiboad.ragnar.server.util.DateTimeHelper;
 
 import java.util.List;
@@ -17,7 +17,7 @@ import java.util.Map;
 public class SqlStatisticPage {
 
     @Autowired
-    SQLStatics logSql;
+    SQLStatistic logSql;
 
     @Autowired
     FieryConfig fieryConfig;

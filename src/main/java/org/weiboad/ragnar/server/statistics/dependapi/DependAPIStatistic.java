@@ -1,4 +1,4 @@
-package org.weiboad.ragnar.server.statistics;
+package org.weiboad.ragnar.server.statistics.dependapi;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.weiboad.ragnar.server.config.FieryConfig;
-import org.weiboad.ragnar.server.struct.statics.PerformInfo;
 import org.weiboad.ragnar.server.storage.DBManage;
 import org.weiboad.ragnar.server.util.DateTimeHelper;
 
@@ -20,14 +19,14 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 @Scope("singleton")
-public class DependAPIStatics {
+public class DependAPIStatistic {
 
     @Autowired
     DBManage dbmanager;
 
-    private Logger log = LoggerFactory.getLogger(DependAPIStatics.class);
+    private Logger log = LoggerFactory.getLogger(DependAPIStatistic.class);
 
-    private Map<String, Map<Integer, PerformInfo>> _performMap = new ConcurrentHashMap<>();
+    private Map<String, Map<Integer, DependAPIStatisticStruct>> _performMap = new ConcurrentHashMap<>();
 
     @Autowired
     FieryConfig fieryConfig;
@@ -40,15 +39,15 @@ public class DependAPIStatics {
         if (pIndex != -1) {
             urlStr = urlStr.substring(0, pIndex);
         }
-        Map<Integer, PerformInfo> hourMap;
+        Map<Integer, DependAPIStatisticStruct> hourMap;
         if (_performMap.containsKey(urlStr)) {
             hourMap = _performMap.get(urlStr);
         } else {
-            hourMap = new HashMap<Integer, PerformInfo>();
+            hourMap = new HashMap<Integer, DependAPIStatisticStruct>();
         }
-        PerformInfo pNode;
+        DependAPIStatisticStruct pNode;
         if (!hourMap.containsKey(hour)) {
-            pNode = new PerformInfo();
+            pNode = new DependAPIStatisticStruct();
             pNode.setFastTime(costTime);
             pNode.setSlowTime(costTime);
             if (costTime < 0.2) {
@@ -99,43 +98,16 @@ public class DependAPIStatics {
         }
     }
 
-    /*
-    public Long getStartTime(Integer daytime) {
-        Long StartTime = null;
-        if (daytime == null || daytime == 0) {
-            StartTime = Long.valueOf(String.valueOf(DateTimeHelper.getTimesMorning(System.currentTimeMillis() / 1000)));
-        } else if (daytime == 1) {
-            StartTime = Long.valueOf(String.valueOf(
-                    DateTimeHelper.getTimesMorning(System.currentTimeMillis() / 1000 - 1 * 24 * 60 * 60)));
-        } else if (daytime == 2) {
-            StartTime = Long.valueOf(String.valueOf(
-                    DateTimeHelper.getTimesMorning(System.currentTimeMillis() / 1000 - 2 * 24 * 60 * 60)));
-        } else if (daytime == 3) {
-            StartTime = Long.valueOf(String.valueOf(
-                    DateTimeHelper.getTimesMorning(System.currentTimeMillis() / 1000 - 3 * 24 * 60 * 60)));
-        } else if (daytime == 4) {
-            StartTime = Long.valueOf(String.valueOf(
-                    DateTimeHelper.getTimesMorning(System.currentTimeMillis() / 1000 - 4 * 24 * 60 * 60)));
-        } else if (daytime == 5) {
-            StartTime = Long.valueOf(String.valueOf(
-                    DateTimeHelper.getTimesMorning(System.currentTimeMillis() / 1000 - 5 * 24 * 60 * 60)));
-        } else if (daytime == 6) {
-            StartTime = Long.valueOf(String.valueOf(
-                    DateTimeHelper.getTimesMorning(System.currentTimeMillis() / 1000 - 6 * 24 * 60 * 60)));
-        }
-        return StartTime;
-    }*/
-
     public Map<String, Map<String, String>> getPerformList(Integer daytime) {
         Long StartTime = DateTimeHelper.getTimesMorning(DateTimeHelper.getBeforeDay(daytime));
         Long EndTime = StartTime + 24 * 60 * 60 - 1;
         Map<String, Map<String, String>> performList = new HashMap<String, Map<String, String>>();
-        for (Map.Entry<String, Map<Integer, PerformInfo>> entry : _performMap.entrySet()) {
-            PerformInfo dayInfo = new PerformInfo();
+        for (Map.Entry<String, Map<Integer, DependAPIStatisticStruct>> entry : _performMap.entrySet()) {
+            DependAPIStatisticStruct dayInfo = new DependAPIStatisticStruct();
 
             dayInfo.setFastTime(0.0);
             dayInfo.setSlowTime(0.0);
-            for (Map.Entry<Integer, PerformInfo> entry1 : entry.getValue().entrySet()) {
+            for (Map.Entry<Integer, DependAPIStatisticStruct> entry1 : entry.getValue().entrySet()) {
                 if (entry1.getKey() <= StartTime || entry1.getKey() >= EndTime) {
                     continue;
                 }
@@ -188,7 +160,7 @@ public class DependAPIStatics {
         if (_performMap.get(url) == null) {
             return null;
         }
-        for (Map.Entry<Integer, PerformInfo> hourmap : _performMap.get(url).entrySet()) {
+        for (Map.Entry<Integer, DependAPIStatisticStruct> hourmap : _performMap.get(url).entrySet()) {
             if (hourmap.getKey() < start || hourmap.getKey() > end) {
                 continue;
             }
@@ -243,10 +215,10 @@ public class DependAPIStatics {
     public boolean DelOutTimeSqlLog() {
         if (_performMap.size() > 0) {
             Map<String, ArrayList<Integer>> delMap = new Hashtable<>();
-            for (Map.Entry<String, Map<Integer, PerformInfo>> ent : _performMap.entrySet()) {
+            for (Map.Entry<String, Map<Integer, DependAPIStatisticStruct>> ent : _performMap.entrySet()) {
                 if (ent.getValue().size() > 0) {
                     ArrayList<Integer> delList = new ArrayList<>();
-                    for (Map.Entry<Integer, PerformInfo> hourent : ent.getValue().entrySet()) {
+                    for (Map.Entry<Integer, DependAPIStatisticStruct> hourent : ent.getValue().entrySet()) {
                         if (hourent.getKey() >= DateTimeHelper.getCurrentTime() - fieryConfig.getKeepdataday() * 86400) {
                             continue;
                         }

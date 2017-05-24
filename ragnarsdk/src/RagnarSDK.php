@@ -62,6 +62,12 @@ class RagnarSDK
      */
     public static function init($projectName)
     {
+        //make an tips of the System Bit limit
+        if(PHP_INT_SIZE != 8 ){
+            echo "RagnarSDK Can't work on 32Bit Operating System or PHP x86 version";
+            exit;
+        }
+
         //检测是否启用
         if (!self::isEnable()) {
             return;

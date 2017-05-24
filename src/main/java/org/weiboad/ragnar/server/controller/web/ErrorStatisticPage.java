@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.weiboad.ragnar.server.config.FieryConfig;
-import org.weiboad.ragnar.server.statistics.ErrorStatics;
-import org.weiboad.ragnar.server.statistics.DependAPIStatics;
+import org.weiboad.ragnar.server.statistics.error.ErrorStatistic;
+import org.weiboad.ragnar.server.statistics.dependapi.DependAPIStatistic;
 import org.weiboad.ragnar.server.util.DateTimeHelper;
 
 import java.util.List;
@@ -18,10 +18,10 @@ import java.util.Map;
 public class ErrorStatisticPage {
 
     @Autowired
-    ErrorStatics errorlog;
+    ErrorStatistic errorlog;
 
     @Autowired
-    DependAPIStatics logApi;
+    DependAPIStatistic logApi;
 
     @Autowired
     FieryConfig fieryConfig;

@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.weiboad.ragnar.server.struct.MetaLog;
-import org.weiboad.ragnar.server.struct.statics.APIStaticTimeSet;
+import org.weiboad.ragnar.server.statistics.api.APIStatisticTimeSet;
 import org.weiboad.ragnar.server.search.IndexService;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -22,7 +22,7 @@ public class MetaLogProcessor {
     private Logger log = LoggerFactory.getLogger(BizLogProcessor.class);
 
     @Autowired
-    APIStaticTimeSet apiStaticTimeSet;
+    APIStatisticTimeSet apiStatisticTimeSet;
 
     @Autowired
     IndexService indexHelper;
@@ -44,7 +44,7 @@ public class MetaLogProcessor {
         MetaLog metainfo = metaLogQueue.poll();
         while (metainfo != null) {
 
-            apiStaticTimeSet.analyzeMetaLog(metainfo);
+            apiStatisticTimeSet.analyzeMetaLog(metainfo);
 
             totalProcess++;
 
