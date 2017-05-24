@@ -643,9 +643,9 @@ class RagnarSDK
     private static function checkdir($path)
     {
         //must absolute path
-        if (substr($path, 0, 1) != "/") {
-            return false;
-        }
+        //if (substr($path, 0, 1) != "/") {
+        //    return false;
+        //}
 
         if (!is_dir($path)) {
             return mkdir($path, 0777, true);
