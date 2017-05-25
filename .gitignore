@@ -2,6 +2,7 @@ target/
 logs/
 db/
 index/
+logcollector/
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###

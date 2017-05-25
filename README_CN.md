@@ -31,18 +31,18 @@ Fiery
  3. 在jar所在目录创建文件夹 mkdir logs index db
  4. 通过以下命令启动主服务:
  ```
- nohup java -Xms3750m -Xmx3750m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar ragnarserver-0.5.1-SNAPSHOT.jar -type server --server.port=9090 &
+ nohup java -XX:-MaxFDLimit -Xms3750m -Xmx3750m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar ragnarserver-0.5.1-SNAPSHOT.jar -type server --server.port=9090 &
  ```
  5. 服务启动后 浏览器访问地址： http://127.0.0.1:9090/ragnar/
 
 ### Burial SDK
- * [埋点库相关介绍](./ragnarsdk/README.md)
+ * [埋点库相关介绍](https://github.com/weiboad/fierysdk/blob/master/README.md)
 
 
 ### LogPusher
  日志推送服务，可以监控一个目录下所有日志是否有更新，并将内容推送到主服务
  ```
- nohup java -Xms128m -Xmx450m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar ragnarserver-0.5.1-SNAPSHOT.jar -type logpush -path [ragnarsdklogpath] -host [ip:port] -outtime 7 &
+ nohup java -XX:-MaxFDLimit -Xms128m -Xmx450m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar ragnarserver-0.5.1-SNAPSHOT.jar -type logpush -path [ragnarsdklogpath] -host [ip:port] -outtime 7 &
  ```
 
 ## 联系我们
