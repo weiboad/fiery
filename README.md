@@ -36,7 +36,7 @@ Fiery
  6. Browse the web address http://127.0.0.1:9090/ragnar/
 
 ### Burial SDK
- * [Integrated On Project](./ragnarsdk/README.md)
+ * [Integrated On PHP Project](https://github.com/weiboad/fierysdk/blob/master/README.md)
 
 
 ### LogPusher

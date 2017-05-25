@@ -1,6 +1,7 @@
 ## todo note 不分先后
- * RagnarSDK Support Apache version
- * RagnarSDK Composer
+ * Statistic Dump to DB && Recovery on Start
+ * RagnarSDK Support Apache version (Finished)
+ * RagnarSDK Composer (https://github.com/weiboad/fierysdk/)
  * Chrome Plugin
  * Swoole && Cli
  * Xhprof渲染支持

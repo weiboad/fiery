@@ -36,7 +36,7 @@ Fiery
  5. 服务启动后 浏览器访问地址： http://127.0.0.1:9090/ragnar/
 
 ### Burial SDK
- * [埋点库相关介绍](./ragnarsdk/README.md)
+ * [埋点库相关介绍](https://github.com/weiboad/fierysdk/blob/master/README.md)
 
 
 ### LogPusher
