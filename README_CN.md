@@ -27,7 +27,7 @@ Fiery
 
 ### Getting Started
  1. 下载并安装 [Java 8 Runtime](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
- 2. 下载Fiery最新的 Fiery [Release page]((https://github.com/weiboad/fiery/releases)) ar包
+ 2. 下载Fiery最新的 Fiery [Release page]((https://github.com/weiboad/fiery/releases)) jar包
  3. 在jar所在目录创建文件夹 mkdir logs index db
  4. 通过以下命令启动主服务:
  ```
