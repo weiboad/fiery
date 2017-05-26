@@ -1,6 +1,6 @@
 Fiery
 ====== 
-
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/44598eccff7c4eb58f6d66d1d51ff415)](https://www.codacy.com/app/xcl_rockman/fiery?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=weiboad/fiery/&amp;utm_campaign=Badge_Grade)
 ![logo](https://img.shields.io/badge/status-alpha-red.svg)
 [![Build Status](https://travis-ci.org/weiboad/fiery.png)](https://travis-ci.org/weiboad/fiery)
 [![License](https://img.shields.io/badge/license-apache2-blue.svg)](LICENSE) 
