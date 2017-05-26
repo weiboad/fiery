@@ -1,5 +1,6 @@
 package org.weiboad.ragnar.server;
 
+import org.springframework.boot.system.ApplicationPidFileWriter;
 import org.weiboad.ragnar.logpusher.LogPusherMain;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -59,7 +60,9 @@ public class RagnarApplication {
 
         //decide which app will start
         if (type.equals("server")) {
-            SpringApplication.run(RagnarApplication.class, args);
+            SpringApplication springApplication = new SpringApplication(RagnarApplication.class);
+            springApplication.addListeners(new ApplicationPidFileWriter());
+            springApplication.run(args);
         } else if (type.equals("logpush")) {
             LogPusherMain tail = new LogPusherMain();
             tail.start(path, host, outtime, threadcount);

@@ -26,3 +26,7 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+
+## pid
+*.pid
+nohup.out
