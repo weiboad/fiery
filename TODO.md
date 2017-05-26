@@ -7,3 +7,4 @@
  * Xhprof渲染支持
  * code reformat
  * Distributed Storage && Search Engine
+ * i18n support
