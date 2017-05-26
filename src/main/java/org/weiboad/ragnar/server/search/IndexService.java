@@ -50,6 +50,10 @@ public class IndexService {
         writerSharderManager.addIndex(dbname, metalog);
     }
 
+    public boolean commitChange(String dbname) {
+        return writerSharderManager.commitChange(dbname);
+    }
+
     public ResponseJson searchIndex(Long timestamp, String field, String keyword, int start, int limit) {
         //log.info("search timestamp:" + timestamp);
         return searchsharderManager.searchIndex(timestamp, field, keyword, start, limit);

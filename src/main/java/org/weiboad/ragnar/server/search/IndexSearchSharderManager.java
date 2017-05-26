@@ -81,10 +81,22 @@ public class IndexSearchSharderManager {
 
     public ResponseJson searchByQuery(Long timestamp, Query query, int start, int limit, Sort sort) {
 
-        ResponseJson respone = new ResponseJson();
+        String timeSharder = String.valueOf(DateTimeHelper.getTimesMorning(timestamp));
+
+        ResponseJson responeJson = new ResponseJson();
 
         //ignore the out of date search
         if (timestamp > DateTimeHelper.getBeforeDay(fieryConfig.getKeepdataday()) && timestamp <= DateTimeHelper.getCurrentTime()) {
+
+            //fixed the index not load
+            if (!readerList.contains(timeSharder)) {
+                boolean loadRet = this.openIndex(timeSharder, fieryConfig.getIndexpath()+"/"+timeSharder);
+                if (!loadRet) {
+                    responeJson.setCode(304);
+                    responeJson.setMsg("Index not found ...");
+                    return responeJson;
+                }
+            }
 
             ArrayList<MetaLog> metalist = new ArrayList<MetaLog>();
 
@@ -96,7 +108,7 @@ public class IndexSearchSharderManager {
                 int numTotalHits = results.totalHits;
 
                 //set result count
-                respone.setTotalcount(numTotalHits);
+                responeJson.setTotalcount(numTotalHits);
 
                 limit = Math.min(numTotalHits, limit);
 
@@ -111,14 +123,14 @@ public class IndexSearchSharderManager {
                 //e.printStackTrace();
             }
 
-            respone.setResult(metalist);
+            responeJson.setResult(metalist);
         } else {
-            respone.setCode(300);
-            respone.setMsg("Index Expire ...");
-            return respone;
+            responeJson.setCode(300);
+            responeJson.setMsg("Index Expire ...");
+            return responeJson;
         }
 
-        return respone;
+        return responeJson;
     }
 
     public ResponseJson searchIndex(Long timestamp, String field, String keyword, int start, int limit) {

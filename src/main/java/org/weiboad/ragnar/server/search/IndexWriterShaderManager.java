@@ -17,7 +17,10 @@ import org.weiboad.ragnar.server.struct.MetaLog;
 import org.weiboad.ragnar.server.util.DateTimeHelper;
 
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 @Component
@@ -154,6 +157,20 @@ public class IndexWriterShaderManager {
         return result;
     }
 
+    //commit the index change
+    public boolean commitChange(String dbname) {
+        try {
+            //dump index
+            diskWriterList.get(dbname).commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error(e.getMessage());
+            return false;
+        }
+        return true;
+    }
+
     @Scheduled(fixedRate = 5000)
     public void refreshIndex() {
         if (diskWriterList.size() == 0) {
@@ -215,18 +232,11 @@ public class IndexWriterShaderManager {
                 }
             }
 
-            Date start = new Date();
+            //Date start = new Date();
 
-            try {
-                //reload ragnarlog
-                diskWriterList.get(dbname).commit();
+            this.commitChange(dbname);
 
-            } catch (Exception e) {
-                e.printStackTrace();
-                log.error(e.getMessage());
-            }
-
-            Date end = new Date();
+            //Date end = new Date();
             //log.info("Write Index:" + dbname + " cost:" + (end.getTime() - start.getTime() + " docs:" + diskWriterList.get(dbname).numDocs()));
         }
     }
