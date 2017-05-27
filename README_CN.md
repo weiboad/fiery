@@ -46,7 +46,8 @@ Fiery
  ```
 
 ### 参数说明
-Logpusher及Server共同使用同一个Jar包
+ Logpusher及Server共同使用同一个Jar包
+
 |      参数        |      选项      |   说明    |
 | --------------- |:-------------:| ---------:|
 |-type            | logpusher server| 启动 日志推送服务或网页服务|
