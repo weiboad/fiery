@@ -25,7 +25,7 @@ Fiery
  * 内存: 2G+
  * Java 8 Runtime
 
-### Getting Started
+### fiery server 服务端安装
  1. 下载并安装 [Java 8 Runtime](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
  2. 下载Fiery最新的 Fiery [Release page]((https://github.com/weiboad/fiery/releases)) jar包
  3. 在jar所在目录创建文件夹 mkdir logs index db
@@ -35,15 +35,25 @@ Fiery
  ```
  5. 服务启动后 浏览器访问地址： http://127.0.0.1:9090/ragnar/
 
-### Burial SDK
+### fierysdk 埋点库植入
  * [埋点库相关介绍](https://github.com/weiboad/fierysdk/blob/master/README.md)
 
 
-### LogPusher
+### LogPusher 日志抓取
  日志推送服务，可以监控一个目录下所有日志是否有更新，并将内容推送到主服务
  ```
  nohup java -XX:-MaxFDLimit -Xms128m -Xmx450m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar ragnarserver-0.5.1-SNAPSHOT.jar -type logpush -path [ragnarsdklogpath] -host [ip:port] -outtime 7 &
  ```
+
+### 参数说明
+Logpusher及Server共同使用同一个Jar包
+|      参数        |      选项      |   说明    |
+| --------------- |:-------------:| ---------:|
+|-type            | logpusher server| 启动 日志推送服务或网页服务|
+|-path            | 要监控的日志路径 | 此选项用于logpusher 指向ragnarsdk产生日志目录|
+|-host            | 127.0.0.1:9090 | 日志收集到后会推送到fiery server|
+|-outtime         | 本地日志保存时间| 超时日志会被自动清理 |
+|--server.port    | fiery 服务监听端口如9090|用于fiery服务器|
 
 ## 联系我们
  * WeiboAD ADINF Team
