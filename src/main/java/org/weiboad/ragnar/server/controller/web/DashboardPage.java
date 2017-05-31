@@ -59,7 +59,7 @@ public class DashboardPage {
         model.addAttribute("indexedDocCount", indexedDocCount);
 
         //db list
-        Map<String, String> dbInfoList = dbManage.getDbList();
+        Map<String, String> dbInfoList = dbManage.getDBFolderList();
         model.addAttribute("dbInfoList", dbInfoList);
 
         //error statics

@@ -11,6 +11,7 @@ import org.weiboad.ragnar.server.config.FieryConfig;
 import org.weiboad.ragnar.server.util.DateTimeHelper;
 import org.weiboad.ragnar.server.util.FileUtil;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -62,16 +63,17 @@ public class DBManage {
 
     }
 
-    public Map<String, String> getDbList() {
-        Map<String, String> result = new LinkedHashMap<>();
-        for (Map.Entry<Long, DBSharder> e : dbSharderList.entrySet()) {
-            String dbname = e.getKey() + "";
-            DBSharder dbSharder = e.getValue();
 
-            result.put(dbname, "");
+    public HashMap<String, String> getDBFolderList() {
+        HashMap<String, String> dblist = new HashMap<>();
+        try {
+            dblist = FileUtil.subFolderList(fieryConfig.getDbpath());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return result;
+        return dblist;
     }
+
 
     //remove the old db
     @Scheduled(fixedRate = 5000)
