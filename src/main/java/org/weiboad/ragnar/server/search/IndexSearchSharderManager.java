@@ -91,11 +91,6 @@ public class IndexSearchSharderManager {
             //fixed the index not load
             if (!readerList.contains(timeSharder)) {
                 boolean loadRet = this.openIndex(timeSharder, fieryConfig.getIndexpath()+"/"+timeSharder);
-                if (!loadRet) {
-                    responeJson.setCode(304);
-                    responeJson.setMsg("Index not found ...");
-                    return responeJson;
-                }
             }
 
             ArrayList<MetaLog> metalist = new ArrayList<MetaLog>();

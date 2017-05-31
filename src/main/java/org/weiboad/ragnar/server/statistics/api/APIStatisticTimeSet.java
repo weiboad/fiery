@@ -2,11 +2,15 @@ package org.weiboad.ragnar.server.statistics.api;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.weiboad.ragnar.server.config.FieryConfig;
 import org.weiboad.ragnar.server.struct.MetaLog;
 import org.weiboad.ragnar.server.util.DateTimeHelper;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -14,8 +18,13 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 @Scope("singleton")
 public class APIStatisticTimeSet {
+
     private ConcurrentHashMap<Long, APIStatisticURLSet> apiTopStaticHelper = new ConcurrentHashMap<Long, APIStatisticURLSet>();
-    Logger log = LoggerFactory.getLogger(APIStatisticTimeSet.class);
+
+    private Logger log = LoggerFactory.getLogger(APIStatisticTimeSet.class);
+
+    @Autowired
+    FieryConfig fieryConfig;
 
     public void analyzeMetaLog(MetaLog metainfo) {
         Long shardTime = metainfo.getTime().longValue();
@@ -55,6 +64,25 @@ public class APIStatisticTimeSet {
             return null;
         } else {
             return apiTopStaticHelper.get(shardTime);
+        }
+    }
+
+    @Scheduled(fixedRate = 30 * 1000)
+    public void cleanUpSharder() {
+        if (apiTopStaticHelper.size() > 0) {
+            ArrayList<Long> removeMap = new ArrayList<>();
+
+            for (Map.Entry<Long, APIStatisticURLSet> ent : apiTopStaticHelper.entrySet()) {
+                if (ent.getKey() >= DateTimeHelper.getCurrentTime() - fieryConfig.getKeepdataday() * 86400) {
+                    continue;
+                }
+                removeMap.add(ent.getKey());
+            }
+
+            for (Long removeKey : removeMap) {
+                log.info("Clean up the API Statistic:" + removeKey);
+                apiTopStaticHelper.remove(removeKey);
+            }
         }
     }
 }

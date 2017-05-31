@@ -30,7 +30,7 @@ public class DBManage {
     public DBManage() {
         log = LoggerFactory.getLogger(DBManage.class);
         dbSharderList = new ConcurrentHashMap<>();
-        log.info("DB Manger init...");
+        log.info("DB Manager init...");
     }
 
     public DBSharder getDB(Long timestamp) {

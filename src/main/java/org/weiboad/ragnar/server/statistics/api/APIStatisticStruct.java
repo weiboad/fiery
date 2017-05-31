@@ -9,30 +9,30 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class APIStatisticStruct {
 
-    public String url = "";
+    private String url = "";
 
-    public Long totalCount = 0l;
+    private Long totalCount = 0l;
 
-    public float longestTime = 0f;
+    private float longestTime = 0f;
 
-    public float shortestTime = 99999f;
+    private float shortestTime = 99999f;
 
-    public Long ms200Count = 0l;
-    public Double ms200Cost = 0d;
+    private Long ms200Count = 0l;
+    private Double ms200Cost = 0d;
 
-    public Long ms500Count = 0l;
-    public Double ms500Cost = 0d;
+    private Long ms500Count = 0l;
+    private Double ms500Cost = 0d;
 
-    public Long ms1000Count = 0l;
-    public Double ms1000Cost = 0d;
+    private Long ms1000Count = 0l;
+    private Double ms1000Cost = 0d;
 
-    public Long msLongCount = 0l;
-    public Double msLongCost = 0d;
+    private Long msLongCount = 0l;
+    private Double msLongCost = 0d;
 
     //code && count
-    public ConcurrentHashMap<String, AtomicLong> code_count = new ConcurrentHashMap<String, AtomicLong>();
+    private ConcurrentHashMap<String, AtomicLong> code_count = new ConcurrentHashMap<String, AtomicLong>();
 
-    Logger log = LoggerFactory.getLogger(APIStatisticStruct.class);
+    private Logger log = LoggerFactory.getLogger(APIStatisticStruct.class);
 
     public APIStatisticStruct(String url) {
         this.url = url;
