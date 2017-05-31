@@ -40,7 +40,7 @@ public class CurlThread extends Thread {
             //meta log
             pushMetaLogToServer("http://" + host + "/ragnar/log/metalog/put");
             try {
-                Thread.sleep(10);
+                Thread.sleep(100);
             } catch (Exception e) {
                 //log.error(e.getMessage());
             }
@@ -101,10 +101,11 @@ public class CurlThread extends Thread {
     private void pushBizLogToServer(String url) {
         long pushcount = 0;
         String postData = "";
+        String content = "";
 
-        while (sendBizLogQueue.peek() != null) {
-            String content = sendBizLogQueue.poll();
-            if (content != null && content.trim().length() > 0) {
+        while ((content = sendBizLogQueue.poll()) != null) {
+
+            if (content.trim().length() > 0) {
                 postData += (content.trim() + "\n");
                 pushcount++;
             }
@@ -134,11 +135,12 @@ public class CurlThread extends Thread {
 
     private boolean pushMetaLogToServer(String url) {
         long pushcount = 0;
+        String content = "";
 
         String data = "";
-        while (sendMetaLogQueue.peek() != null) {
-            String content = sendMetaLogQueue.poll();
-            if (content != null && content.trim().length() > 0) {
+        while ((content = sendBizLogQueue.poll()) != null) {
+
+            if (content.trim().length() > 0) {
                 data += (content.trim() + "\n");
                 pushcount++;
             }
