@@ -12,11 +12,11 @@ import org.weiboad.ragnar.server.config.FieryConfig;
 import org.weiboad.ragnar.server.controller.ragnarlog.PutMetalog;
 import org.weiboad.ragnar.server.statistics.api.APIStatisticStruct;
 import org.weiboad.ragnar.server.statistics.api.APIStatisticTimeSet;
-import org.weiboad.ragnar.server.statistics.api.APIStatisticURLSet;
 import org.weiboad.ragnar.server.util.DateTimeHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Controller
 public class APIStatisticPage {
@@ -42,9 +42,10 @@ public class APIStatisticPage {
 
         //now the date render
         long shardtime = DateTimeHelper.getTimesMorning(DateTimeHelper.getBeforeDay(Integer.parseInt(topdaterange)));
-        APIStatisticURLSet urllist = apiStatisticTimeSet.getSharder(shardtime, false);
+        ConcurrentHashMap<String, APIStatisticStruct> urllist = apiStatisticTimeSet.getSharder(shardtime, false);
+
         if (urllist != null) {
-            model.addAttribute("urllist", urllist.getCollectList());
+            model.addAttribute("urllist", urllist.values());
         } else {
             model.addAttribute("urllist", new ArrayList<APIStatisticStruct>());
         }

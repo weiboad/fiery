@@ -19,7 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Scope("singleton")
 public class APIStatisticTimeSet {
 
-    private ConcurrentHashMap<Long, APIStatisticURLSet> apiTopStaticHelper = new ConcurrentHashMap<Long, APIStatisticURLSet>();
+    private ConcurrentHashMap<Long, ConcurrentHashMap<String, APIStatisticStruct>> apiTopStaticHelper = new ConcurrentHashMap<Long, ConcurrentHashMap<String, APIStatisticStruct>>();
 
     private Logger log = LoggerFactory.getLogger(APIStatisticTimeSet.class);
 
@@ -27,38 +27,54 @@ public class APIStatisticTimeSet {
     FieryConfig fieryConfig;
 
     public void analyzeMetaLog(MetaLog metainfo) {
-        Long shardTime = metainfo.getTime().longValue();
-        if (shardTime > 0) {
-            shardTime = DateTimeHelper.getTimesMorning(shardTime);
-            if (!apiTopStaticHelper.containsKey(shardTime)) {
 
-                APIStatisticURLSet apiStatisticURLSet = new APIStatisticURLSet(shardTime);
-                //count ++
-                apiStatisticURLSet.analyzeMetaLog(metainfo);
-                apiTopStaticHelper.put(shardTime, apiStatisticURLSet);
+        String url = metainfo.getUrl();
+        Long shardTime = metainfo.getTime().longValue();
+
+        if (url.trim().length() > 0 && shardTime > 0 && shardTime > DateTimeHelper.getCurrentTime() -
+                (fieryConfig.getKeepdataday() * 86400)) {
+
+            shardTime = DateTimeHelper.getTimesMorning(shardTime);
+
+            if (!apiTopStaticHelper.containsKey(shardTime)) {
+                ConcurrentHashMap<String, APIStatisticStruct> urlshard = new ConcurrentHashMap<>();
+
+                //prepare the init struct
+                APIStatisticStruct urlinfo = new APIStatisticStruct(metainfo);
+
+                //put to the list
+                urlshard.put(url, urlinfo);
+                apiTopStaticHelper.put(shardTime, urlshard);
+
             } else {
                 //count ++
-                apiTopStaticHelper.get(shardTime).analyzeMetaLog(metainfo);
+                if (!apiTopStaticHelper.get(shardTime).containsKey(url)) {
+                    APIStatisticStruct apiStruct = new APIStatisticStruct(metainfo);
+                    apiTopStaticHelper.get(shardTime).put(metainfo.getUrl(), apiStruct);
+                } else {
+                    apiTopStaticHelper.get(shardTime).get(metainfo.getUrl()).analyzeMetaLog(metainfo);
+                }
             }
         }
+
     }
 
     public Map<String, Integer> getAPITOPStatics() {
         Map<String, Integer> result = new LinkedHashMap<>();
 
-        for (Map.Entry<Long, APIStatisticURLSet> ent : apiTopStaticHelper.entrySet()) {
-            result.put(ent.getKey() + "", ent.getValue().getUrlSize());
+        for (Map.Entry<Long, ConcurrentHashMap<String, APIStatisticStruct>> ent : apiTopStaticHelper.entrySet()) {
+            result.put(ent.getKey() + "", ent.getValue().size());
         }
         return result;
     }
 
-    public APIStatisticURLSet getSharder(Long timestamp, boolean create) {
+    public ConcurrentHashMap<String, APIStatisticStruct> getSharder(Long timestamp, boolean create) {
         Long shardTime = DateTimeHelper.getTimesMorning(timestamp);
         if (!apiTopStaticHelper.containsKey(shardTime)) {
             if (create) {
-                APIStatisticURLSet apiStatisticURLSet = new APIStatisticURLSet(shardTime);
-                apiTopStaticHelper.put(shardTime, apiStatisticURLSet);
-                return apiTopStaticHelper.get(shardTime);
+                ConcurrentHashMap<String, APIStatisticStruct> urlshard = new ConcurrentHashMap<>();
+                apiTopStaticHelper.put(shardTime, urlshard);
+                return urlshard;
             }
             //default not create this one
             return null;
@@ -72,7 +88,7 @@ public class APIStatisticTimeSet {
         if (apiTopStaticHelper.size() > 0) {
             ArrayList<Long> removeMap = new ArrayList<>();
 
-            for (Map.Entry<Long, APIStatisticURLSet> ent : apiTopStaticHelper.entrySet()) {
+            for (Map.Entry<Long, ConcurrentHashMap<String, APIStatisticStruct>> ent : apiTopStaticHelper.entrySet()) {
                 if (ent.getKey() >= DateTimeHelper.getCurrentTime() - fieryConfig.getKeepdataday() * 86400) {
                     continue;
                 }
@@ -80,7 +96,7 @@ public class APIStatisticTimeSet {
             }
 
             for (Long removeKey : removeMap) {
-                log.info("Clean up the API Statistic:" + removeKey);
+                log.info("Clean up the API Top Statistic:" + removeKey);
                 apiTopStaticHelper.remove(removeKey);
             }
         }

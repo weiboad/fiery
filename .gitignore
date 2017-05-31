@@ -1,9 +1,11 @@
+### customize
 target/
 logs/
 db/
 index/
 logcollector/
 !.mvn/wrapper/maven-wrapper.jar
+.DS_Store
 
 ### STS ###
 .apt_generated
