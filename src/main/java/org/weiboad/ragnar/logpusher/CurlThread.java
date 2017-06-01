@@ -25,7 +25,7 @@ public class CurlThread extends Thread {
 
     private ConcurrentLinkedQueue<String> sendMetaLogQueue;
 
-    private int processMaxCount = 5000000;//45M
+    private int processMaxCount = 2000000;//45M
 
 
     public CurlThread(String host, ConcurrentLinkedQueue<String> sendBizLogQueue, ConcurrentLinkedQueue<String> sendMetaLogQueue) {
