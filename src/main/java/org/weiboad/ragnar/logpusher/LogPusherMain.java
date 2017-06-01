@@ -14,164 +14,196 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class LogPusherMain {
     private Logger log = LoggerFactory.getLogger(LogPusherMain.class);
-    private Map<String, Map<String, Long>> fileInfo = new HashMap<String, Map<String, Long>>();
+    private Map<String, Long> fileInfoMap = new HashMap<>();
+    private Map<String, BufferedReader> bufferReaderMap = new HashMap<>();
+
     private ConcurrentLinkedQueue<String> sendBizLogQueue = new ConcurrentLinkedQueue<String>();
     private ConcurrentLinkedQueue<String> sendMetaLogQueue = new ConcurrentLinkedQueue<String>();
 
-    private int processMaxCount = 1000;
-
-    private void fetchFileAppendContent(String filepath, long modTime) {
-        if (sendBizLogQueue.size() > 2000 || sendMetaLogQueue.size() > 2000) {
-            return;
-        }
-        File file = new File(filepath);
-        //not found
-        if (!file.exists()) {
-            fileInfo.remove(filepath);
-            log.info("=== File Not Found ... " + filepath);
-            return;
-        }
-
-        //get the file size
-        long fileSize = file.length();
-        long offset = 0;
-        //have record
-        if (fileInfo.containsKey(filepath)) {
-            offset = fileInfo.get(filepath).get("offset");
-            fileInfo.get(filepath).put("lastupdate", modTime);
-        } else {
-            //log.debug("=== Found New File === " + filepath);
-            Map<String, Long> fileData = new HashMap<String, Long>();
-            fileData.put("offset", offset);
-            fileData.put("lastupdate", modTime);
-            fileData.put("size", fileSize);
-            fileInfo.put(filepath, fileData);
-        }
-
-        //file have been move or empty
-        if (offset > fileSize) {
-            offset = 0;
-        }
-
-        long processedCount = 0;
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new FileReader(file));
-            String tempString = null;
-            reader.skip(offset);
-            while ((tempString = reader.readLine()) != null) {
-                if (tempString.length() == 0) {
-                    offset += 1;
-                    continue;
-                }
-                if (processedCount >= this.processMaxCount) {
-                    break;
-                }
-                offset += (tempString.length() + 1);
-                if (!tempString.substring(0, 1).equals("[")) {
-                    sendMetaLogQueue.add(tempString);
-                } else {
-                    sendBizLogQueue.add(tempString);
-                }
-                processedCount++;
-            }
-        } catch (Exception e) {
-            log.error(e.getMessage());
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (Exception e) {
-
-                }
-            }
-
-        }
-
-        fileInfo.get(filepath).put("offset", offset);
-        fileInfo.get(filepath).put("size", fileSize);
-        //log.info("fileinfo:path="+filepath+",offset="+offset+",size="+fileSize);
-    }
+    //max load log Data
+    private int maxProcessData = 20971520;
 
     /**
-     * scan the folder the new update file
+     * scan the new file
      *
      * @param path
      */
-    private void scanRecentUpdateFile(String path) {
+    private void scanTheFolderFileList(String path) {
         File file = new File(path);
         File[] tempList = file.listFiles();
-        if (tempList != null) {
-            for (File fileinfo : tempList) {
+
+        if (tempList == null) {
+            return;
+        }
+
+        for (File fileinfo : tempList) {
+            try {
+                String filepath = fileinfo.getCanonicalPath();
+                if (fileinfo.isDirectory()) {
+                    //deep
+                    scanTheFolderFileList(filepath);
+                    continue;
+                }
+
+                //found new file
+                if (fileinfo.isFile() && !fileInfoMap.containsKey(filepath)) {
+                    log.info("New File:" + filepath);
+                    fileInfoMap.put(filepath, 0L);
+                }
+            } catch (Exception e) {
+                log.error(e.getMessage());
+            }
+        }
+    }
+
+    private void cleanupOldFileInfoList(Integer outime) {
+        if (outime <= 0) {
+            return;
+        }
+
+        ArrayList<String> cleanUpList = new ArrayList<>();
+        for (Map.Entry<String, Long> ent : fileInfoMap.entrySet()) {
+            //log.info(ent.getKey() + ":" + ent.getValue());
+
+            File file = new File(ent.getKey());
+            if (!file.exists()) {
+                cleanUpList.add(ent.getKey());
+                continue;
+            }
+
+            //expire file
+            if (file.lastModified() / 1000 < DateTimeHelper.getCurrentTime() - outime * 86400) {
+                //removed
+                file.delete();
+                cleanUpList.add(ent.getKey());
+            }
+        }
+
+        //clean up the list
+        for (String filePath : cleanUpList) {
+
+            log.info("file remove:" + filePath);
+
+            fileInfoMap.remove(filePath);
+
+            if (bufferReaderMap.containsKey(filePath)) {
+                BufferedReader bfr = bufferReaderMap.get(filePath);
+                bufferReaderMap.remove(filePath);
                 try {
-                    String filepath = fileinfo.getCanonicalPath();
-                    if (!fileinfo.isFile() && fileinfo.isDirectory()) {
-                        scanRecentUpdateFile(filepath);
-                    } else if (fileinfo.isFile()) {
-                        long modTime = fileinfo.lastModified() / 1000;
-                        if (modTime > DateTimeHelper.getCurrentTime() - 60 * 60) {
-                            fetchFileAppendContent(filepath, modTime);
-                        }
-                    }
+                    bfr.close();
                 } catch (Exception e) {
                     log.error(e.getMessage());
                 }
             }
+
         }
     }
 
-    private void cleanupOldFileInfoList(String outime) {
-        if (outime.isEmpty() || outime.equals("")) {
-            return;
-        }
+    private void fetchTheFileAppend() {
 
-        Integer outtimeInt;
-        try {
-            outtimeInt = Integer.valueOf(outime);
-        } catch (Exception e) {
-            outtimeInt = 7;
-            log.error(e.getMessage());
-        }
+        //loop the file list
+        for (Map.Entry<String, Long> ent : fileInfoMap.entrySet()) {
+            String filePath = ent.getKey();
 
-        ArrayList<String> dellist = new ArrayList<>();
-        for (Map.Entry<String, Map<String, Long>> ent : fileInfo.entrySet()) {
-            File file = new File(ent.getKey());
-            if (!file.exists()) {
-                dellist.add(ent.getKey());
-                continue;
-            }
-            //判断过期时间是否存在，如果存在删除过期的文件
-            if (file.lastModified() / 1000 < DateTimeHelper.getCurrentTime() - outtimeInt * 86400) {
-                if (file.delete()) {
-                    dellist.add(ent.getKey());
+            //make sure the file opened
+            if (!bufferReaderMap.containsKey(filePath)) {
+                log.info("opend file:" + filePath);
+                File file = new File(filePath);
+
+                //not found
+                if (!file.exists()) {
+                    fileInfoMap.remove(filePath);
+                    log.error("Not Found:" + filePath);
+                    continue;
+                }
+
+                BufferedReader reader;
+                try {
+                    reader = new BufferedReader(new FileReader(file));
+                    bufferReaderMap.put(filePath, reader);
+                } catch (Exception e) {
+                    log.error("buffer reader create fail:" + e.getMessage() + " | " + filePath);
+                    continue;
                 }
             }
-        }
-        for (String fileinfokey : dellist) {
-            fileInfo.remove(fileinfokey);
-        }
+
+            String tempString = "";
+            //combined result
+            StringBuilder combinedContent = new StringBuilder();
+            //processed Data Total
+            Long processLength = 0L;
+            Long offset = fileInfoMap.get(filePath);
+
+            BufferedReader fileReader = bufferReaderMap.get(filePath);
+            try {
+                while ((tempString = fileReader.readLine()) != null) {
+                    offset += (tempString.length() + 1);
+                    fileInfoMap.put(filePath, offset);
+
+                    //processed data len total
+                    processLength += (tempString.length() + 1);
+
+                    //combine the content
+                    if (tempString.trim().length() > 0) {
+                        combinedContent.append(tempString + "\n");
+                    }
+
+                    //ok process more than
+                    if (processLength > maxProcessData) {
+                        break;
+                    }
+                }
+            } catch (Exception e) {
+                log.error(filePath + " read fail:" + e.getMessage());
+                // when the Exception
+                // clean up all
+                fileInfoMap.remove(filePath);
+                try {
+                    bufferReaderMap.get(filePath).close();
+                } catch (Exception ex) {
+                    log.error(ex.getMessage());
+                }
+                bufferReaderMap.remove(filePath);
+            }
+
+            //nothing ? ignore
+            if (combinedContent.length() == 0) {
+                continue;
+            }
+
+            // insert to queue
+            if (!combinedContent.substring(0, 1).equals("[")) {
+                sendMetaLogQueue.add(combinedContent.toString());
+            } else {
+                sendBizLogQueue.add(combinedContent.toString());
+            }
+
+        }//file loop
     }
 
-    public void start(String path, String host, String outtime, Integer threadcount) {
+    public void start(String path, String host, Integer outtime, Integer threadcount) {
 
         if (path.isEmpty() || host.isEmpty()) {
             log.error("parameter:-path or -host was not set!");
             return;
         }
-        //pull thread
+
+        //curl Thread Pool
         CurlThreadPool curlThreadPool = new CurlThreadPool(host, sendBizLogQueue, sendMetaLogQueue, threadcount);
         curlThreadPool.start();
 
         while (true) {
-            scanRecentUpdateFile(path);
+            scanTheFolderFileList(path);
             cleanupOldFileInfoList(outtime);
+            fetchTheFileAppend();
 
             try {
-                Thread.sleep(10);
+                Thread.sleep(50);
             } catch (Exception e) {
                 //log.error(e.getMessage());
             }
         }
 
     }
+    //waticher
 }

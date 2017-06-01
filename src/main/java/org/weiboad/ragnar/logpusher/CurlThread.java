@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.weiboad.ragnar.server.util.DateTimeHelper;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,7 +25,7 @@ public class CurlThread extends Thread {
 
     private ConcurrentLinkedQueue<String> sendMetaLogQueue;
 
-    private int processMaxCount = 1000;
+    private int processMaxCount = 5000000;//45M
 
 
     public CurlThread(String host, ConcurrentLinkedQueue<String> sendBizLogQueue, ConcurrentLinkedQueue<String> sendMetaLogQueue) {
@@ -36,14 +37,18 @@ public class CurlThread extends Thread {
     public void run() {
         while (true) {
             //biz log
-            pushBizLogToServer("http://" + host + "/ragnar/log/bizlog/put");
+            boolean retBiz = pushBizLogToServer("http://" + host + "/ragnar/log/bizlog/put");
             //meta log
-            pushMetaLogToServer("http://" + host + "/ragnar/log/metalog/put");
-            try {
-                Thread.sleep(100);
-            } catch (Exception e) {
-                //log.error(e.getMessage());
+            boolean retMeta = pushMetaLogToServer("http://" + host + "/ragnar/log/metalog/put");
+
+            if (!retBiz && !retMeta) {
+                try {
+                    Thread.sleep(20);
+                } catch (Exception e) {
+                    //log.error(e.getMessage());
+                }
             }
+
         }
     }
 
@@ -98,25 +103,48 @@ public class CurlThread extends Thread {
         return result;
     }
 
-    private void pushBizLogToServer(String url) {
-        long pushcount = 0;
-        String postData = "";
-        String content = "";
+    private String fetchQueue(ConcurrentLinkedQueue<String> queue, int maxtime) {
+        StringBuffer resultString = new StringBuffer();
+        int collectCount = 0;
+        Long startTime = DateTimeHelper.getCurrentTime();
 
-        while ((content = sendBizLogQueue.poll()) != null) {
+        if (queue.peek() == null) {
+            return "";
+        }
 
-            if (content.trim().length() > 0) {
-                postData += (content.trim() + "\n");
-                pushcount++;
+        String queueString = "";
+        while (true) {
+            queueString = queue.poll();
+            if (queueString != null) {
+                if (queueString.trim().length() > 0) {
+                    resultString.append(queueString + "\n");
+                    collectCount += queueString.length();
+                }
+            } else {
+                try {
+                    Thread.sleep(10);
+                } catch (Exception e) {
+                    //log.error(e.getMessage());
+                }
             }
-            if (pushcount > this.processMaxCount) {
+
+            if ((DateTimeHelper.getCurrentTime() - startTime) > maxtime || collectCount > processMaxCount) {
                 break;
             }
         }
+
+        return resultString.toString();
+    }
+
+    private boolean pushBizLogToServer(String url) {
+        String postData = fetchQueue(sendBizLogQueue, 2);
+
         if (postData.trim().length() > 0) {
+            log.info("fetch biz size:" + postData.trim().length());
+
             String retString = postHttp(url, postData);
             if (retString.equals("")) {
-                return;
+                return false;
             }
             try {
                 JsonParser jsonParser = new JsonParser();
@@ -125,33 +153,23 @@ public class CurlThread extends Thread {
                     log.error("bizlog:" + retString);
                 } else {
                     log.info("bizlog:" + retString);
+                    return true;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
                 log.error(e.getMessage());
             }
         }
+        return false;
     }
 
     private boolean pushMetaLogToServer(String url) {
-        long pushcount = 0;
-        String content = "";
 
-        String data = "";
-        while ((content = sendBizLogQueue.poll()) != null) {
+        String data = fetchQueue(sendMetaLogQueue, 2);
 
-            if (content.trim().length() > 0) {
-                data += (content.trim() + "\n");
-                pushcount++;
-            }
-            if (pushcount > this.processMaxCount) {
-                break;
-            }
-        }
-        if (data.equals("")) {
-            return true;
-        }
         if (data.trim().length() > 0) {
+            log.info("fetch meta size:" + data.trim().length());
+
             String retString = postHttp(url, data);
             if (retString.equals("")) {
                 return false;
@@ -171,6 +189,6 @@ public class CurlThread extends Thread {
                 e.printStackTrace();
             }
         }
-        return true;
+        return false;
     }
 }
