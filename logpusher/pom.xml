@@ -6,7 +6,7 @@
 
     <groupId>org.weiboad.ragnar</groupId>
     <artifactId>logpusher</artifactId>
-    <version>0.5.3-SNAPSHOT</version>
+    <version>0.5.4-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Firey LogPusher</name>

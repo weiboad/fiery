@@ -38,7 +38,7 @@ public class MetaLogProcessor {
         }
     }
 
-    @Scheduled(fixedRate = 200)
+    @Scheduled(fixedRate = 100)
     private void processData() {
         int totalProcess = 0;
         MetaLog metainfo = metaLogQueue.poll();
@@ -48,7 +48,7 @@ public class MetaLogProcessor {
 
             totalProcess++;
 
-            if (totalProcess > 1000) {
+            if (totalProcess > 10000) {
                 break;
             }
 
