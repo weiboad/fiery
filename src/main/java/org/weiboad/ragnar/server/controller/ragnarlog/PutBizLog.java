@@ -6,8 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.weiboad.ragnar.server.struct.ResponseJson;
 import org.weiboad.ragnar.server.processor.BizLogProcessor;
+import org.weiboad.ragnar.server.struct.ResponseJson;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -45,6 +45,9 @@ public class PutBizLog {
         for (int i = 0; i < contentslist.length; i++) {
             String jsonstr = contentslist[i].trim();
             JsonParser valueParse = new JsonParser();
+            if (jsonstr.length() == 0) {
+                continue;
+            }
             try {
                 JsonArray valueArr = (JsonArray) valueParse.parse(jsonstr);
                 bizLogProcessor.insertDataQueue(valueArr);

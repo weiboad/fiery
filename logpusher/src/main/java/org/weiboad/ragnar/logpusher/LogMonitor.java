@@ -2,7 +2,7 @@ package org.weiboad.ragnar.logpusher;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.weiboad.ragnar.server.util.DateTimeHelper;
+import org.weiboad.ragnar.util.DateTimeHelper;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -12,8 +12,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public class LogPusherMain {
-    private Logger log = LoggerFactory.getLogger(LogPusherMain.class);
+public class LogMonitor {
+
+    private Logger log = LoggerFactory.getLogger(LogMonitor.class);
     private Map<String, Long> fileInfoMap = new HashMap<>();
     private Map<String, BufferedReader> bufferReaderMap = new HashMap<>();
 
@@ -21,7 +22,7 @@ public class LogPusherMain {
     private ConcurrentLinkedQueue<String> sendMetaLogQueue = new ConcurrentLinkedQueue<String>();
 
     //max load log Data
-    private int maxProcessData = 20971520;
+    private int maxProcessData = 1048576;
 
     /**
      * scan the new file

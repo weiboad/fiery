@@ -2,17 +2,24 @@ package org.weiboad.ragnar.logpusher;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import org.apache.http.Consts;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.weiboad.ragnar.server.util.DateTimeHelper;
+import org.weiboad.ragnar.util.DateTimeHelper;
 
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class CurlThread extends Thread {
@@ -25,7 +32,7 @@ public class CurlThread extends Thread {
 
     private ConcurrentLinkedQueue<String> sendMetaLogQueue;
 
-    private int processMaxCount = 2000000;//45M
+    private int processMaxCount = 2000000;//19M
 
 
     public CurlThread(String host, ConcurrentLinkedQueue<String> sendBizLogQueue, ConcurrentLinkedQueue<String> sendMetaLogQueue) {
@@ -60,46 +67,41 @@ public class CurlThread extends Thread {
         if (postData.trim().length() == 0) {
             return "";
         }
+        HttpPost httppost = new HttpPost(url);
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+
+        //header
+        httppost.addHeader("connection", "Keep-Alive");
+        httppost.addHeader("user-agent", "Ragnar Fiery LogPusher");
+        httppost.addHeader("Content-Type", "application/x-www-form-urlencoded");
+
+        //Configure
+        RequestConfig requestConfig = RequestConfig.custom()
+                .setSocketTimeout(4000)
+                .setConnectTimeout(4000)
+                .setConnectionRequestTimeout(10000)
+                .setContentCompressionEnabled(true)
+                .setExpectContinueEnabled(true)
+                .setMaxRedirects(3)
+                .setRedirectsEnabled(true)
+                .build();
+        httppost.setConfig(requestConfig);
+
+        //set parameter
+        List<NameValuePair> formparams = new ArrayList<>();
+        formparams.add(new BasicNameValuePair("contents", postData));
+        UrlEncodedFormEntity entity = new UrlEncodedFormEntity(formparams, Consts.UTF_8);
+        httppost.setEntity(entity);
 
         try {
-            URL realUrl = new URL(url);
-            // 打开和URL之间的连接
-            URLConnection conn = realUrl.openConnection();
-            // 设置通用的请求属性
-            conn.setRequestProperty("connection", "Keep-Alive");
-            conn.setRequestProperty("user-agent",
-                    "Ragnar Fiery LogPusher");
-            // 发送POST请求必须设置如下两行
-            conn.setDoOutput(true);
-            conn.setDoInput(true);
-            // 获取URLConnection对象对应的输出流
-            out = new PrintWriter(conn.getOutputStream());
-            // 发送请求参数
-            out.print("contents=" + URLEncoder.encode(postData, "utf-8"));
-            // flush输出流的缓冲
-            out.flush();
-            // 定义BufferedReader输入流来读取URL的响应
-            in = new BufferedReader(
-                    new InputStreamReader(conn.getInputStream()));
-            String line;
-            while ((line = in.readLine()) != null) {
-                result += line;
-            }
+            CloseableHttpResponse response = httpClient.execute(httppost);
+            result = EntityUtils.toString(response.getEntity());
+
         } catch (Exception e) {
-            log.error("Post Error:" + e);
             e.printStackTrace();
-        } finally {
-            try {
-                if (out != null) {
-                    out.close();
-                }
-                if (in != null) {
-                    in.close();
-                }
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
+            log.error("http post error:" + e.getMessage());
         }
+
         return result;
     }
 

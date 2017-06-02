@@ -12,7 +12,7 @@ Fiery
  Fiery is an APM-Application Performance Management for the PHP
 
 ### Introduction
- * All Service in a jar.easy to deploy
+ * All Service in an jar.easy to deploy
  * Burial SDK: integrated burial package for php project
  * Log Pusher: collect the ragnarsdk logs and push to the server
  * Server: index, storage, statistics the logs, web Management interface
@@ -31,7 +31,7 @@ Fiery
  4. mkdir logs index db
  5. Startup the Fiery Server by command:
 
-> java -XX:-MaxFDLimit -Xms3750m -Xmx3750m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar ragnarserver-0.5.1-SNAPSHOT.jar -type server --server.port=9090
+> java -XX:-MaxFDLimit -Xms3750m -Xmx3750m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar ragnarserver-0.5.3-SNAPSHOT.jar --server.port=9090
 
  6. Browse the web address http://127.0.0.1:9090/ragnar/
 
@@ -42,7 +42,7 @@ Fiery
 ### LogPusher
 
 
-> nohup java -XX:-MaxFDLimit -Xms128m -Xmx450m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar ragnarserver-0.5.1-SNAPSHOT.jar -type logpush -path [ragnarsdklogpath] -host [ip:port] -outtime 7 &
+> nohup java -XX:-MaxFDLimit -Xms128m -Xmx450m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar logpusher-0.5.3-SNAPSHOT.jar -type logpush -path [ragnarsdklogpath] -host [ip:port] -outtime 7 &
 
 
 #### Todo

@@ -3,7 +3,7 @@ JARFile="fiery-0.5.3-SNAPSHOT.jar"
 PIDFile="fiery.pid"
 JVM_OPTS="-XX:-MaxFDLimit -Xms128m -Xmx750m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops "
 SPRING_OPTS="--logging.file=logs/application.log --server.port=9090 "
-APP_OPTS=" -type server"
+APP_OPTS=" "
 function check_if_pid_file_exists {
     if [ ! -f $PIDFile ]
     then
