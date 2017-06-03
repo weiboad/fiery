@@ -77,9 +77,9 @@ public class CurlThread extends Thread {
 
         //Configure
         RequestConfig requestConfig = RequestConfig.custom()
-                .setSocketTimeout(4000)
-                .setConnectTimeout(4000)
-                .setConnectionRequestTimeout(10000)
+                .setSocketTimeout(10000)
+                .setConnectTimeout(10000)
+                .setConnectionRequestTimeout(20000)
                 .setContentCompressionEnabled(true)
                 .setExpectContinueEnabled(true)
                 .setMaxRedirects(3)
@@ -106,7 +106,7 @@ public class CurlThread extends Thread {
     }
 
     private String fetchQueue(ConcurrentLinkedQueue<String> queue, int maxtime) {
-        StringBuffer resultString = new StringBuffer();
+        StringBuilder resultString = new StringBuilder();
         Long startTime = DateTimeHelper.getCurrentTime();
 
         if (queue.peek() == null) {

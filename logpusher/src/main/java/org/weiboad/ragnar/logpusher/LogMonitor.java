@@ -144,7 +144,7 @@ public class LogMonitor {
 
             String tempString = "";
             //combined result
-            StringBuffer combinedContent = new StringBuffer();
+            StringBuilder combinedContent = new StringBuilder();
             //processed Data Total
             Long processLength = 0L;
             Long offset = fileInfoMap.get(filePath);
