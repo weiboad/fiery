@@ -1,1 +1,1 @@
-java -XX:-MaxFDLimit -Xms128m -Xmx750m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar ../target/logpusher-0.5.3-SNAPSHOT.jar -type logpush -path ../logcollector/ -host 127.0.0.1:9090 -outtime 7 -threadcount=10
+java -XX:-MaxFDLimit -Xms128m -Xmx750m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar ../target/logpusher-0.5.4-SNAPSHOT.jar -type logpush -path ../logcollector/ -host 127.0.0.1:9090 -outtime 7 -threadcount=10

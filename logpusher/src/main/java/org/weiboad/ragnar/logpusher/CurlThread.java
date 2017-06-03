@@ -32,7 +32,7 @@ public class CurlThread extends Thread {
 
     private ConcurrentLinkedQueue<String> sendMetaLogQueue;
 
-    private int processMaxCount = 2000000;//19M
+    private int processMaxCount = 1000000;//9M
 
 
     public CurlThread(String host, ConcurrentLinkedQueue<String> sendBizLogQueue, ConcurrentLinkedQueue<String> sendMetaLogQueue) {
@@ -107,7 +107,6 @@ public class CurlThread extends Thread {
 
     private String fetchQueue(ConcurrentLinkedQueue<String> queue, int maxtime) {
         StringBuffer resultString = new StringBuffer();
-        int collectCount = 0;
         Long startTime = DateTimeHelper.getCurrentTime();
 
         if (queue.peek() == null) {
@@ -120,7 +119,6 @@ public class CurlThread extends Thread {
             if (queueString != null) {
                 if (queueString.trim().length() > 0) {
                     resultString.append(queueString + "\n");
-                    collectCount += queueString.length();
                 }
             } else {
                 try {
@@ -130,7 +128,7 @@ public class CurlThread extends Thread {
                 }
             }
 
-            if ((DateTimeHelper.getCurrentTime() - startTime) > maxtime || collectCount > processMaxCount) {
+            if ((DateTimeHelper.getCurrentTime() - startTime) > maxtime || resultString.length() > processMaxCount) {
                 break;
             }
         }

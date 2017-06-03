@@ -35,7 +35,5 @@ public class CurlThreadPool {
         }
     }
 
-    protected void finalize() throws Throwable {
 
-    }
 }

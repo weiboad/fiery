@@ -16,13 +16,14 @@ public class LogMonitor {
 
     private Logger log = LoggerFactory.getLogger(LogMonitor.class);
     private Map<String, Long> fileInfoMap = new HashMap<>();
+    private Map<String, File> fileMap = new HashMap<>();
     private Map<String, BufferedReader> bufferReaderMap = new HashMap<>();
 
     private ConcurrentLinkedQueue<String> sendBizLogQueue = new ConcurrentLinkedQueue<String>();
     private ConcurrentLinkedQueue<String> sendMetaLogQueue = new ConcurrentLinkedQueue<String>();
 
     //max load log Data
-    private int maxProcessData = 1048576;
+    private int maxProcessData = 1048576;//max load one file
 
     /**
      * scan the new file
@@ -50,6 +51,7 @@ public class LogMonitor {
                 if (fileinfo.isFile() && !fileInfoMap.containsKey(filepath)) {
                     log.info("New File:" + filepath);
                     fileInfoMap.put(filepath, 0L);
+                    fileMap.put(filepath, file);
                 }
             } catch (Exception e) {
                 log.error(e.getMessage());
@@ -102,9 +104,20 @@ public class LogMonitor {
 
     private void fetchTheFileAppend() {
 
+        //limit the length
+        //maxProcessData * 20
+        if (sendBizLogQueue.size() > 20) {
+            return;
+        }
+
         //loop the file list
         for (Map.Entry<String, Long> ent : fileInfoMap.entrySet()) {
             String filePath = ent.getKey();
+            //limit the length
+            //maxProcessData * 20
+            if (sendBizLogQueue.size() > 20) {
+                break;
+            }
 
             //make sure the file opened
             if (!bufferReaderMap.containsKey(filePath)) {
@@ -113,6 +126,7 @@ public class LogMonitor {
 
                 //not found
                 if (!file.exists()) {
+                    fileMap.remove(filePath);
                     fileInfoMap.remove(filePath);
                     log.error("Not Found:" + filePath);
                     continue;
@@ -130,7 +144,7 @@ public class LogMonitor {
 
             String tempString = "";
             //combined result
-            StringBuilder combinedContent = new StringBuilder();
+            StringBuffer combinedContent = new StringBuffer();
             //processed Data Total
             Long processLength = 0L;
             Long offset = fileInfoMap.get(filePath);
@@ -149,6 +163,12 @@ public class LogMonitor {
                         combinedContent.append(tempString + "\n");
                     }
 
+                    //limit the length
+                    //maxProcessData * 20
+                    if (sendBizLogQueue.size() > 20) {
+                        break;
+                    }
+
                     //ok process more than
                     if (processLength > maxProcessData) {
                         break;
@@ -159,6 +179,7 @@ public class LogMonitor {
                 // when the Exception
                 // clean up all
                 fileInfoMap.remove(filePath);
+                fileMap.remove(filePath);
                 try {
                     bufferReaderMap.get(filePath).close();
                 } catch (Exception ex) {
@@ -178,6 +199,7 @@ public class LogMonitor {
             } else {
                 sendBizLogQueue.add(combinedContent.toString());
             }
+
 
         }//file loop
     }
