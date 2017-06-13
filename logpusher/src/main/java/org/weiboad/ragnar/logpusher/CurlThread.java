@@ -2,25 +2,14 @@ package org.weiboad.ragnar.logpusher;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import org.apache.http.Consts;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
+import okhttp3.*;
+import okhttp3.OkHttpClient.Builder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.weiboad.ragnar.util.DateTimeHelper;
 
-import java.io.BufferedReader;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.TimeUnit;
 
 public class CurlThread extends Thread {
 
@@ -60,8 +49,34 @@ public class CurlThread extends Thread {
     }
 
     private String postHttp(String url, String postData) {
-        PrintWriter out = null;
-        BufferedReader in = null;
+        String result = "";
+
+        Builder builder = new Builder();
+        builder.connectTimeout(10000, TimeUnit.MILLISECONDS);
+        builder.readTimeout(10000,TimeUnit.MILLISECONDS);
+        builder.writeTimeout(10000,TimeUnit.MILLISECONDS);
+        builder.followRedirects(true);
+        builder.retryOnConnectionFailure(false);
+        OkHttpClient client = builder.build();
+
+        MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded; charset=utf-8");
+        RequestBody body = RequestBody.create(mediaType, "contents=" + postData);
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            result = response.body().string();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+
+        /*
         String result = "";
 
         if (postData.trim().length() == 0) {
@@ -71,7 +86,7 @@ public class CurlThread extends Thread {
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
         //header
-        httppost.addHeader("connection", "Keep-Alive");
+        httppost.addHeader("connection", "close");
         httppost.addHeader("user-agent", "Ragnar Fiery LogPusher");
         httppost.addHeader("Content-Type", "application/x-www-form-urlencoded");
 
@@ -102,7 +117,9 @@ public class CurlThread extends Thread {
             log.error("http post error:" + e.getMessage());
         }
 
+        httppost.releaseConnection();
         return result;
+        */
     }
 
     private String fetchQueue(ConcurrentLinkedQueue<String> queue, int maxtime) {
