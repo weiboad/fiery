@@ -59,8 +59,9 @@ public class CurlThread extends Thread {
         builder.retryOnConnectionFailure(false);
         OkHttpClient client = builder.build();
 
-        MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded; charset=utf-8");
-        RequestBody body = RequestBody.create(mediaType, "contents=" + postData);
+        //MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded; charset=utf-8");
+        RequestBody body =  new FormBody.Builder().add("contents", postData).build();
+        //RequestBody.create(mediaType, "contents=" + postData);
 
         Request request = new Request.Builder()
                 .url(url)
