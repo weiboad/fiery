@@ -20,6 +20,8 @@ logcollector/
 *.iws
 *.iml
 *.ipr
+logpusher/target
+server/target
 
 ### NetBeans ###
 nbproject/private/
