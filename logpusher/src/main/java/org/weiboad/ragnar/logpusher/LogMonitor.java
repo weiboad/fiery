@@ -52,7 +52,29 @@ public class LogMonitor {
                     log.info("New File:" + filepath);
                     fileInfoMap.put(filepath, 0L);
                     fileMap.put(filepath, file);
+                    continue;
                 }
+
+                //check the file is delete and renew?
+                //if the length more than the current len
+                //the file must be renew
+                if (fileInfoMap.containsKey(filepath) && fileInfoMap.get(filepath) > fileinfo.length()) {
+                    try {
+                        bufferReaderMap.get(filepath).close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    //clean up
+                    bufferReaderMap.remove(filepath);
+                    fileInfoMap.remove(filepath);
+                    fileMap.remove(filepath);
+
+                    //create again
+                    fileInfoMap.put(filepath, 0L);
+                    fileMap.put(filepath, file);
+                }
+
             } catch (Exception e) {
                 log.error(e.getMessage());
             }
