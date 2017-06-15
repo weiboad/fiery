@@ -47,6 +47,11 @@ public class LogMonitor {
                     continue;
                 }
 
+                //old file will not scaned
+                if (fileinfo.lastModified()/1000 < DateTimeHelper.getCurrentTime() - (7 * 24 * 3600)) {
+                    continue;
+                }
+
                 //found new file
                 if (fileinfo.isFile() && !fileInfoMap.containsKey(filepath)) {
                     log.info("New File:" + filepath);
@@ -58,7 +63,9 @@ public class LogMonitor {
                 //check the file is delete and renew?
                 //if the length more than the current len
                 //the file must be renew
-                if (fileInfoMap.containsKey(filepath) && fileInfoMap.get(filepath) > fileinfo.length()) {
+                if (fileInfoMap.containsKey(filepath) && fileInfoMap.get(filepath) > fileinfo.length() + 10) {
+                    log.info("renew the File:" + filepath + " offset:" + fileInfoMap.get(filepath) + " length:" + fileinfo.length());
+
                     try {
                         bufferReaderMap.get(filepath).close();
                     } catch (Exception e) {
@@ -67,7 +74,6 @@ public class LogMonitor {
 
                     //clean up
                     bufferReaderMap.remove(filepath);
-                    fileInfoMap.remove(filepath);
                     fileMap.remove(filepath);
 
                     //create again
@@ -82,9 +88,6 @@ public class LogMonitor {
     }
 
     private void cleanupOldFileInfoList(Integer outime) {
-        if (outime <= 0) {
-            return;
-        }
 
         ArrayList<String> cleanUpList = new ArrayList<>();
         for (Map.Entry<String, Long> ent : fileInfoMap.entrySet()) {
@@ -97,7 +100,7 @@ public class LogMonitor {
             }
 
             //expire file
-            if (file.lastModified() / 1000 < DateTimeHelper.getCurrentTime() - outime * 86400) {
+            if (outime > 0 && file.lastModified() / 1000 < DateTimeHelper.getCurrentTime() - outime * 86400) {
                 //removed
                 file.delete();
                 cleanUpList.add(ent.getKey());
@@ -107,7 +110,7 @@ public class LogMonitor {
         //clean up the list
         for (String filePath : cleanUpList) {
 
-            log.info("file remove:" + filePath);
+            log.info("file fd remove:" + filePath);
 
             fileInfoMap.remove(filePath);
 
