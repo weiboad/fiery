@@ -1,6 +1,7 @@
 <#setting url_escaping_charset='utf-8'>
 
 <#function showCostTime costtime>
+    <#assign costtime = costtime?eval>
     <#if costtime \gt 1>
         <#return " <span style='color: red'>" + costtime?string("0.000")  + "</span> ">
     <#elseif costtime \gt 0.6>
@@ -11,6 +12,8 @@
 </#function>
 
 <#function showMSCostTime costtime>
+    <#assign costtime = costtime?eval>
+
     <#if costtime \gt 1000>
         <#return " <span style='color: red'>" + costtime?string("0.00")  + "</span> ">
     <#elseif costtime \gt 600>
@@ -21,16 +24,18 @@
 </#function>
 
 <#function showTagCostTime costtime>
-    <#if costtime \gt 1>
-        <#return " <span class='label label-danger'>" + costtime  + " sec</span> ">
+    <#assign costtimeint = costtime?eval>
+    <#if costtimeint \gt 1>
+        <#return " <span class='label label-danger'>" + costtimeint  + " sec</span> ">
     <#elseif costtime == "" >
         <#return "--">
     <#else >
-        <#return " <span class='label label-success'>" + ( costtime * 1000) + " ms</span> ">
+        <#return " <span class='label label-success'>" + (costtimeint * 1000) + " ms</span> ">
     </#if>
 </#function>
 
 <#function showStaticsTime costtime>
+    <#assign costtime = costtime?eval>
     <#if costtime \gt 1000>
         <#return "<span style='color: red'>" + costtime?string("0.00") + "</span>">
     <#elseif costtime \gt 600>

@@ -63,7 +63,7 @@
                 </tr>
             <#list searchInfoList as dbname,index>
                 <tr>
-                    <td>${dbname}</td>
+                    <td>${((dbname?eval)*1000)?number_to_date} (${dbname})</td>
                     <td>${index.count}</td>
                 </tr>
             </#list>
@@ -81,7 +81,7 @@
                 </tr>
             <#list writeInfoList as dbname,index>
                 <tr>
-                    <td>${dbname}</td>
+                    <td>${((dbname?eval)*1000)?number_to_date} (${dbname})</td>
                     <td>${index.insertqueue_len}</td>
                     <td>${index.memory_bytes}</td>
                     <th>${index.count_ram}</th>
@@ -114,7 +114,7 @@
                 </thead>
             <#list dbInfoList as dbname,index>
                 <tr>
-                    <td>${dbname}</td>
+                    <td>${((dbname?eval)*1000)?number_to_date} (${dbname})</td>
                 </tr>
             </#list>
             </table>
@@ -135,7 +135,7 @@
                 </thead>
             <#list apitopStatic as day,datacount>
                 <tr>
-                    <td>${day}</td>
+                    <td>${((day?eval)*1000)?number_to_date} (${day})</td>
                     <td>${datacount}</td>
                 </tr>
             </#list>
@@ -152,7 +152,7 @@
                 </thead>
             <#list errorStatic as day,datacount>
                 <tr>
-                    <td>${day}</td>
+                    <td>${((day?eval)*1000)?number_to_date} (${day})</td>
                     <td>${datacount}</td>
                 </tr>
             </#list>
@@ -169,7 +169,7 @@
                 </thead>
             <#list alarmStatic as day,datacount>
                 <tr>
-                    <td>${day}</td>
+                    <td>${((day?eval)*1000)?number_to_date} (${day})</td>
                     <td>${datacount}</td>
                 </tr>
             </#list>
@@ -186,7 +186,7 @@
                 </thead>
             <#list exceptionStatic as day,datacount>
                 <tr>
-                    <td>${day}</td>
+                    <td>${((day?eval)*1000)?number_to_date} (${day})</td>
                     <td>${datacount}</td>
                 </tr>
             </#list>
