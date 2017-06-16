@@ -26,7 +26,7 @@
     <#elseif costtime == "" >
         <#return "--">
     <#else >
-        <#return " <span class='label label-success'>" + costtime + " ms</span> ">
+        <#return " <span class='label label-success'>" + ( costtime * 1000) + " ms</span> ">
     </#if>
 </#function>
 
