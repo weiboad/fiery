@@ -77,9 +77,11 @@
                     <table class="table table-hover" style="width: 1600px">
                         <tr>
                             <th>URL <#if oldstyle == "1">
-                                <a href="?traceid=${traceid}&rpcid=0&oldstyle=0" type="button" class="small" style="color: red;">兼容模式</a>
+                                <a href="?traceid=${traceid}&rpcid=0&oldstyle=0" type="button" class="small"
+                                   style="color: red;">兼容模式</a>
                             <#else>
-                                <a href="?traceid=${traceid}&rpcid=0&oldstyle=1" type="button" class="small" style="color: blue;">递归渲染</a>
+                                <a href="?traceid=${traceid}&rpcid=0&oldstyle=1" type="button" class="small"
+                                   style="color: blue;">递归渲染</a>
                             </#if></th>
                             <th>RPCID</th>
                             <th>Type/Code</th>
@@ -176,23 +178,35 @@
                                 <label class='label label-primary'>RPCID:${log.r}</label>
                                 &nbsp;
                                 <label class='label label-info'>${log.g}</label>
-                            ${log.e} ${log.p} (${log.l})
+                            ${(log.e?eval*1000)?number_to_datetime} ${log.p} (${log.l})
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <div id="jsonlog_${log?index}"></div>
                                 <script>
-                                    var options = {
-                                        "mode": "tree",
-                                        "search": false,
-                                        "history": false,
-                                    };
-                                    var container = document.getElementById("jsonlog_${log?index}");
-                                    var editor = new JSONEditor(container, options);
+                                    var content = '${log.m}';
+                                    var isobj = 0;
+                                    try {
+                                        JSON.parse(content);
+                                        isobj = 1;
+                                    } catch (error) {
+                                        isobj = 0;
+                                    }
+                                    if (isobj == 1) {
+                                        var options = {
+                                            "mode": "tree",
+                                            "search": false,
+                                            "history": false,
+                                        };
+                                        var container = document.getElementById("jsonlog_${log?index}");
+                                        var editor = new JSONEditor(container, options);
+                                        editor.set(JSON.parse(content));
+                                        editor.expandAll();
+                                    } else {
+                                        document.write(content);
+                                    }
 
-                                    editor.set(${log.m});
-                                    editor.expandAll();
                                 </script>
                             </td>
                         </tr>
@@ -220,24 +234,37 @@
                                 &nbsp;
                                 <label class='label label-info'>${log.g}</label>
                                 &nbsp;
-                            ${log.e} ${showTagCostTime(log.c)} ${log.p} (${log.l})
+                            ${(log.e?eval * 1000)?number_to_datetime} ${showTagCostTime(log.c)} ${log.p} (${log.l})
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <div id="jsonlog_${log?index}"></div>
                                 <script>
-                                    var options = {
-                                        "mode": "tree",
-                                        "search": false,
-                                        "history": false,
-                                    };
-                                    var container = document.getElementById("jsonlog_${log?index}");
-                                    var editor = new JSONEditor(container, options);
+                                    var content = '${log.m}';
+                                    var isobj = 0;
+                                    try {
+                                        JSON.parse(content);
+                                        isobj = 1;
+                                    } catch (error) {
+                                        isobj = 0;
+                                    }
+                                    if (isobj == 1) {
+                                        var options = {
+                                            "mode": "tree",
+                                            "search": false,
+                                            "history": false,
+                                        };
+                                        var container = document.getElementById("jsonlog_${log?index}");
+                                        var editor = new JSONEditor(container, options);
+                                        editor.set(JSON.parse(content));
+                                        editor.expandAll();
+                                    } else {
+                                        document.write(content);
+                                    }
 
-                                    editor.set(${log.m});
-                                    editor.expandAll();
                                 </script>
+
                             </td>
                         </tr>
                     </#if>
