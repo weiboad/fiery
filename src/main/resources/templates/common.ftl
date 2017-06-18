@@ -67,7 +67,7 @@
     <#elseif tagname == "api">
         <#return "<label class='label label-danger'>API</label>">
     <#else >
-        <#return " <label class='label label-warning'>Other</label> ">
+        <#return " <label class='label label-warning'>Custom</label> ">
     </#if>
 </#function>
 
