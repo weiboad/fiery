@@ -185,15 +185,7 @@
                             <td>
                                 <div id="jsonlog_${log?index}"></div>
                                 <script>
-                                    var content = '${log.m}';
-                                    var isobj = 0;
-                                    try {
-                                        JSON.parse(content);
-                                        isobj = 1;
-                                    } catch (error) {
-                                        isobj = 0;
-                                    }
-                                    if (isobj == 1) {
+                                    try{
                                         var options = {
                                             "mode": "tree",
                                             "search": false,
@@ -201,12 +193,11 @@
                                         };
                                         var container = document.getElementById("jsonlog_${log?index}");
                                         var editor = new JSONEditor(container, options);
-                                        editor.set(JSON.parse(content));
+                                        editor.set(${log.m});
                                         editor.expandAll();
-                                    } else {
-                                        document.write(content);
+                                    }catch(error){
+                                        document.write('${log.m}');
                                     }
-
                                 </script>
                             </td>
                         </tr>
@@ -241,15 +232,7 @@
                             <td>
                                 <div id="jsonlog_${log?index}"></div>
                                 <script>
-                                    var content = '${log.m}';
-                                    var isobj = 0;
-                                    try {
-                                        JSON.parse(content);
-                                        isobj = 1;
-                                    } catch (error) {
-                                        isobj = 0;
-                                    }
-                                    if (isobj == 1) {
+                                    try{
                                         var options = {
                                             "mode": "tree",
                                             "search": false,
@@ -257,14 +240,12 @@
                                         };
                                         var container = document.getElementById("jsonlog_${log?index}");
                                         var editor = new JSONEditor(container, options);
-                                        editor.set(JSON.parse(content));
+                                        editor.set(${log.m});
                                         editor.expandAll();
-                                    } else {
-                                        document.write(content);
+                                    }catch(error){
+                                        document.write('${log.m}');
                                     }
-
                                 </script>
-
                             </td>
                         </tr>
                     </#if>
