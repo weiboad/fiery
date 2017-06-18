@@ -24,11 +24,14 @@
 </#function>
 
 <#function showTagCostTime costtime>
+    <#if costtime == "" >
+        <#return "--">
+    </#if>
+
     <#assign costtimeint = costtime?eval>
+
     <#if costtimeint \gt 1>
         <#return " <span class='label label-danger'>" + costtimeint  + " sec</span> ">
-    <#elseif costtime == "" >
-        <#return "--">
     <#else >
         <#return " <span class='label label-success'>" + (costtimeint * 1000) + " ms</span> ">
     </#if>
