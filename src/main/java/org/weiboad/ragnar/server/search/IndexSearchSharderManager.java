@@ -89,8 +89,9 @@ public class IndexSearchSharderManager {
         if (timestamp > DateTimeHelper.getBeforeDay(fieryConfig.getKeepdataday()) && timestamp <= DateTimeHelper.getCurrentTime()) {
 
             //fixed the index not load
-            if (!readerList.contains(timeSharder)) {
-                boolean loadRet = this.openIndex(timeSharder, fieryConfig.getIndexpath()+"/"+timeSharder);
+            if (!readerList.containsKey(timeSharder)) {
+                log.info("index not loaded:" + timeSharder);
+                boolean loadRet = this.openIndex(timeSharder, fieryConfig.getIndexpath() + "/" + timeSharder);
             }
 
             ArrayList<MetaLog> metalist = new ArrayList<MetaLog>();

@@ -38,6 +38,19 @@
     <div class="row">
         <div class="col-md-12">
             <h3>慢响应排行:${url}</h3>
+            <form action="?" method="get" class="form-horizontal" id="topmessage">
+
+                <div style="float:right;width: 160px;">
+
+                    <label class="control-label">时间范围:</label>
+                    <input type="hidden" name="url" value="${url}"/>
+                    <select name="topdatarange" class="input-sm" id="topdatarange">
+                    <#list datelist as dateitem>
+                        <option value="${dateitem?index}">${dateitem}</option>
+                    </#list>
+                    </select>
+                </div>
+            </form>
             <table class="table table-hover">
                 <thead>
                 <tr>
@@ -71,6 +84,16 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#topdatarange").change(function () {
+            $("#topmessage").submit();
+        });
+        $("#topdatarange").val("${datelist_selected}");
+
+    });
+</script>
 <#include "footer.ftl">
 </body>
 </html>
