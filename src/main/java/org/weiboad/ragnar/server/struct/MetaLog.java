@@ -171,12 +171,15 @@ public class MetaLog {
         Field version = new StringField("version", getVersion(), Field.Store.YES);
         Field rpcid = new StringField("rpcid", getRpcid(), Field.Store.YES);
         Field traceid = new StringField("traceid", getTraceid(), Field.Store.YES);
+
         Field time = new DoubleDocValuesField("time", getTime());
+        Field timeDouble = new DoublePoint("time", getTime());
         Field timeRaw = new StoredField("time_raw", getTime());
 
         //Field timestamp = new LongPoint("timestamp", lastModified);
         Field elapsed = new DoubleDocValuesField("elapsed_ms", getElapsed_ms());
         Field elapsedRaw = new StoredField("elapsed_ms_raw", getElapsed_ms());
+        Field elapsedDouble = new DoublePoint("elapsed_ms", getElapsed_ms());
 
         Field perf_on = new StringField("perf_on", getPerf_on(), Field.Store.YES);
         Field ip = new StringField("ip", getIp(), Field.Store.YES);
@@ -195,10 +198,13 @@ public class MetaLog {
         doc.add(traceid);
         doc.add(time);
         doc.add(timeRaw);
+        doc.add(timeDouble);
 
         //doc.add(timestamp);
         doc.add(elapsed);
         doc.add(elapsedRaw);
+        doc.add(elapsedDouble);
+
         doc.add(perf_on);
         doc.add(ip);
         doc.add(rt_type);

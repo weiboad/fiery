@@ -1,10 +1,8 @@
 package org.weiboad.ragnar.server.controller.web;
 
+import org.apache.lucene.document.DoublePoint;
 import org.apache.lucene.index.Term;
-import org.apache.lucene.search.Query;
-import org.apache.lucene.search.Sort;
-import org.apache.lucene.search.SortField;
-import org.apache.lucene.search.TermQuery;
+import org.apache.lucene.search.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.weiboad.ragnar.server.config.FieryConfig;
 import org.weiboad.ragnar.server.controller.ragnarlog.PutMetalog;
-import org.weiboad.ragnar.server.struct.ResponseJson;
-import org.weiboad.ragnar.server.statistics.api.APIStatisticTimeSet;
 import org.weiboad.ragnar.server.search.IndexService;
+import org.weiboad.ragnar.server.statistics.api.APIStatisticTimeSet;
+import org.weiboad.ragnar.server.struct.ResponseJson;
 import org.weiboad.ragnar.server.util.DateTimeHelper;
 
 @Controller
@@ -35,14 +33,58 @@ public class APIStatisticDetailPage {
     Logger log = LoggerFactory.getLogger(PutMetalog.class);
 
     @RequestMapping(value = "/apistatisticdetail", method = RequestMethod.GET)
-    public String currentlog(Model model, @RequestParam(value = "url", required = false, defaultValue = "") String keyword) {
+    public String currentlog(Model model, @RequestParam(value = "url", required = false, defaultValue = "") String keyword,
+                             @RequestParam(value = "topdatarange", required = false, defaultValue = "") String dataRange) {
 
+        //data range
+        Integer dataRangeInt = 0;
+
+        if (dataRange.trim().length() == 0) {
+            dataRange = "0";
+        }
+
+        model.addAttribute("topdatarange", dataRange);
+
+        try {
+            dataRangeInt = Integer.parseInt(dataRange);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error(e.getMessage());
+            return "apistatisticdetail";
+        }
+
+        Long startRange = DateTimeHelper.getTimesMorning(DateTimeHelper.getCurrentTime()) - (dataRangeInt * 86400);
+
+        TermQuery termQuery = new TermQuery(new Term("url", keyword.trim()));
+        Query rangeQuery = DoublePoint.newRangeQuery("time", startRange, startRange + 86400);
+        //rangeStart
+        BooleanQuery query = new BooleanQuery.Builder()
+                .add(termQuery, BooleanClause.Occur.MUST)
+                .add(rangeQuery, BooleanClause.Occur.MUST)
+                .build();
+/*
+        //term query
+        String queryString = "url:\"" + keyword.trim() + "\" AND time_raw:[" + startRange + " TO " + (startRange + 86400) + "]";
+        log.info("queryString:" + queryString);
+
+        Query query;
+        QueryParser parser = new QueryParser("url,time_raw", new StandardAnalyzer());
+        try {
+            query = parser.parse(queryString);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error(e.getMessage());
+            return "apistatisticdetail";
+        }
+*/
+/*
         Query query;
         Term term = new Term("url", keyword.trim());
         query = new TermQuery(term);
 
-        Sort sort = new Sort(new SortField("elapsed_ms", SortField.Type.DOUBLE, true));
+*/
 
+        Sort sort = new Sort(new SortField("elapsed_ms", SortField.Type.DOUBLE, true));
         ResponseJson result = indexHelper.searchByQuery(DateTimeHelper.getCurrentTime(), query, 0, 1000, sort);
         model.addAttribute("resultlist", result.getResult());
         model.addAttribute("url", keyword);

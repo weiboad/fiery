@@ -46,7 +46,7 @@
                     <th width="50">RPCID</th>
                     <th width="50">IP</th>
                     <th width="80">HttpCode</th>
-                    <th width="80">Cost(sec)</th>
+                    <th width="80">Cost(ms)</th>
                     <th width="180">Time</th>
                     <th width="100">操作</th>
                 </tr>
@@ -58,7 +58,7 @@
                     <td>${item.rpcid}</td>
                     <td>${item.ip}</td>
                     <td>${item.httpcode}</td>
-                    <td>${showCostTime(item.elapsed_ms)}</td>
+                    <td>${showMSCostTime(item.elapsed_ms*1000)}</td>
                     <td>${(item.time_date?string("yyyy-MM-dd HH:mm:ss"))!}</td>
                     <td>
                         <a type="button" class="btn btn-primary"
