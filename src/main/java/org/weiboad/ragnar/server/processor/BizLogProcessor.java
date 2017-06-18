@@ -115,7 +115,7 @@ public class BizLogProcessor {
 
                     String bflog = obj.get("g").getAsString();
                     Double costTime = obj.get("c").getAsDouble();
-                    Integer hourTime = DateTimeHelper.getHourTime(timestampLong);
+                    Long hourTime = DateTimeHelper.getHourTime(timestampLong);
 
                     JsonObject msgObj;
                     if (obj.get("m").isJsonObject()) {

@@ -26,6 +26,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class APIStatisticTimeSet {
 
     private ConcurrentHashMap<Long, ConcurrentHashMap<String, APIStatisticStruct>> apiTopStaticHelper = new ConcurrentHashMap<Long, ConcurrentHashMap<String, APIStatisticStruct>>();
+    private ConcurrentHashMap<Long, ConcurrentHashMap<String, APIStatisticStruct>> apiTopHourStaticHelper = new ConcurrentHashMap<Long, ConcurrentHashMap<String, APIStatisticStruct>>();
 
     private Logger log = LoggerFactory.getLogger(APIStatisticTimeSet.class);
 
@@ -38,12 +39,11 @@ public class APIStatisticTimeSet {
     public void analyzeMetaLog(MetaLog metainfo) {
 
         String url = metainfo.getUrl();
-        Long shardTime = metainfo.getTime().longValue();
+        Long shardTime = DateTimeHelper.getTimesMorning(metainfo.getTime().longValue());
+        Long hourShardTime = DateTimeHelper.getHourTime(metainfo.getTime().longValue());
 
         if (url.trim().length() > 0 && shardTime > 0 && shardTime > DateTimeHelper.getCurrentTime() -
                 (fieryConfig.getKeepdataday() * 86400)) {
-
-            shardTime = DateTimeHelper.getTimesMorning(shardTime);
 
             if (!apiTopStaticHelper.containsKey(shardTime)) {
                 ConcurrentHashMap<String, APIStatisticStruct> urlshard = new ConcurrentHashMap<>();
@@ -54,6 +54,7 @@ public class APIStatisticTimeSet {
                 //put to the list
                 urlshard.put(url, urlinfo);
                 apiTopStaticHelper.put(shardTime, urlshard);
+                apiTopHourStaticHelper.put(hourShardTime,urlshard);
 
             } else {
                 //count ++

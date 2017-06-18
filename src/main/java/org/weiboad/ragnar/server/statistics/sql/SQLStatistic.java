@@ -31,10 +31,10 @@ public class SQLStatistic {
     @Autowired
     FieryConfig fieryConfig;
 
-    private Map<String, Map<Integer, SqlStatisticStruct>> _sqlMap = new ConcurrentHashMap<>();
+    private Map<String, Map<Long, SqlStatisticStruct>> _sqlMap = new ConcurrentHashMap<>();
     private Logger log = LoggerFactory.getLogger(SQLStatistic.class);
 
-    public void addSqlMap(String sqlStr, Integer hour, Double costTime) {
+    public void addSqlMap(String sqlStr, Long hour, Double costTime) {
         if (sqlStr == null) {
             return;
         }
@@ -101,7 +101,7 @@ public class SQLStatistic {
             sqlStrPre = sqlStrPre.substring(0, index);
         }
         boolean issame = false;
-        for (Map.Entry<String, Map<Integer, SqlStatisticStruct>> entry : _sqlMap.entrySet()) {
+        for (Map.Entry<String, Map<Long, SqlStatisticStruct>> entry : _sqlMap.entrySet()) {
             if (sqlStrPre.equals(entry.getKey())) {
                 addHourMap(entry.getValue(), sqlStr, hour, costTime);
                 issame = true;
@@ -109,13 +109,13 @@ public class SQLStatistic {
             }
         }
         if (!issame) {
-            Map<Integer, SqlStatisticStruct> hourMap = new HashMap<Integer, SqlStatisticStruct>();
+            Map<Long, SqlStatisticStruct> hourMap = new HashMap<Long, SqlStatisticStruct>();
             addHourMap(hourMap, sqlStr, hour, costTime);
             _sqlMap.put(sqlStrPre, hourMap);
         }
     }
 
-    private void addHourMap(Map<Integer, SqlStatisticStruct> hourMap, String sqlStr, Integer hour, Double cost) {
+    private void addHourMap(Map<Long, SqlStatisticStruct> hourMap, String sqlStr, Long hour, Double cost) {
         SqlStatisticStruct struct;
         if (!hourMap.containsKey(hour)) {
             struct = new SqlStatisticStruct();
@@ -168,11 +168,11 @@ public class SQLStatistic {
         Long start = DateTimeHelper.getTimesMorning(DateTimeHelper.getBeforeDay(daytime));
         Long end = start + 24 * 60 * 60 - 1;
         Map<String, Map<String, String>> list = new HashMap<String, Map<String, String>>();
-        for (Map.Entry<String, Map<Integer, SqlStatisticStruct>> ent : _sqlMap.entrySet()) {
+        for (Map.Entry<String, Map<Long, SqlStatisticStruct>> ent : _sqlMap.entrySet()) {
             SqlStatisticStruct sqlStatisticStruct = new SqlStatisticStruct();
             sqlStatisticStruct.fastTime = 0.0;
             sqlStatisticStruct.slowTime = 0.0;
-            for (Map.Entry<Integer, SqlStatisticStruct> ent1 : ent.getValue().entrySet()) {
+            for (Map.Entry<Long, SqlStatisticStruct> ent1 : ent.getValue().entrySet()) {
                 if (ent1.getKey() < start || ent1.getKey() > end) {
                     continue;
                 }
@@ -226,7 +226,7 @@ public class SQLStatistic {
         Long start = DateTimeHelper.getTimesMorning(DateTimeHelper.getBeforeDay(daytime));
         Long end = start + 24 * 60 * 60 - 1;
         String sqlStr = "";
-        for (Map.Entry<Integer, SqlStatisticStruct> hourmap : _sqlMap.get(sql).entrySet()) {
+        for (Map.Entry<Long, SqlStatisticStruct> hourmap : _sqlMap.get(sql).entrySet()) {
             if (hourmap.getKey() < start || hourmap.getKey() > end) {
                 continue;
             }
@@ -274,10 +274,10 @@ public class SQLStatistic {
     public boolean DelOutTimeSqlLog() {
         if (_sqlMap.size() > 0) {
             Map<String, ArrayList<Integer>> delSqlMap = new Hashtable<>();
-            for (Map.Entry<String, Map<Integer, SqlStatisticStruct>> ent : _sqlMap.entrySet()) {
-                ArrayList<Integer> delList = new ArrayList<>();
+            for (Map.Entry<String, Map<Long, SqlStatisticStruct>> ent : _sqlMap.entrySet()) {
+                ArrayList<Long> delList = new ArrayList<>();
                 if (ent.getValue().size() > 0) {
-                    for (Map.Entry<Integer, SqlStatisticStruct> hourent : ent.getValue().entrySet()) {
+                    for (Map.Entry<Long, SqlStatisticStruct> hourent : ent.getValue().entrySet()) {
                         if (hourent.getKey() >= DateTimeHelper.getCurrentTime() - fieryConfig.getKeepdataday() * 86400) {
                             continue;
                         }

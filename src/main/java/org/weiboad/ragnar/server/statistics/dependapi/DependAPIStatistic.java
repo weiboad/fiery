@@ -26,12 +26,12 @@ public class DependAPIStatistic {
 
     private Logger log = LoggerFactory.getLogger(DependAPIStatistic.class);
 
-    private Map<String, Map<Integer, DependAPIStatisticStruct>> _performMap = new ConcurrentHashMap<>();
+    private Map<String, Map<Long, DependAPIStatisticStruct>> _performMap = new ConcurrentHashMap<>();
 
     @Autowired
     FieryConfig fieryConfig;
 
-    public void addPerformMap(String urlStr, int hour, Double costTime, String httpCode) {
+    public void addPerformMap(String urlStr, Long hour, Double costTime, String httpCode) {
         if (urlStr == null || httpCode == null) {
             return;
         }
@@ -39,11 +39,11 @@ public class DependAPIStatistic {
         if (pIndex != -1) {
             urlStr = urlStr.substring(0, pIndex);
         }
-        Map<Integer, DependAPIStatisticStruct> hourMap;
+        Map<Long, DependAPIStatisticStruct> hourMap;
         if (_performMap.containsKey(urlStr)) {
             hourMap = _performMap.get(urlStr);
         } else {
-            hourMap = new HashMap<Integer, DependAPIStatisticStruct>();
+            hourMap = new HashMap<Long, DependAPIStatisticStruct>();
         }
         DependAPIStatisticStruct pNode;
         if (!hourMap.containsKey(hour)) {
@@ -102,12 +102,12 @@ public class DependAPIStatistic {
         Long StartTime = DateTimeHelper.getTimesMorning(DateTimeHelper.getBeforeDay(daytime));
         Long EndTime = StartTime + 24 * 60 * 60 - 1;
         Map<String, Map<String, String>> performList = new HashMap<String, Map<String, String>>();
-        for (Map.Entry<String, Map<Integer, DependAPIStatisticStruct>> entry : _performMap.entrySet()) {
+        for (Map.Entry<String, Map<Long, DependAPIStatisticStruct>> entry : _performMap.entrySet()) {
             DependAPIStatisticStruct dayInfo = new DependAPIStatisticStruct();
 
             dayInfo.setFastTime(0.0);
             dayInfo.setSlowTime(0.0);
-            for (Map.Entry<Integer, DependAPIStatisticStruct> entry1 : entry.getValue().entrySet()) {
+            for (Map.Entry<Long, DependAPIStatisticStruct> entry1 : entry.getValue().entrySet()) {
                 if (entry1.getKey() <= StartTime || entry1.getKey() >= EndTime) {
                     continue;
                 }
@@ -160,7 +160,7 @@ public class DependAPIStatistic {
         if (_performMap.get(url) == null) {
             return null;
         }
-        for (Map.Entry<Integer, DependAPIStatisticStruct> hourmap : _performMap.get(url).entrySet()) {
+        for (Map.Entry<Long, DependAPIStatisticStruct> hourmap : _performMap.get(url).entrySet()) {
             if (hourmap.getKey() < start || hourmap.getKey() > end) {
                 continue;
             }
@@ -214,11 +214,11 @@ public class DependAPIStatistic {
     @Scheduled(fixedRate = 30 * 1000)
     public boolean DelOutTimeSqlLog() {
         if (_performMap.size() > 0) {
-            Map<String, ArrayList<Integer>> delMap = new Hashtable<>();
-            for (Map.Entry<String, Map<Integer, DependAPIStatisticStruct>> ent : _performMap.entrySet()) {
+            Map<String, ArrayList<Long>> delMap = new Hashtable<>();
+            for (Map.Entry<String, Map<Long, DependAPIStatisticStruct>> ent : _performMap.entrySet()) {
                 if (ent.getValue().size() > 0) {
-                    ArrayList<Integer> delList = new ArrayList<>();
-                    for (Map.Entry<Integer, DependAPIStatisticStruct> hourent : ent.getValue().entrySet()) {
+                    ArrayList<Long> delList = new ArrayList<>();
+                    for (Map.Entry<Long, DependAPIStatisticStruct> hourent : ent.getValue().entrySet()) {
                         if (hourent.getKey() >= DateTimeHelper.getCurrentTime() - fieryConfig.getKeepdataday() * 86400) {
                             continue;
                         }
@@ -231,8 +231,8 @@ public class DependAPIStatistic {
                     }*/
                 }
             }
-            for (Map.Entry<String, ArrayList<Integer>> urlent : delMap.entrySet()) {
-                for (Integer key : urlent.getValue()) {
+            for (Map.Entry<String, ArrayList<Long>> urlent : delMap.entrySet()) {
+                for (Long key : urlent.getValue()) {
                     _performMap.get(urlent.getKey()).remove(key);
                     log.info("del out time url:" + urlent.getKey() + ",log create_time:" + DateTimeHelper
                             .TimeStamp2Date(key.toString(), "yyyy-MM-dd HH:mm:ss"));

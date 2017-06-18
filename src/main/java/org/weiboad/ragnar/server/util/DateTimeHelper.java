@@ -28,7 +28,7 @@ public class DateTimeHelper {
     }
 
     //获取小时整数 timestamp
-    public static Integer getHourTime(Long timestamp) {
+    public static long getHourTime(Long timestamp) {
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(timestamp * 1000);
         cal.set(Calendar.SECOND, 0);
