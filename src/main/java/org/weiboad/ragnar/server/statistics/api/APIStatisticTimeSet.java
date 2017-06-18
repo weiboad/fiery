@@ -26,7 +26,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class APIStatisticTimeSet {
 
     private ConcurrentHashMap<Long, ConcurrentHashMap<String, APIStatisticStruct>> apiTopStaticHelper = new ConcurrentHashMap<Long, ConcurrentHashMap<String, APIStatisticStruct>>();
-    private ConcurrentHashMap<Long, ConcurrentHashMap<String, APIStatisticStruct>> apiTopHourStaticHelper = new ConcurrentHashMap<Long, ConcurrentHashMap<String, APIStatisticStruct>>();
+    private ConcurrentHashMap<String, ConcurrentHashMap<Long, APIStatisticStruct>> apiTopHourStaticHelper = new ConcurrentHashMap<>();
 
     private Logger log = LoggerFactory.getLogger(APIStatisticTimeSet.class);
 
@@ -45,27 +45,47 @@ public class APIStatisticTimeSet {
         if (url.trim().length() > 0 && shardTime > 0 && shardTime > DateTimeHelper.getCurrentTime() -
                 (fieryConfig.getKeepdataday() * 86400)) {
 
+            //day
             if (!apiTopStaticHelper.containsKey(shardTime)) {
+                //day shard
                 ConcurrentHashMap<String, APIStatisticStruct> urlshard = new ConcurrentHashMap<>();
-
-                //prepare the init struct
-                APIStatisticStruct urlinfo = new APIStatisticStruct(metainfo);
-
-                //put to the list
-                urlshard.put(url, urlinfo);
+                APIStatisticStruct urlInfo = new APIStatisticStruct(metainfo);
+                urlshard.put(url, urlInfo);
                 apiTopStaticHelper.put(shardTime, urlshard);
-                apiTopHourStaticHelper.put(hourShardTime,urlshard);
 
             } else {
                 //count ++
                 if (!apiTopStaticHelper.get(shardTime).containsKey(url)) {
+                    //day
                     APIStatisticStruct apiStruct = new APIStatisticStruct(metainfo);
                     apiTopStaticHelper.get(shardTime).put(metainfo.getUrl(), apiStruct);
+
                 } else {
+                    //day
                     apiTopStaticHelper.get(shardTime).get(metainfo.getUrl()).analyzeMetaLog(metainfo);
+
                 }
             }
-        }
+
+            //hour
+            if (!apiTopHourStaticHelper.containsKey(url)) {
+                //hour shard
+                ConcurrentHashMap<Long, APIStatisticStruct> urlHourshard = new ConcurrentHashMap<>();
+                APIStatisticStruct urlHourInfo = new APIStatisticStruct(metainfo);
+                urlHourshard.put(hourShardTime, urlHourInfo);
+                apiTopHourStaticHelper.put(url, urlHourshard);
+            } else {
+                if (!apiTopHourStaticHelper.get(url).containsKey(hourShardTime)) {
+                    //hour
+                    APIStatisticStruct apiHourStruct = new APIStatisticStruct(metainfo);
+                    apiTopHourStaticHelper.get(metainfo.getUrl()).put(hourShardTime, apiHourStruct);
+                } else {
+                    //hour
+                    apiTopHourStaticHelper.get(metainfo.getUrl()).get(hourShardTime).analyzeMetaLog(metainfo);
+                }
+            }
+
+        }//check the time
 
     }
 
@@ -78,7 +98,7 @@ public class APIStatisticTimeSet {
         return result;
     }
 
-    public ConcurrentHashMap<String, APIStatisticStruct> getSharder(Long timestamp, boolean create) {
+    public ConcurrentHashMap<String, APIStatisticStruct> getDaySharder(Long timestamp, boolean create) {
         Long shardTime = DateTimeHelper.getTimesMorning(timestamp);
         if (!apiTopStaticHelper.containsKey(shardTime)) {
             if (create) {
@@ -175,6 +195,8 @@ public class APIStatisticTimeSet {
 
     @Scheduled(fixedRate = 30 * 1000)
     public void cleanUpSharder() {
+
+        //clean up day
         if (apiTopStaticHelper.size() > 0) {
             ArrayList<Long> removeMap = new ArrayList<>();
 
@@ -189,8 +211,40 @@ public class APIStatisticTimeSet {
                 log.info("Clean up the API Top Statistic:" + removeKey);
                 apiTopStaticHelper.remove(removeKey);
             }
-            //cycle dump the statistics
-            dumpStaticDb();
         }
+
+        //clean up hour
+        if (apiTopHourStaticHelper.size() > 0) {
+            ArrayList<String> removeUrlMap = new ArrayList<>();
+
+            for (Map.Entry<String, ConcurrentHashMap<Long, APIStatisticStruct>> ent : apiTopHourStaticHelper.entrySet()) {
+                ArrayList<Long> removeMap = new ArrayList<>();
+
+                for (Map.Entry<Long, APIStatisticStruct> itemEnt : ent.getValue().entrySet()) {
+                    if (itemEnt.getKey() >= DateTimeHelper.getCurrentTime() - fieryConfig.getKeepdataday() * 86400) {
+                        continue;
+                    }
+                    removeMap.add(itemEnt.getKey());
+                }
+
+                for (Long removeKey : removeMap) {
+                    log.info("Clean up the API Top Day Statistic:" + removeKey);
+                    apiTopHourStaticHelper.get(ent.getKey()).remove(removeKey);
+                    if (apiTopHourStaticHelper.get(ent.getKey()).size() == 0) {
+                        removeUrlMap.add(ent.getKey());
+                    }
+                }
+            }
+
+            //remove the url
+            for (String removeUrlKey : removeUrlMap) {
+                apiTopHourStaticHelper.remove(removeUrlKey);
+            }
+
+        }
+
+        //cycle dump the statistics
+        dumpStaticDb();
+
     }
 }

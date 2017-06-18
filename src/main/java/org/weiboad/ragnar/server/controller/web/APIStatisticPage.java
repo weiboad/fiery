@@ -42,7 +42,7 @@ public class APIStatisticPage {
 
         //now the date render
         long shardtime = DateTimeHelper.getTimesMorning(DateTimeHelper.getBeforeDay(Integer.parseInt(topdaterange)));
-        ConcurrentHashMap<String, APIStatisticStruct> urllist = apiStatisticTimeSet.getSharder(shardtime, false);
+        ConcurrentHashMap<String, APIStatisticStruct> urllist = apiStatisticTimeSet.getDaySharder(shardtime, false);
 
         if (urllist != null) {
             model.addAttribute("urllist", urllist.values());
