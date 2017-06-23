@@ -40,7 +40,6 @@
 </#function>
 
 <#function showStaticsTime costtime>
-    <#assign costtime = costtime?eval>
     <#if costtime \gt 1000>
         <#return "<span style='color: red'>" + costtime?string("0.00") + "</span>">
     <#elseif costtime \gt 600>

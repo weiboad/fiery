@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
     <title>Ragnar分布式调试跟踪系统</title>
     <meta charset="utf-8"/>
@@ -26,36 +26,33 @@
         .sorttable tr:nth-of-type(even) {
             background: #d9edf7;
         }
-
     </style>
-
 </head>
 <body>
-<#include "header.ftl">
 <#include "common.ftl">
+<#include "header.ftl">
 
 <div class="container-fluid" style="min-height: 850px;">
     <div class="row">
         <div class="col-md-12">
-            <h3>服务性能排行</h3>
-
-            <form action="?" method="get" class="form-horizontal" id="topmessage">
-
+            <h3>性能时段分析</h3>
+            <h4>url:${url}</h4>
+            <form action="?" method="get" class="form-horizontal" id="message">
                 <div style="float:right;width: 160px;">
-
                     <label class="control-label">时间范围:</label>
                     <select name="topdatarange" class="input-sm" id="topdatarange">
                     <#list datelist as dateitem>
                         <option value="${dateitem?index}">${dateitem}</option>
                     </#list>
                     </select>
+                    <input type="hidden" name="url" value="${url}"/>
                 </div>
             </form>
-
             <table class="table sorttable table-hover" id="listtable">
                 <thead>
                 <tr>
-                    <th data-sort="string-ins">URL<span aria-hidden="true"> </span></th>
+                    <!--<th data-sort="string-ins">URL<span aria-hidden="true"> </span></th>-->
+                    <th data-sort="int">时间段<span aria-hidden="true"> </span></th>
                     <th data-sort="int">调用次数<span aria-hidden="true"> </span></th>
                     <th data-sort="float">最长响应(ms)<span aria-hidden="true"> </span></th>
                     <th data-sort="float">最短响应(ms)<span aria-hidden="true"> </span></th>
@@ -63,32 +60,22 @@
                     <th data-sort="float">500(ms)<span aria-hidden="true"> </span></th>
                     <th data-sort="float">1000(ms)<span aria-hidden="true"> </span></th>
                     <th data-sort="float">1000+(ms)<span aria-hidden="true"> </span></th>
-                    <th data-sort="float">http code<span aria-hidden="true"> </span></th>
-                    <th>操作</th>
-
+                    <th data-sort="float">http_code百分比<span aria-hidden="true"> </span></th>
                 </tr>
                 </thead>
-            <#list urllist as item>
-
+            <#list urllist as key,item>
                 <tr>
-                    <td style="word-break:break-all; word-wrap:break-word;">${item.url}</td>
-                    <td>${item.totalCount?string("#")}</td>
-                    <td>${showMSCostTime(item.longestTime*1000)}</td>
-                    <td>${showMSCostTime(item.shortestTime*1000)}</td>
-                    <td>${(item.ms200Count/item.totalCount)*100}%</td>
-                    <td>${(item.ms500Count/item.totalCount)*100}%</td>
-                    <td>${(item.ms1000Count/item.totalCount)*100}%</td>
-                    <td>${(item.msLongCount/item.totalCount)*100}%</td>
-                    <td><#list item.code_count as code,param>
+                    <td>${key}</td>
+                    <td>${item.getTotalCount()}</td>
+                    <td>${showMSCostTime(item.getLongestTime()*1000)}</td>
+                    <td>${showMSCostTime(item.getShortestTime()*1000)}</td>
+                    <td>${(item.getMs200Count()/item.getTotalCount())*100}%</td>
+                    <td>${(item.getMs500Count()/item.getTotalCount())*100}%</td>
+                    <td>${(item.getMs1000Count()/item.getTotalCount())*100}%</td>
+                    <td>${(item.getMsLongCount()/item.getTotalCount())*100}%</td>
+                    <td><#list item.getCode_count() as code,param>
                     ${code}:${(param/item.totalCount)*100}%<br/>
                     </#list></td>
-                    <td>
-                        <a type="button" class="btn btn-primary"
-                           href='apistatisticdetail?url=${item.url?url}&topdatarange=${datelist_selected}'>排行</a>
-
-                        <a type="button" class="btn btn-primary" style="background:green;color:white "
-                           href='apistatisticday?url=${item.url?url}&topdatarange=${datelist_selected}'>时段</a>
-                    </td>
                 </tr>
             </#list>
             </table>
@@ -100,8 +87,8 @@
 <script type="text/javascript">
     $(document).ready(function () {
         var $table = $("#listtable").stupidtable();
-        var $th_to_sort = $table.find("thead th").eq(4);
-        $th_to_sort.stupidsort("desc");
+        var $th_to_sort = $table.find("thead th").eq(0);
+        $th_to_sort.stupidsort("asc");
 
         $table.bind('aftertablesort', function (event, data) {
             // data.column - the ragnarlog of the column sorted after a click
@@ -122,7 +109,7 @@
         });
 
         $("#topdatarange").change(function () {
-            $("#topmessage").submit();
+            $("#message").submit();
         });
         $("#topdatarange").val("${datelist_selected}");
 

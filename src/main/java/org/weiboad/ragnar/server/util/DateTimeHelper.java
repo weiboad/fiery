@@ -37,6 +37,13 @@ public class DateTimeHelper {
         return (int) (cal.getTimeInMillis() / 1000);
     }
 
+    //获取小时 timestamp
+    public static long getHour(Long timestamp) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(timestamp * 1000);
+        return (cal.get(Calendar.HOUR));
+    }
+
     //获取当前时间
     public static long getCurrentTime() {
         return System.currentTimeMillis() / 1000;
