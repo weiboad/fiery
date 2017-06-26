@@ -10,6 +10,8 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class APIStatisticStruct {
 
+    private Long shardTime = 0L;
+
     private String url = "";
 
     private Long totalCount = 0L;
@@ -38,8 +40,11 @@ public class APIStatisticStruct {
     public APIStatisticStruct(String url) {
         this.url = url;
     }
-    public APIStatisticStruct(MetaLog metaLog) {
+
+    public APIStatisticStruct(MetaLog metaLog, Long shardTime) {
         this.url = metaLog.getUrl();
+        this.shardTime = shardTime;
+
         analyzeMetaLog(metaLog);
     }
 
@@ -96,6 +101,9 @@ public class APIStatisticStruct {
         return code_count;
     }
 
+    public Long getShardTime() {
+        return shardTime;
+    }
 
     //increment the statics by metalog obj
     public void analyzeMetaLog(MetaLog metaLog) {

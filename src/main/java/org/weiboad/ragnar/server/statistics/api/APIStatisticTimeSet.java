@@ -49,7 +49,7 @@ public class APIStatisticTimeSet {
             if (!apiTopStaticHelper.containsKey(shardTime)) {
                 //day shard
                 ConcurrentHashMap<String, APIStatisticStruct> urlshard = new ConcurrentHashMap<>();
-                APIStatisticStruct urlInfo = new APIStatisticStruct(metainfo);
+                APIStatisticStruct urlInfo = new APIStatisticStruct(metainfo, shardTime);
                 urlshard.put(url, urlInfo);
                 apiTopStaticHelper.put(shardTime, urlshard);
 
@@ -57,7 +57,7 @@ public class APIStatisticTimeSet {
                 //count ++
                 if (!apiTopStaticHelper.get(shardTime).containsKey(url)) {
                     //day
-                    APIStatisticStruct apiStruct = new APIStatisticStruct(metainfo);
+                    APIStatisticStruct apiStruct = new APIStatisticStruct(metainfo, shardTime);
                     apiTopStaticHelper.get(shardTime).put(metainfo.getUrl(), apiStruct);
 
                 } else {
@@ -71,13 +71,13 @@ public class APIStatisticTimeSet {
             if (!apiTopHourStaticHelper.containsKey(url)) {
                 //hour shard
                 ConcurrentHashMap<Long, APIStatisticStruct> urlHourshard = new ConcurrentHashMap<>();
-                APIStatisticStruct urlHourInfo = new APIStatisticStruct(metainfo);
+                APIStatisticStruct urlHourInfo = new APIStatisticStruct(metainfo, hourShardTime);
                 urlHourshard.put(hourShardTime, urlHourInfo);
                 apiTopHourStaticHelper.put(url, urlHourshard);
             } else {
                 if (!apiTopHourStaticHelper.get(url).containsKey(hourShardTime)) {
                     //hour
-                    APIStatisticStruct apiHourStruct = new APIStatisticStruct(metainfo);
+                    APIStatisticStruct apiHourStruct = new APIStatisticStruct(metainfo, hourShardTime);
                     apiTopHourStaticHelper.get(metainfo.getUrl()).put(hourShardTime, apiHourStruct);
                 } else {
                     //hour
@@ -161,38 +161,58 @@ public class APIStatisticTimeSet {
 
                 String staticStr = dbHelper.get("apitopstatistic");
 
-                if (staticStr == null) {
+                if (staticStr == null || staticStr.length() == 0) {
                     log.info("load static db info fail:" + dbshard);
-                    continue;
-                }
-
-                //recovery the statics
-                String[] staticArray = staticStr.split("\r\n");
-                for (int staticIndex = 0; staticIndex < staticArray.length; staticIndex++) {
-                    try {
-                        APIStatisticStruct apiStatisticStruct = jsonHelper.fromJson(staticArray[staticIndex], APIStatisticStruct.class);
-                        apiTopStaticHelper.get(dbShardLong).put(apiStatisticStruct.getUrl(), apiStatisticStruct);
-                    } catch (JsonSyntaxException e) {
-                        e.printStackTrace();
+                } else {
+                    //recovery the statics
+                    String[] staticArray = staticStr.split("\r\n");
+                    for (int staticIndex = 0; staticIndex < staticArray.length; staticIndex++) {
+                        try {
+                            APIStatisticStruct apiStatisticStruct = jsonHelper.fromJson(staticArray[staticIndex], APIStatisticStruct.class);
+                            apiTopStaticHelper.get(dbShardLong).put(apiStatisticStruct.getUrl(), apiStatisticStruct);
+                        } catch (JsonSyntaxException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
+
+                String staticHourStr = dbHelper.get("apitophourstatistic");
+
+                if (staticHourStr == null || staticHourStr.length() == 0) {
+                    log.info("load static hour db info fail:" + dbshard);
+                } else {
+                    //recovery the statics
+                    String[] staticArray = staticHourStr.split("\r\n");
+                    for (int staticIndex = 0; staticIndex < staticArray.length; staticIndex++) {
+                        try {
+                            APIStatisticStruct apiStatisticStruct = jsonHelper.fromJson(staticArray[staticIndex], APIStatisticStruct.class);
+                            if (!apiTopHourStaticHelper.containsKey(apiStatisticStruct.getUrl())) {
+                                apiTopHourStaticHelper.put(apiStatisticStruct.getUrl(), new ConcurrentHashMap<>());
+                            }
+                            apiTopHourStaticHelper.get(apiStatisticStruct.getUrl()).put(apiStatisticStruct.getShardTime(), apiStatisticStruct);
+                        } catch (JsonSyntaxException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
             } catch (Exception e) {
                 e.printStackTrace();
-                continue;
+                log.error("load dbshard:" + dbshard + " error:" + e.getMessage());
             }
-
         }
-
-        //todo:hourmap
 
     }
 
     @PreDestroy
     public void dumpStaticDb() {
-        //log.info("dump the Statistic info start...");
+        log.info("dump the Statistic info start...");
 
+        //loop day
         for (Map.Entry<Long, ConcurrentHashMap<String, APIStatisticStruct>> ent : apiTopStaticHelper.entrySet()) {
-            String staticSting = "";
+            StringBuilder staticSting = new StringBuilder();
+            StringBuilder staticHourString = new StringBuilder();
+
             Long shardTime = ent.getKey();
             ConcurrentHashMap<String, APIStatisticStruct> apiStatisticStructMap = ent.getValue();
 
@@ -200,22 +220,42 @@ public class APIStatisticTimeSet {
             for (Map.Entry<String, APIStatisticStruct> urlShard : apiStatisticStructMap.entrySet()) {
                 String jsonStr = urlShard.getValue().toJson();
                 if (jsonStr.trim().length() > 0) {
-                    staticSting += (jsonStr + "\r\n");
+                    staticSting.append(jsonStr + "\r\n");
+                }
+
+                //store the Hour String
+                if (apiTopHourStaticHelper.containsKey(urlShard.getKey())) {
+                    Long compareEnd = shardTime + 86400;
+                    //check this url hour map
+                    for (Map.Entry<Long, APIStatisticStruct> hourStatistic : apiTopHourStaticHelper.get(urlShard.getKey()).entrySet()) {
+                        //filter
+                        if (hourStatistic.getKey() <= compareEnd && hourStatistic.getKey() >= shardTime) {
+                            staticHourString.append(hourStatistic.getValue().toJson() + "\r\n");
+                        }
+                    }
                 }
             }
 
-            //log.info("dump the Statistic info:" + shardTime + " count:" + apiStatisticStructMap.size());
+            log.info("dump the Statistic info:" + shardTime + " len:" + apiStatisticStructMap.size());
+            log.info("dump the stattistic hour info:" + shardTime +" len:"+ staticHourString.toString().length());
 
             DBSharder dbSharder = dbManage.getDB(shardTime);
+
+            //day
             if (staticSting.length() > 0 && dbSharder != null) {
-                dbSharder.put("apitopstatistic", staticSting);
+                dbSharder.put("apitopstatistic", staticSting.toString());
+            }
+
+            //hour
+            if (staticHourString.length() > 0 && dbSharder != null) {
+                dbSharder.put("apitophourstatistic", staticHourString.toString());
             }
         }
 
-        //todo:hourmap
     }
 
-    @Scheduled(fixedRate = 30 * 1000)
+    //
+    @Scheduled(fixedRate = 120000)
     public void cleanUpSharder() {
 
         //clean up day
