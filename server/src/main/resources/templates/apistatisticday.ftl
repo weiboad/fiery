@@ -403,7 +403,7 @@
                                 },
                                 data: [
                                 <#list httpcode as key,item>
-                                    {value: '${item}', name: '${key}'},
+                                    {value: '${item?string("#")}', name: '${key}'},
                                 </#list>
                                     {}
                                 ]
