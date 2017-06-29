@@ -320,7 +320,7 @@
                         yAxis: [
                             {
                                 type: 'value',
-                                position: 'right'
+                                position: 'left'
                             }
                         ],
                         series: [
@@ -392,8 +392,8 @@
                                     trigger: 'item',
                                     formatter: '{a} <br/>{b} : {c} ({d}%)'
                                 },
-                                center: [160, 130],
-                                radius: [0, 50],
+                                center: ['90%', 130],
+                                radius: [0, 40],
                                 itemStyle: {
                                     normal: {
                                         labelLine: {
