@@ -9,9 +9,9 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>logpusher</artifactId>
+    <artifactId>fiery-logpusher</artifactId>
     <packaging>jar</packaging>
-    <name>logpusher ${project.version}</name>
+    <name>Fiery Log Pusher ${project.version}</name>
 
     <dependencies>
         <dependency>
