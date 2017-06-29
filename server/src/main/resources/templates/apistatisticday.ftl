@@ -321,6 +321,10 @@
                             {
                                 type: 'value',
                                 position: 'left'
+                            },
+                            {
+                                type: 'value',
+                                position: 'right'
                             }
                         ],
                         series: [
@@ -384,6 +388,28 @@
                                     0
                                 ]
 
+                            },
+                            {
+                                name: '最慢响应',
+                                type: 'line',
+                                yAxisIndex: 1,
+                                data: [
+                                <#list urllist as key,item>
+                                ${(item.getLongestTime()*1000)?string('#.#')},
+                                </#list>
+                                    0
+                                ]
+                            },
+                            {
+                                name: '最快响应',
+                                type: 'line',
+                                yAxisIndex: 1,
+                                data: [
+                                <#list urllist as key,item>
+                                ${(item.getShortestTime()*1000)?string('#.#')},
+                                </#list>
+                                    0
+                                ]
                             },
                             {
                                 name: 'HTTP Code',
