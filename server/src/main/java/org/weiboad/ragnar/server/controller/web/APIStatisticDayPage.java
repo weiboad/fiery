@@ -15,7 +15,10 @@ import org.weiboad.ragnar.server.statistics.api.APIStatisticTimeSet;
 import org.weiboad.ragnar.server.util.DateTimeHelper;
 
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Controller
 public class APIStatisticDayPage {
@@ -43,11 +46,27 @@ public class APIStatisticDayPage {
 
         //now the date render
         long shardtime = DateTimeHelper.getTimesMorning(DateTimeHelper.getBeforeDay(Integer.parseInt(topdaterange)));
-        ConcurrentHashMap<Long, APIStatisticStruct> urlList = apiStatisticTimeSet.getHourDetail(url, shardtime);
+
+        TreeMap<Long, APIStatisticStruct> urlList = apiStatisticTimeSet.getHourDetail(url, shardtime);
 
         //log.info("size:" + urlList.size());
 
         model.addAttribute("urllist", urlList);
+
+        //http code
+        TreeMap<String, Long> httpCodeMap = new TreeMap<>();
+        for (Map.Entry<Long, APIStatisticStruct> timeItem : urlList.entrySet()) {
+            for (ConcurrentHashMap.Entry<String, AtomicLong> httpitem : timeItem.getValue().getCode_count().entrySet()) {
+                if (!httpCodeMap.containsKey(httpitem.getKey())) {
+                    httpCodeMap.put(httpitem.getKey(), httpitem.getValue().longValue());
+                } else {
+                    httpCodeMap.put(httpitem.getKey(), httpCodeMap.get(httpitem.getKey()) + httpitem.getValue().longValue());
+                }
+            }
+
+        }
+
+        model.addAttribute("httpcode", httpCodeMap);
 
         return "apistatisticday";
     }

@@ -19,6 +19,7 @@ import javax.annotation.PreDestroy;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Component
@@ -99,8 +100,8 @@ public class APIStatisticTimeSet {
     }
 
 
-    public ConcurrentHashMap<Long, APIStatisticStruct> getHourDetail(String url, Long shardtime) {
-        ConcurrentHashMap<Long, APIStatisticStruct> urlStatics = new ConcurrentHashMap<>();
+    public TreeMap<Long, APIStatisticStruct> getHourDetail(String url, Long shardtime) {
+        TreeMap<Long, APIStatisticStruct> urlStatics = new TreeMap<>();
 
         if (apiTopHourStaticHelper.containsKey(url)) {
             //return apiTopHourStaticHelper.get(url);

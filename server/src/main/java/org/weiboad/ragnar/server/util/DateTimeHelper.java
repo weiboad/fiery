@@ -41,7 +41,7 @@ public class DateTimeHelper {
     public static long getHour(Long timestamp) {
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(timestamp * 1000);
-        return (cal.get(Calendar.HOUR));
+        return (cal.get(Calendar.HOUR_OF_DAY));
     }
 
     //获取当前时间
