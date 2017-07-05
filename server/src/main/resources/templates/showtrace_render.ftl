@@ -178,7 +178,7 @@
                                 <label class='label label-primary'>RPCID:${log.r}</label>
                                 &nbsp;
                                 <label class='label label-info'>${log.g}</label>
-                            ${(log.e?eval*1000)?number_to_datetime} ${log.p} (${log.l})
+                                ${(log.e?eval*1000)?number_to_datetime?string("yyyy-MM-dd hh:mm:ss.ms")} ${log.p} (${log.l})
                             </td>
                         </tr>
                         <tr>
