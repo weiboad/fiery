@@ -27,7 +27,7 @@ Fiery
 ### Getting Started
  1. Download [Java 8 Runtime](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
  2. tar xvf jdk-1.8.tar.gz
- 3. Download Recent Relasese Jar on [Release page]((https://github.com/weiboad/fiery/releases))
+ 3. Download Recent Relasese Jar on [Release page](https://github.com/weiboad/fiery/releases)
  4. mkdir logs index db
  5. Startup the Fiery Server by command:
 
