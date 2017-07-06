@@ -11,6 +11,7 @@ import org.weiboad.ragnar.server.config.FieryConfig;
 import org.weiboad.ragnar.server.util.DateTimeHelper;
 import org.weiboad.ragnar.server.util.FileUtil;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -77,15 +78,40 @@ public class DBManage {
     //remove the old db
     @Scheduled(fixedRate = 5000)
     public void Refresh() {
+
+        ArrayList<Long> removeMap = new ArrayList<>();
+
+        //folder walker
+        HashMap<String, String> folderList = this.getDBFolderList();
+        for (Map.Entry<String, String> folderItem : folderList.entrySet()) {
+            try {
+                Long foldertimestamp = Long.parseLong(folderItem.getKey());
+                if (foldertimestamp < DateTimeHelper.getBeforeDay(fieryConfig.getKeepdataday())) {
+                    removeMap.add(foldertimestamp);
+                }
+            } catch (Exception e) {
+
+            }
+        }
+
         for (Map.Entry<Long, DBSharder> e : dbSharderList.entrySet()) {
             //check if the ragnarlog is expire
             if (e.getKey() < DateTimeHelper.getBeforeDay(fieryConfig.getKeepdataday())) {
-                log.info("Remove DB Name:" + e.getKey() + " expireday:" + fieryConfig.getKeepdataday() + " expiredate:" + DateTimeHelper
-                        .getBeforeDay(fieryConfig.getKeepdataday()));
-                e.getValue().close();
-                FileUtil.deleteDir(fieryConfig.getDbpath() + "/" + e.getKey());
-                dbSharderList.remove(e.getKey());
+                removeMap.add(e.getKey());
             }
         }
+
+        for (Long removeUrlKey : removeMap) {
+            log.info("Remove DB Name:" + removeUrlKey + " expireday:" + fieryConfig.getKeepdataday() + " expiredate:" + DateTimeHelper
+                    .getBeforeDay(fieryConfig.getKeepdataday()));
+
+            if (dbSharderList.containsKey(removeUrlKey)) {
+                dbSharderList.get(removeUrlKey).close();
+                dbSharderList.remove(removeUrlKey);
+            }
+
+            FileUtil.deleteDir(fieryConfig.getDbpath() + "/" + removeUrlKey);
+        }
+
     }
 }
