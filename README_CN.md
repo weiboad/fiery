@@ -42,7 +42,7 @@ Fiery
 ### LogPusher 日志抓取
  日志推送服务，可以监控一个目录下所有日志是否有更新，并将内容推送到主服务,安装步骤如上
  ```
- nohup java -XX:-MaxFDLimit -Xms128m -Xmx450m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar logpusher-0.5.3-SNAPSHOT.jar  -path [ragnarsdklogpath] -host [ip:port] -outtime 7 -threadcount 10 &
+ nohup java -XX:-MaxFDLimit -Xms128m -Xmx450m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar logpusher-0.5.3-SNAPSHOT.jar  -path nginx环境变量里配置的日志输出路径 -host fiery服务器的ip:端口号 -outtime 7 -threadcount 10 &
  ```
 
 ### 参数说明

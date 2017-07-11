@@ -42,7 +42,7 @@ Fiery
 ### LogPusher
 
 
-> nohup java -XX:-MaxFDLimit -Xms128m -Xmx450m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar logpusher-0.5.3-SNAPSHOT.jar -type logpush -path [ragnarsdklogpath] -host [ip:port] -outtime 7 &
+> nohup java -XX:-MaxFDLimit -Xms128m -Xmx450m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar logpusher-0.5.3-SNAPSHOT.jar -type logpush -path ragnarsdklogpath -host fieryserverip:port -outtime 7 &
 
 
 #### Todo
