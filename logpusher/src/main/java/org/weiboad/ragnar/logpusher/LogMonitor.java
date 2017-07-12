@@ -2,6 +2,8 @@ package org.weiboad.ragnar.logpusher;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.weiboad.ragnar.http.CurlThreadPool;
+import org.weiboad.ragnar.kafka.ProviderThread;
 import org.weiboad.ragnar.util.DateTimeHelper;
 
 import java.io.BufferedReader;
@@ -48,7 +50,7 @@ public class LogMonitor {
                 }
 
                 //old file will not scaned
-                if (fileinfo.lastModified()/1000 < DateTimeHelper.getCurrentTime() - (7 * 24 * 3600)) {
+                if (fileinfo.lastModified() / 1000 < DateTimeHelper.getCurrentTime() - (7 * 24 * 3600)) {
                     continue;
                 }
 
@@ -229,16 +231,34 @@ public class LogMonitor {
         }//file loop
     }
 
-    public void start(String path, String host, Integer outtime, Integer threadcount) {
-
-        if (path.isEmpty() || host.isEmpty()) {
-            log.error("parameter:-path or -host was not set!");
+    public void startHttpPush(String host, Integer threadcount) {
+        if (host.isEmpty()) {
+            log.error("parameter: -host was not set!");
             return;
         }
 
         //curl Thread Pool
         CurlThreadPool curlThreadPool = new CurlThreadPool(host, sendBizLogQueue, sendMetaLogQueue, threadcount);
         curlThreadPool.start();
+    }
+
+    public void startKafkaPush(String KafkaTopic, String ServerList) {
+        if (KafkaTopic.length() == 0 || ServerList.length() == 0) {
+            log.error("parameter: -kafkatopic -kafkaserver was not set!");
+            return;
+        }
+
+        ProviderThread providerThread = new ProviderThread(KafkaTopic, ServerList, sendMetaLogQueue, sendBizLogQueue);
+        providerThread.start();
+    }
+
+    public void startFileScan(String path, Integer outtime) {
+
+        if (path.isEmpty()) {
+            log.error("parameter:-path was not set!");
+            return;
+        }
+
 
         while (true) {
             scanTheFolderFileList(path);

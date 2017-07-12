@@ -459,7 +459,7 @@
             <#list urllist as key,item>
                 <tr>
                     <td>${key}</td>
-                    <td>${item.getTotalCount()}</td>
+                    <td>${item.getTotalCount()?string("#")}</td>
                     <td>${showMSCostTime(item.getLongestTime()*1000)}</td>
                     <td>${showMSCostTime(item.getShortestTime()*1000)}</td>
                     <td>${(item.getMs200Count()/item.getTotalCount())*100}%</td>

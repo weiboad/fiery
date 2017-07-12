@@ -27,7 +27,7 @@ Fiery
 ### Getting Started
  1. Download [Java 8 Runtime](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
  2. tar xvf jdk-1.8.tar.gz
- 3. Download Recent Relasese Jar on [Release page]((https://github.com/weiboad/fiery/releases))
+ 3. Download Recent Relasese Jar on [Release page](https://github.com/weiboad/fiery/releases)
  4. mkdir logs index db
  5. Startup the Fiery Server by command:
 
@@ -42,8 +42,9 @@ Fiery
 ### LogPusher
 
 
-> nohup java -XX:-MaxFDLimit -Xms128m -Xmx450m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar logpusher-0.5.3-SNAPSHOT.jar -type logpush -path [ragnarsdklogpath] -host [ip:port] -outtime 7 &
+> nohup java -XX:-MaxFDLimit -Xms128m -Xmx450m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar logpusher-0.5.3-SNAPSHOT.jar -type logpush -path ragnarsdklogpath -host fieryserverip:port -outtime 7 &
 
+Tips: now the log pusher supported the kafka 0.9(if you want new version kafka please change pom.xml kafka client depend  version)
 
 #### Todo
  * Service Manage Shell(startup stop restart)

@@ -27,7 +27,7 @@ Fiery
 
 ### fiery server 服务端安装
  1. 下载并安装 [Java 8 Runtime](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
- 2. 下载Fiery最新的 Fiery [Release page]((https://github.com/weiboad/fiery/releases)) jar包
+ 2. 下载Fiery最新的 Fiery [Release page](https://github.com/weiboad/fiery/releases) jar包
  3. 在jar所在目录创建文件夹 mkdir logs index db
  4. 通过以下命令启动主服务:
  ```
@@ -40,22 +40,31 @@ Fiery
 
 
 ### LogPusher 日志抓取
- 日志推送服务，可以监控一个目录下所有日志是否有更新，并将内容推送到主服务,安装步骤如上
+ 日志推送服务，可以监控一个目录下所有日志是否有更新，并将内容推送到主服务,安装步骤如上，新版支持推送日志到kafka
  ```
- nohup java -XX:-MaxFDLimit -Xms128m -Xmx450m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar logpusher-0.5.3-SNAPSHOT.jar  -path [ragnarsdklogpath] -host [ip:port] -outtime 7 -threadcount 10 &
+ nohup java -XX:-MaxFDLimit -Xms128m -Xmx450m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar logpusher-0.5.3-SNAPSHOT.jar  -path nginx环境变量里配置的日志输出路径 -host fiery服务器的ip:端口号 -outtime 7 -threadcount 10 &
  ```
 
 ### 参数说明
- Logpusher及Server各是一个jar包
+ Logpusher
 
 |      参数        |      选项      |   说明    |
 | --------------- |:-------------:| ---------:|
-|-type            | logpusher server| 启动 日志推送服务或网页服务|
 |-path            | 要监控的日志路径 | 此选项用于logpusher 指向ragnarsdk产生日志目录|
-|-host            | 127.0.0.1:9090 | 日志收集到后会推送到fiery server|
 |-outtime         | 本地日志保存时间| 超时日志会被自动清理 |
-|-threadcount     | 推送日志线程数  |越大越快，但是CPU使用会增加|
-|--server.port    | fiery 服务监听端口如9090|用于fiery服务器|
+|-pushtype       | 推送类型 http（默认） kafka（用于大流量用户）|日志传输模式|
+|-host            | 127.0.0.1:9090 | 日志收集到后会推送到fiery server,pushtype=http时用的参数|
+|-threadcount     | 推送日志线程数默认8  |越大越快，但是CPU使用会增加|
+|-kafkaserver    | kafka服务器列表如 10.10.1.1:9192,10.10.1.2:9192| kafka broker服务器列表|
+|-kafkatopic    | kafka内的topic如fiery_test|向那个topic推送日志|
+
+Server
+|      参数        |      选项      |   说明    |
+| --------------- |:-------------:| ---------:|
+|--server.port    | fiery 服务监听端口如9090| |
+
+Kafka版本
+默认集成的是0.9的kafka协议，如果需要更新的协议支持，直接修改pom.xml的kafka依赖包版本即可
 
 ## 联系我们
  * WeiboAD ADINF Team
