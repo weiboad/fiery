@@ -1,4 +1,4 @@
-package org.weiboad.ragnar.logpusher;
+package org.weiboad.ragnar.http;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

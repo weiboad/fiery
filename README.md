@@ -44,6 +44,7 @@ Fiery
 
 > nohup java -XX:-MaxFDLimit -Xms128m -Xmx450m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar logpusher-0.5.3-SNAPSHOT.jar -type logpush -path ragnarsdklogpath -host fieryserverip:port -outtime 7 &
 
+Tips: now the log pusher supported the kafka 0.8(if you want new version kafka please change pom.xml kafka client depend  version)
 
 #### Todo
  * Service Manage Shell(startup stop restart)
