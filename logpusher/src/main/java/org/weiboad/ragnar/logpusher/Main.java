@@ -1,6 +1,6 @@
 package org.weiboad.ragnar.logpusher;
 
-import org.weiboad.ragnar.common.Toolbox;
+import org.weiboad.ragnar.util.Toolbox;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;

@@ -1,4 +1,4 @@
-package org.weiboad.ragnar.common.concurrent;
+package org.weiboad.ragnar.util.concurrent;
 
 import org.jetbrains.annotations.NotNull;
 

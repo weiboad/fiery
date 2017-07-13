@@ -1,4 +1,4 @@
-package org.weiboad.ragnar.common;
+package org.weiboad.ragnar.util;
 
 import org.apache.commons.cli.*;
 import org.jetbrains.annotations.NotNull;
