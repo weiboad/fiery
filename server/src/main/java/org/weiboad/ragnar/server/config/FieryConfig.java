@@ -6,9 +6,52 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "fiery")
 public class FieryConfig {
+
     private int keepdataday;
+
     private String dbpath;
+
     private String indexpath;
+
+    private Boolean kafkaenable;
+
+    private String kafkaserver;
+
+    private String kafkagroupid;
+
+    public String getKafkagroupid() {
+        return kafkagroupid;
+    }
+
+    public void setKafkagroupid(String kafkagroupid) {
+        this.kafkagroupid = kafkagroupid;
+    }
+
+    public Boolean getKafkaenable() {
+        return kafkaenable;
+    }
+
+    public void setKafkaenable(Boolean kafkaenable) {
+        this.kafkaenable = kafkaenable;
+    }
+
+    public String getKafkaserver() {
+        return kafkaserver;
+    }
+
+    public void setKafkaserver(String kafkaserver) {
+        this.kafkaserver = kafkaserver;
+    }
+
+    public String getKafkatopic() {
+        return kafkatopic;
+    }
+
+    public void setKafkatopic(String kafkatopic) {
+        this.kafkatopic = kafkatopic;
+    }
+
+    private String kafkatopic;
 
     public String getDbpath() {
         return dbpath;
