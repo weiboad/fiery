@@ -62,6 +62,11 @@ Server
 |      参数        |      选项      |   说明    |
 | --------------- |:-------------:| ---------:|
 |--server.port    | fiery 服务监听端口如9090| |
+|--fiery.kafkaenable|true false|是否开启kafka的消费端|
+|--fiery.kafkaserver|10.1.1.1:9191,10.1.1.2:9191|kafka的broker服务器ip:port列表|
+|--fiery.kafkatopic|kafka topic|kafka topic名称|
+|--fiery.kafkagroupid|kafka groupid|消费端groupid|
+
 
 Kafka版本
 默认集成的是0.9的kafka协议，如果需要更新的协议支持，直接修改pom.xml的kafka依赖包版本即可
