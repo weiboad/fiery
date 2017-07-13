@@ -47,6 +47,7 @@ Fiery
 
 ### 参数及配置文件说明
 Logpusher(使用配置文件，由命令行参数-c指定[配置文件](./conf/logpusher.properties)路径)
+
 |      配置选项        |      选项      |   说明    |
 | --------------- |:-------------:| ---------:|
 |path            | 要监控的日志路径 | 此选项用于logpusher 指向ragnarsdk产生日志目录|
@@ -58,6 +59,7 @@ Logpusher(使用配置文件，由命令行参数-c指定[配置文件](./conf/l
 |kafkaTopic    | kafka内的topic如fiery_test|向那个topic推送日志|
 
 Server(使用命令行参数)
+
 |      命令行参数        |      选项      |   说明    |
 | --------------- |:-------------:| ---------:|
 |--server.port    | fiery 服务监听端口如9090| |
