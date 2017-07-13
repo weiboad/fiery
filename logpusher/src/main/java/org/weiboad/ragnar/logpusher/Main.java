@@ -1,92 +1,83 @@
 package org.weiboad.ragnar.logpusher;
 
+import com.github.zhiyangleecn.Toolbox;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.PosixParser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.Properties;
+
 public class Main {
+
+    private static Logger log = LoggerFactory.getLogger(Main.class);
+
+    private static Options buildCommandLineOptions() {
+        Options options = new Options();
+
+        Option option = new Option("c",true,"Logpusher config file");
+        option.setRequired(false);
+        options.addOption(option);
+
+        option = new Option("p", false, "Print logpusher config");
+        options.addOption(option);
+
+        return options;
+    }
+
     public static void main(String[] args) {
-        String usage =
-                "Ragnar Tiny Server\r\n" +
-                        "Usage:\r\n" +
-                        "\t\tjava -jar logpusher.jar  -path ./ -host 127.0.0.1:8888 -threadcount 10 \r\n";
 
-        String host = "127.0.0.1:9090"; //推送接口host设置
-        String path = "./";             //扫描日志路径
-        String pushType = "http";       //默认http 推送，可选项kafka
-        String kafkaTopic = "";       //默认http 推送，可选项kafka
-        String kafkaServer = "";       //默认http 推送，可选项kafka
+        try {
 
-        Integer outtimeInt = 0;         // 日志清理
-        Integer threadcount = 10;       //线程数量默认
-
-
-        //system variable
-        System.out.println("Lib Path:" + System.getProperty("java.library.path"));
-
-        if (args.length > 0 && ("-h".equals(args[0]) || "-help".equals(args[0]))) {
-            System.out.println(usage);
-            System.exit(0);
-        }
-
-        for (int i = 0; i < args.length; i++) {
-            //basic parameter
-            if ("-path".equals(args[i])) {
-                path = args[i + 1];
-                i++;
+            final CommandLine commandLine = Toolbox.parseCmdLine("Logpusher",
+                    args, buildCommandLineOptions(), new PosixParser());
+            if (null == commandLine) {
+                Toolbox.exit(0);
             }
 
-            //expire clean up
-            if ("-outtime".equals(args[i])) {
-                try {
-                    outtimeInt = Integer.parseInt(args[i + 1]);
-                } catch (Exception e) {
-                    outtimeInt = 0;
+            final LogPusherConfig logPusherConfig = new LogPusherConfig();
+            if (commandLine.hasOption("c")) {
+                File configFile = new File(commandLine.getOptionValue("c"));
+                if (!configFile.exists()) {
+                    Toolbox.die("Fail to load config file[" + configFile.getPath() + "]");
                 }
-                i++;
+
+                InputStream in = new BufferedInputStream(new FileInputStream(configFile));
+                Properties properties = new Properties();
+                properties.load(in);
+                Toolbox.properties2Object(properties, logPusherConfig);
+
+                in.close();
+                Toolbox.msg("Load config file[" + configFile.getPath() + "]");
             }
 
-            //push type
-            if ("-pushtype".equals(args[i])) {
-                pushType = args[i + 1];
-                i++;
+            if (commandLine.hasOption("p")) {
+                Toolbox.printObjectProperties(log, logPusherConfig);
             }
 
-            //http parameter
-            //http post type
-            if ("-host".equals(args[i])) {
-                host = args[i + 1];
-                i++;
+            final LogMonitor logMonitor = new LogMonitor();
+            String pushType = logPusherConfig.getPushType();
+            if (pushType.equalsIgnoreCase("http")) {
+                //use http post to push the log to server
+                logMonitor.startHttpPush(logPusherConfig.getHost(), logPusherConfig.getThreadCount());
+            } else if (pushType.equalsIgnoreCase("kafka")) {
+                //use the kafka transform log
+                logMonitor.startKafkaPush(logPusherConfig.getKafkaTopic(), logPusherConfig.getKafkaServer());
+            } else {
+                Toolbox.die("pushType:[" + pushType + "] not support.");
             }
-            //curl thread
-            if ("-threadcount".equals(args[i])) {
-                threadcount = Integer.valueOf(args[i + 1]);
-                i++;
-            }
+            //main work start
+            logMonitor.startFileScan(logPusherConfig.getPath(), logPusherConfig.getOutTime());
 
-            //kafka parameter
-            //kafka pusher
-            if ("-kafkatopic".equals(args[i])) {
-                kafkaTopic = args[i + 1];
-                i++;
-            }
-            //server
-            if ("-kafkaserver".equals(args[i])) {
-                kafkaServer = args[i + 1];
-                i++;
-            }
-
+        } catch (Exception e) {
+            Toolbox.die("Startup logpusher error", e);
         }
-        LogMonitor logMonitor = new LogMonitor();
-
-        if (pushType.equalsIgnoreCase("http")) {
-            //use http post to push the log to server
-            logMonitor.startHttpPush(host, threadcount);
-        } else if (pushType.equalsIgnoreCase("kafka")) {
-            //use the kafka transform log
-            logMonitor.startKafkaPush(kafkaTopic, kafkaServer);
-        } else {
-            System.out.println("-pushtype parameter is wrong only support kafka or http.");
-            System.exit(4);
-        }
-        //main work start
-        logMonitor.startFileScan(path, outtimeInt);
 
     }
 }
