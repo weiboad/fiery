@@ -31,7 +31,7 @@ Fiery
  4. mkdir logs index db
  5. Startup the Fiery Server by command:
 
-> java -XX:-MaxFDLimit -Xms3750m -Xmx3750m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar ragnarserver-0.5.3-SNAPSHOT.jar --server.port=9090
+> nohup java -XX:-MaxFDLimit -Xms3750m -Xmx3750m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar ragnarserver-0.5.3-SNAPSHOT.jar --server.port=9090 &
 
  6. Browse the web address http://127.0.0.1:9090/ragnar/
 
@@ -42,24 +42,24 @@ Fiery
 ### LogPusher
 
 
-> nohup java -XX:-MaxFDLimit -Xms128m -Xmx450m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar logpusher-0.5.3-SNAPSHOT.jar -type logpush -path ragnarsdklogpath -host fieryserverip:port -outtime 7 &
+>  nohup java -XX:-MaxFDLimit -Xms128m -Xmx450m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar logpusher-0.5.3-SNAPSHOT.jar  -c ./conf/logpusher.properties &
 
 Tips: now the log pusher supported the kafka 0.9(if you want new version kafka please change pom.xml kafka client depend  version)
 
-### Parameter
- Log pusher
+### Parameter And Config file
+ Log pusher(use config file, cmd option -c specified [config file](./conf/logpusher.properties) path)
 
 |     parameter   |      option   |   desc    |
 | --------------- |:-------------:| ---------:|
-|-path            | the ragnarsdk log path | which variable defined on nginx parameter|
-|-outtime         | log expire clean up day| when the monitored file expire by day will clean up by log pusher |
-|-pushtype       | http(default) kafka(for the mass log user)|the way you push log to server|
-|-host            | 127.0.0.1:9090 | only for http push type,set the fiery server ip:port|
-|-threadcount     | 8  |when you using push type http,will improve the push speed but expensive|
-|-kafkaserver    | 10.10.1.1:9192,10.10.1.2:9192| kafka broker ip:port,ip:port list|
-|-kafkatopic    | fiery_test|kafka push topic|
+|path            | the ragnarsdk log path | which variable defined on nginx parameter|
+|outTime         | log expire clean up day| when the monitored file expire by day will clean up by log pusher |
+|pushType       | http(default) kafka(for the mass log user)|the way you push log to server|
+|host            | 127.0.0.1:9090 | only for http push type,set the fiery server ip:port|
+|threadCount     | 8  |when you using push type http,will improve the push speed but expensive|
+|kafkaServer    | 10.10.1.1:9192,10.10.1.2:9192| kafka broker ip:port,ip:port list|
+|kafkaTopic    | fiery_test|kafka push topic|
 
-Server
+Server(use cmd option)
 
 |     Parameter   |      option   |   desc    |
 | --------------- |:-------------:| ---------:|
