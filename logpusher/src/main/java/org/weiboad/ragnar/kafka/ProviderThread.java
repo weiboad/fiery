@@ -6,7 +6,6 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.weiboad.ragnar.http.CurlThread;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -14,7 +13,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class ProviderThread extends Thread {
 
-    private Logger log = LoggerFactory.getLogger(CurlThread.class);
+    private Logger log = LoggerFactory.getLogger(ProviderThread.class);
 
     private Callback callback;
 
@@ -73,24 +72,26 @@ public class ProviderThread extends Thread {
                 Producer<String, String> producer = KafkaUtil.getProducer(this.serverList);
                 while (true) {
                     String contentLog = commonLogQueue.poll();
-                    String metaLog = metaLogQueue.poll();
 
                     if (contentLog != null && contentLog.length() > 0) {
                         String[] contentList = contentLog.split("\n");
                         for (int index = 0; index < contentList.length; index++) {
                             ProducerRecord<String, String> record = new ProducerRecord<String, String>(kafkaTopic, null, contentList[index]);
-                            producer.send(record, this.callback);
+                            producer.send(record);
                         }
                     }
+
+                    String metaLog = metaLogQueue.poll();
 
                     if (metaLog != null && metaLog.length() > 0) {
                         String[] metaList = metaLog.split("\n");
 
                         for (int index = 0; index < metaList.length; index++) {
                             ProducerRecord<String, String> record = new ProducerRecord<String, String>(kafkaTopic, null, metaList[index]);
-                            producer.send(record, this.callback);
+                            producer.send(record);
                         }
                     }
+
                     if (contentLog == null && metaLog == null) {
                         Thread.sleep(100);
                     } else {

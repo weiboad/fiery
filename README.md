@@ -46,6 +46,29 @@ Fiery
 
 Tips: now the log pusher supported the kafka 0.9(if you want new version kafka please change pom.xml kafka client depend  version)
 
+### Parameter
+ Log pusher
+
+|     parameter   |      option   |   desc    |
+| --------------- |:-------------:| ---------:|
+|-path            | the ragnarsdk log path | which variable defined on nginx parameter|
+|-outtime         | log expire clean up day| when the monitored file expire by day will clean up by log pusher |
+|-pushtype       | http(default) kafka(for the mass log user)|the way you push log to server|
+|-host            | 127.0.0.1:9090 | only for http push type,set the fiery server ip:port|
+|-threadcount     | 8  |when you using push type http,will improve the push speed but expensive|
+|-kafkaserver    | 10.10.1.1:9192,10.10.1.2:9192| kafka broker ip:port,ip:port list|
+|-kafkatopic    | fiery_test|kafka push topic|
+
+Server
+
+|     Parameter   |      option   |   desc    |
+| --------------- |:-------------:| ---------:|
+|--server.port    | 9090| fiery server listened port|
+|--fiery.kafkaenable|true false| using kafka ?|
+|--fiery.kafkaserver|10.1.1.1:9191,10.1.1.2:9191|kafka broker ip:port,ip:port list|
+|--fiery.kafkatopic|kafka topic|kafka topic|
+|--fiery.kafkagroupid|kafka groupid|kafka groupid|
+
 #### Todo
  * Service Manage Shell(startup stop restart)
  * Persistent memory statistics
