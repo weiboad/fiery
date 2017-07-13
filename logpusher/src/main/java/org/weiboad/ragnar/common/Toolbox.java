@@ -16,9 +16,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.UUID;
 
-/**
- * @author lizhiyang
- */
 public class Toolbox {
 
     public static void exit(int status) {
