@@ -42,24 +42,23 @@ Fiery
 ### LogPusher 日志抓取
  日志推送服务，可以监控一个目录下所有日志是否有更新，并将内容推送到主服务,安装步骤如上，新版支持推送日志到kafka
  ```
- nohup java -XX:-MaxFDLimit -Xms128m -Xmx450m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar logpusher-0.5.3-SNAPSHOT.jar  -path nginx环境变量里配置的日志输出路径 -host fiery服务器的ip:端口号 -outtime 7 -threadcount 10 &
+ nohup java -XX:-MaxFDLimit -Xms128m -Xmx450m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar logpusher-0.5.3-SNAPSHOT.jar  -c ./conf/logpusher.properties &
  ```
 
-### 参数说明
- Logpusher
-
-|      参数        |      选项      |   说明    |
+### 参数及配置文件说明
+Logpusher(使用配置文件，由命令行参数-c指定[配置文件](./conf/logpusher.properties)路径)
+|      配置选项        |      选项      |   说明    |
 | --------------- |:-------------:| ---------:|
-|-path            | 要监控的日志路径 | 此选项用于logpusher 指向ragnarsdk产生日志目录|
-|-outtime         | 本地日志保存时间| 超时日志会被自动清理 |
-|-pushtype       | 推送类型 http（默认） kafka（用于大流量用户）|日志传输模式|
-|-host            | 127.0.0.1:9090 | 日志收集到后会推送到fiery server,pushtype=http时用的参数|
-|-threadcount     | 推送日志线程数默认8  |越大越快，但是CPU使用会增加|
-|-kafkaserver    | kafka服务器列表如 10.10.1.1:9192,10.10.1.2:9192| kafka broker服务器列表|
-|-kafkatopic    | kafka内的topic如fiery_test|向那个topic推送日志|
+|path            | 要监控的日志路径 | 此选项用于logpusher 指向ragnarsdk产生日志目录|
+|outTime         | 本地日志保存时间| 超时日志会被自动清理 |
+|pushType       | 推送类型 http（默认） kafka（用于大流量用户）|日志传输模式|
+|host            | 127.0.0.1:9090 | 日志收集到后会推送到fiery server,pushtype=http时用的参数|
+|threadCount     | 推送日志线程数默认8  |越大越快，但是CPU使用会增加|
+|kafkaServer    | kafka服务器列表如 10.10.1.1:9192,10.10.1.2:9192| kafka broker服务器列表|
+|kafkaTopic    | kafka内的topic如fiery_test|向那个topic推送日志|
 
-Server
-|      参数        |      选项      |   说明    |
+Server(使用命令行参数)
+|      命令行参数        |      选项      |   说明    |
 | --------------- |:-------------:| ---------:|
 |--server.port    | fiery 服务监听端口如9090| |
 |--fiery.kafkaenable|true false|是否开启kafka的消费端|

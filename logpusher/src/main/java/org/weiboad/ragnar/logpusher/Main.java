@@ -54,7 +54,7 @@ public class Main {
                 Toolbox.properties2Object(properties, logPusherConfig);
 
                 in.close();
-                System.out.println("Load config file[" + configFile.getPath() + "]");
+                Toolbox.msg("Load config file[" + configFile.getPath() + "]");
             }
 
             if (commandLine.hasOption("p")) {
@@ -70,8 +70,7 @@ public class Main {
                 //use the kafka transform log
                 logMonitor.startKafkaPush(logPusherConfig.getKafkaTopic(), logPusherConfig.getKafkaServer());
             } else {
-                System.out.println("-pushtype parameter is wrong only support kafka or http.");
-                System.exit(4);
+                Toolbox.die("pushType:[" + pushType + "] not support.");
             }
             //main work start
             logMonitor.startFileScan(logPusherConfig.getPath(), logPusherConfig.getOutTime());
