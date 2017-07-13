@@ -67,6 +67,7 @@ Server(使用命令行参数)
 |--fiery.kafkaserver|10.1.1.1:9191,10.1.1.2:9191|kafka的broker服务器ip:port列表|
 |--fiery.kafkatopic|kafka topic|kafka topic名称|
 |--fiery.kafkagroupid|kafka groupid|消费端groupid|
+|--fiery.keepdataday|日志及数据保留时间（天）默认五天|统计，日志，排行信息等保存天数|
 
 
 Kafka版本

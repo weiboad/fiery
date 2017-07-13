@@ -68,6 +68,7 @@ Server(use cmd option)
 |--fiery.kafkaserver|10.1.1.1:9191,10.1.1.2:9191|kafka broker ip:port,ip:port list|
 |--fiery.kafkatopic|kafka topic|kafka topic|
 |--fiery.kafkagroupid|kafka groupid|kafka groupid|
+|--fiery.keepdataday|how long the data keep day|the day of log keep|
 
 #### Todo
  * Service Manage Shell(startup stop restart)
