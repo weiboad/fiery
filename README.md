@@ -66,7 +66,7 @@ Server(use cmd option)
 |--server.port    | 9090| fiery server listened port|
 |--fiery.kafkaenable|true false| using kafka ?|
 |--fiery.kafkaserver|10.1.1.1:9191,10.1.1.2:9191|kafka broker ip:port,ip:port list|
-|--fiery.kafkatopic|kafka topic|kafka topic|
+|--fiery.kafkatopic|kafka topic|kafka topic.mutiple topic eg:fiery_test,fiery_test1|
 |--fiery.kafkagroupid|kafka groupid|kafka groupid|
 |--fiery.keepdataday|how long the data keep day|the day of log keep|
 

@@ -54,7 +54,7 @@ public class Consumer implements DisposableBean, Runnable {
     public void run() {
         if (fieryConfig.getKafkaenable()) {
             KafkaConsumer<String, String> consumer = KafkaUtil.getConsumer(fieryConfig.getKafkaserver(), fieryConfig.getKafkagroupid());
-            consumer.subscribe(Arrays.asList(fieryConfig.getKafkatopic()));
+            consumer.subscribe(Arrays.asList(fieryConfig.getKafkatopic().split(",")));
 
             while (true) {
                 ConsumerRecords<String, String> records = consumer.poll(1000);

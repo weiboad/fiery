@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.weiboad.ragnar</groupId>
     <artifactId>fiery-all</artifactId>
-    <version>0.5.4.10-unstable</version>
+    <version>0.5.4.12-unstable</version>
     <packaging>pom</packaging>
 
     <name>fiery</name>

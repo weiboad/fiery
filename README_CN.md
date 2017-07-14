@@ -56,7 +56,7 @@ Logpusher(使用配置文件，由命令行参数-c指定[配置文件](./conf/l
 |host            | 127.0.0.1:9090 | 日志收集到后会推送到fiery server,pushtype=http时用的参数|
 |threadCount     | 推送日志线程数默认8  |越大越快，但是CPU使用会增加|
 |kafkaServer    | kafka服务器列表如 10.10.1.1:9192,10.10.1.2:9192| kafka broker服务器列表|
-|kafkaTopic    | kafka内的topic如fiery_test|向那个topic推送日志|
+|kafkaTopic    | kafka内的topic如fiery_test|向那个topic推送日志，支持多topic订阅，如fiery_test1,fiery_test2|
 
 Server(使用命令行参数)
 
