@@ -158,7 +158,7 @@
             <h4> - Queue</h4>
             <table class="table sorttable table-hover">
                 <tr>
-                    <td>Pedding Queue</td>
+                    <td>Pending Queue</td>
                     <td>${bizlogQueueLen?string("#")}</td>
                 </tr>
             </table>
