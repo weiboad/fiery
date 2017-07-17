@@ -5,14 +5,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.weiboad.ragnar.server.statistics.api.APIStatisticTimeSet;
+import org.weiboad.ragnar.server.config.FieryConfig;
+import org.weiboad.ragnar.server.kafka.Consumer;
 import org.weiboad.ragnar.server.processor.BizLogProcessor;
 import org.weiboad.ragnar.server.processor.MetaLogProcessor;
 import org.weiboad.ragnar.server.search.IndexService;
-import org.weiboad.ragnar.server.statistics.error.ErrorStatistic;
+import org.weiboad.ragnar.server.statistics.api.APIStatisticTimeSet;
 import org.weiboad.ragnar.server.statistics.dependapi.DependAPIStatistic;
+import org.weiboad.ragnar.server.statistics.error.ErrorStatistic;
 import org.weiboad.ragnar.server.statistics.sql.SQLStatistic;
 import org.weiboad.ragnar.server.storage.DBManage;
+import org.weiboad.ragnar.server.util.SystemStatus;
 
 import java.util.Map;
 
@@ -42,6 +45,9 @@ public class DashboardPage {
 
     @Autowired
     MetaLogProcessor metaLogProcessor;
+
+    @Autowired
+    FieryConfig fieryConfig;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String IndexPage(Model model) {
@@ -81,6 +87,14 @@ public class DashboardPage {
         model.addAttribute("metalogQueueLen", metaLogProcessor.getQueueLen());
 
         model.addAttribute("bizlogQueueLen", bizLogProcessor.getQueueLen());
+
+        //config
+        model.addAttribute("fieryConfig", fieryConfig);
+
+        //System Status
+        SystemStatus systemStatus = new SystemStatus();
+        model.addAttribute("systemStatus", systemStatus);
+
 
         return "dashboard";
     }

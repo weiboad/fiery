@@ -39,27 +39,86 @@
             <div style="width: 600px;height: 200px;margin: auto;"><span style="font-size: 100px">Ragnar Fiery</span>
             </div>
         </div>
+        <div class="col-md-12">
 
+            <div class="col-md-6">
+                <h3>Parameter</h3>
+                <table class="table sorttable table-hover col-md-4">
+                    <tr>
+                        <td>DB Path</td>
+                        <td style="word-break:break-all;">${fieryConfig.getDbpath()}</td>
+                    </tr>
+                    <tr>
+                        <td>Index Path</td>
+                        <td style="word-break:break-all;">${fieryConfig.getIndexpath()}</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 110px">Log Keep Day</td>
+                        <td style="word-break:break-all;">${fieryConfig.getKeepdataday()} Day</td>
+                    </tr>
+                    <tr>
+                        <td>Enable Kafka</td>
+                        <td style="word-break:break-all;">${fieryConfig.getKafkaenable()}</td>
+                    </tr>
+                    <tr>
+                        <td>Kafka Server</td>
+                        <td style="word-break:break-all;">${fieryConfig.getKafkaserver()}</td>
+                    </tr>
+                    <tr>
+                        <td>Kafka Topic</td>
+                        <td style="word-break:break-all;">${fieryConfig.getKafkatopic()}</td>
+                    </tr>
+                    <tr>
+                        <td>Kafka Groupid</td>
+                        <td style="word-break:break-all;">${fieryConfig.getKafkagroupid()}</td>
+                    </tr>
+
+                </table>
+            </div>
+            <div class="col-md-6">
+                <h3>Status</h3>
+                <table class="table sorttable table-hover col-md-4">
+                    <tr>
+                        <td style="width: 110px">Memory Max:</td>
+                        <td style="word-break:break-all;">${systemStatus.getMemoryMax()} byte</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 110px">Memory Total:</td>
+                        <td style="word-break:break-all;">${systemStatus.getMemoryTotal()} byte</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 110px">Memory Free:</td>
+                        <td style="word-break:break-all;">${systemStatus.getMemoryFree()} byte</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 110px">Memory Used:</td>
+                        <td style="word-break:break-all;">${systemStatus.getMemoryUsed()} byte</td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+        <hr/>
         <div class="col-md-4">
-            <h3>索引服务</h3>
+            <h3>Index Engine Service</h3>
             <hr/>
-            <h4> - 组合索引</h4>
+            <h4> - Combined Index</h4>
             <table class="table sorttable table-hover">
                 <tr>
-                    <td>组合索引文档数：</td>
+                    <td>Document Count：</td>
                     <td>${indexedDocCount?string("#")}</td>
                 </tr>
                 <tr>
-                    <td>索引入口队列：</td>
+                    <td>Process Queue Length：</td>
                     <td>${metalogQueueLen?string("#")}</td>
                 </tr>
             </table>
             <hr/>
-            <h4> - 检索索引</h4>
+            <h4> - Index Storage</h4>
             <table class="table sorttable table-hover">
                 <tr>
-                    <th>索引名称</th>
-                    <th>数据量</th>
+                    <th>Index Name</th>
+                    <th>Count</th>
                 </tr>
             <#list searchInfoList as dbname,index>
                 <tr>
@@ -70,14 +129,14 @@
             </table>
 
             <hr/>
-            <h4> - 写入索引</h4>
+            <h4> - Index Write Queue</h4>
             <table class="table sorttable table-hover">
                 <tr>
-                    <th>索引名称</th>
-                    <th>写入队列</th>
-                    <th>内存占用</th>
-                    <th>缓存数据</th>
-                    <th>数据量</th>
+                    <th>Index</th>
+                    <th>Queue</th>
+                    <th>Mem</th>
+                    <th>Cached</th>
+                    <th>Total</th>
                 </tr>
             <#list writeInfoList as dbname,index>
                 <tr>
@@ -93,23 +152,24 @@
         </div>
 
         <div class="col-md-4">
-            <h3>日志</h3>
+
+            <h3>Log Storage</h3>
             <hr/>
-            <h4> - 日志队列</h4>
+            <h4> - Queue</h4>
             <table class="table sorttable table-hover">
                 <tr>
-                    <td>入口推入队列</td>
+                    <td>Pedding Queue</td>
                     <td>${bizlogQueueLen?string("#")}</td>
                 </tr>
             </table>
 
             <hr/>
-            <h4> - 日志存储</h4>
+            <h4> - Storage</h4>
 
             <table class="table sorttable table-hover">
                 <thead>
                 <tr>
-                    <th>日志DB列表</th>
+                    <th>Storage DB</th>
                 </tr>
                 </thead>
             <#list dbInfoList as dbname,index>
@@ -122,15 +182,15 @@
         </div>
 
         <div class="col-md-4">
-            <h3>内存统计</h3>
+            <h3>Memory Statistics</h3>
 
             <hr/>
-            <h4> - API排行统计</h4>
+            <h4> - API Statistics</h4>
             <table class="table sorttable table-hover">
                 <thead>
                 <tr>
-                    <th>统计项</th>
-                    <th>数据量</th>
+                    <th>Item</th>
+                    <th>Count</th>
                 </tr>
                 </thead>
             <#list apitopStatic as day,datacount>
@@ -142,12 +202,12 @@
             </table>
 
             <hr/>
-            <h4> - 错误统计</h4>
+            <h4> - Error Statistics</h4>
             <table class="table sorttable table-hover">
                 <thead>
                 <tr>
-                    <th>统计项</th>
-                    <th>数据量</th>
+                    <th>Item</th>
+                    <th>Count</th>
                 </tr>
                 </thead>
             <#list errorStatic as day,datacount>
@@ -159,12 +219,12 @@
             </table>
 
             <hr/>
-            <h4> - 警告统计</h4>
+            <h4> - Warning Statistics</h4>
             <table class="table sorttable table-hover">
                 <thead>
                 <tr>
-                    <th>统计项</th>
-                    <th>数据量</th>
+                    <th>Item</th>
+                    <th>Count</th>
                 </tr>
                 </thead>
             <#list alarmStatic as day,datacount>
@@ -176,12 +236,12 @@
             </table>
 
             <hr/>
-            <h4> - 异常统计</h4>
+            <h4> - Exception Statistics</h4>
             <table class="table sorttable table-hover">
                 <thead>
                 <tr>
-                    <th>统计项</th>
-                    <th>数据量</th>
+                    <th>Item</th>
+                    <th>Count</th>
                 </tr>
                 </thead>
             <#list exceptionStatic as day,datacount>

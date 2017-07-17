@@ -41,6 +41,12 @@ public class Consumer implements DisposableBean, Runnable {
 
     private Logger log = LoggerFactory.getLogger(Consumer.class);
 
+    private Long offset = 0L;
+
+    public Long getOffset() {
+        return offset;
+    }
+
     @PostConstruct
     public void start() {
         if (fieryConfig.getKafkaenable()) {
@@ -60,6 +66,8 @@ public class Consumer implements DisposableBean, Runnable {
                 ConsumerRecords<String, String> records = consumer.poll(1000);
 
                 for (ConsumerRecord<String, String> record : records) {
+
+                    this.offset = record.offset();
                     //log.info("fetched from partition " + record.partition() + ", offset: " + record.offset() + ", message: " + record.value());
                     String content = record.value();
 
