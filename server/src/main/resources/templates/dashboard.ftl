@@ -80,19 +80,19 @@
                 <table class="table sorttable table-hover col-md-4">
                     <tr>
                         <td style="width: 110px">Memory Max:</td>
-                        <td style="word-break:break-all;">${systemStatus.getMemoryMax()/(1024 * 1024)} Mb</td>
+                        <td style="word-break:break-all;">${systemStatus.getMemoryMax()/(1024)} Kb</td>
                     </tr>
                     <tr>
                         <td style="width: 110px">Memory Total:</td>
-                        <td style="word-break:break-all;">${systemStatus.getMemoryTotal()/(1024 * 1024)} Mb</td>
+                        <td style="word-break:break-all;">${systemStatus.getMemoryTotal()/1024} Kb</td>
                     </tr>
                     <tr>
                         <td style="width: 110px">Memory Free:</td>
-                        <td style="word-break:break-all;">${systemStatus.getMemoryFree()/(1024 * 1024)} Mb</td>
+                        <td style="word-break:break-all;">${systemStatus.getMemoryFree()/1024} Kb</td>
                     </tr>
                     <tr>
                         <td style="width: 110px">Memory Used:</td>
-                        <td style="word-break:break-all;">${systemStatus.getMemoryUsed()/(1024 * 1024)} Mb</td>
+                        <td style="word-break:break-all;">${systemStatus.getMemoryUsed()/1024} Kb</td>
                     </tr>
 
                 </table>
