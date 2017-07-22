@@ -33,7 +33,7 @@ Ragnar Fiery主要由三个部分组成：
 
  
 ### FierySDK
-FierySDK需要在Nginx引入一个环境变量文件，通过这个文件可以获取一些环境变量，如FierySDK生成日志路径。当前服务器IP等信息。
+FierySDK需要在Nginx引入一个环境变量文件(fierysdk/nginx/fiery_fastcgi_params)，通过这个文件可以获取一些环境变量，如FierySDK生成日志路径。当前服务器IP等信息。
   
 FierySDK目前已打包成Composer，使用时使用Composer引入项目。按照集成指引在：
 
@@ -60,7 +60,7 @@ LogPusher部署在每一台运行集成FierySDK项目的服务器内，主要职
  3. 在jar所在目录创建文件夹 mkdir logs index db
  4. 通过以下命令启动主服务:
  ```
- nohup java -XX:-MaxFDLimit -Xms3750m -Xmx3750m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar ragnarserver-0.5.3-SNAPSHOT.jar  --server.port=9090 &
+ nohup java -XX:-MaxFDLimit -Xms3750m -Xmx3750m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar ragnarserver-版本号-SNAPSHOT.jar  --server.port=9090 &
  ```
  5. 服务启动后 浏览器访问地址： http://127.0.0.1:9090/ragnar/ 即可
 
@@ -71,7 +71,7 @@ LogPusher部署在每一台运行集成FierySDK项目的服务器内，主要职
 ### LogPusher 日志收集及推送服务
  日志推送服务，可以监控一个目录下所有日志是否有更新，并将内容推送到主服务
  ```
- nohup java -XX:-MaxFDLimit -Xms128m -Xmx450m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar logpusher-0.5.1-SNAPSHOT.jar  -path [要监控的日志目录] -host 服务器ip及端口[ip:port] -outtime 7 -threadcount 10 &
+ nohup java -XX:-MaxFDLimit -Xms128m -Xmx450m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar logpusher-版本号-SNAPSHOT.jar  -path [要监控的日志目录] -host 服务器ip及端口[ip:port] -outtime 7 -threadcount 10 &
  ```
 
 
