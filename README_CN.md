@@ -17,7 +17,8 @@ Fiery
  * 埋点库: RagnarSDK提供PHP侵入式性能埋点库，集成到 项目入口、Curl类及Mysql基础类即可
  * 日志收集: LogPusher服务负责监控收集埋点库产生的日志更新，并推送到服务端
  * 统计存储服务: Server接收日志，并对日志进行整理、存储、汇总、索引、统计分析功能
- * 更多信息请到 [wiki](https://github.com/weiboad/fiery/wiki) 获取
+ 
+## 更多概念请到 [Wiki](https://github.com/weiboad/fiery/wiki) 获取
 
 ### 最低配置
  * PHP 5.3 or later with bcmath
