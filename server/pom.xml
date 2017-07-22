@@ -113,6 +113,14 @@
             <version>0.9.0.0</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-mail -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+            <version>1.5.2.RELEASE</version>
+        </dependency>
+
+
     </dependencies>
 
 </project>
