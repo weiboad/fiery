@@ -5,8 +5,6 @@ Fiery
 [![Build Status](https://travis-ci.org/weiboad/fiery.png)](https://travis-ci.org/weiboad/fiery)
 [![License](https://img.shields.io/badge/license-apache2-blue.svg)](LICENSE)
 
-![showtrace](docs/imgs/showtrace.png)
-
 Fiery 是一款为PHP提供服务的性能跟踪监控系统，可以方便的查看线上调用关系，响应性能，回放每次请求的具体执行过程、参数、异常。并且对系统异常及依赖数据性能做了去重统计，具有部署简单方便，开箱即用的优点。
 
 部署在开发环境可以方便调试，部署在线上服务器可以快速定位线上故障及接口性能分析，有助于改善完善项目稳定性。
