@@ -27,9 +27,9 @@ Fiery 是一款为PHP提供服务的性能跟踪监控系统，可以方便的�
 
 Ragnar Fiery主要由三个部分组成：
 
- * FierySDK：PHP埋点库（https://github.com/weiboad/fierysdk）
- * Log Pusher：日志收集及推送（https://github.com/weiboad/fiery/logpusher）
- * Fiery Server：日志存储索引统计及管理界面（https://github.com/weiboad/fiery/server）
+ * FierySDK：PHP埋点库（https://github.com/weiboad/fierysdk)
+ * Log Pusher：日志收集及推送（https://github.com/weiboad/fiery/logpusher)
+ * Fiery Server：日志存储索引统计及管理界面（https://github.com/weiboad/fiery/server)
 
  
 ### FierySDK
