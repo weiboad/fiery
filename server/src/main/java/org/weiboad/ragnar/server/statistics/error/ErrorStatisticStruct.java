@@ -18,6 +18,16 @@ public class ErrorStatisticStruct {
     private Long startTime;
     //最后出现相似日志信息的时间
     private Long endTime;
+    //最后警报时间
+    private Long lastEmailTime;
+
+    public Long getLastEmailTime() {
+        return lastEmailTime;
+    }
+
+    public void setLastEmailTime(Long lastEmailTime) {
+        this.lastEmailTime = lastEmailTime;
+    }
 
     public String getFilePath() {
         return filePath;

@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.weiboad.ragnar.server.config.FieryConfig;
 import org.weiboad.ragnar.server.util.DateTimeHelper;
+import org.weiboad.ragnar.server.util.MailHelper;
 import org.weiboad.ragnar.server.util.SimHash;
 
 import java.util.*;
@@ -29,6 +30,9 @@ public class ErrorStatistic {
 
     @Autowired
     FieryConfig fieryConfig;
+
+    @Autowired
+    MailHelper mailHelper;
 
     public void addAlarmLogMap(int type, String str, Long timestamp) {
         if (str == null) {
@@ -54,13 +58,13 @@ public class ErrorStatistic {
         }
         switch (type) {
             case 5:
-                addLogInfo(_errorLogMap, str, token, timestamp, filePath, line, hash1);
+                addLogInfo(_errorLogMap, str, token, timestamp, filePath, line, hash1, 5);
                 break;
             case 6:
-                addLogInfo(_alarmLogMap, str, token, timestamp, filePath, line, hash1);
+                addLogInfo(_alarmLogMap, str, token, timestamp, filePath, line, hash1, 6);
                 break;
             case 7:
-                addLogInfo(_exceptionLogMap, str, token, timestamp, filePath, line, hash1);
+                addLogInfo(_exceptionLogMap, str, token, timestamp, filePath, line, hash1, 7);
                 break;
         }
     }
@@ -79,7 +83,7 @@ public class ErrorStatistic {
         return token;
     }
 
-    private void addLogInfo(Map<Long, Map<String, ErrorStatisticStruct>> logMap, String logStr, String token, Long nowTime, String filePath, Integer line, SimHash hash) {
+    private void addLogInfo(Map<Long, Map<String, ErrorStatisticStruct>> logMap, String logStr, String token, Long nowTime, String filePath, Integer line, SimHash hash, int level) {
         long dayTime = DateTimeHelper.getTimesMorning(nowTime);
         boolean issame = false;
         if (logMap.size() != 0 && logMap.get(dayTime) != null) {
@@ -224,6 +228,20 @@ public class ErrorStatistic {
             result.put(ent.getKey() + "", ent.getValue().size());
         }
         return result;
+    }
+
+    public boolean sendMail(String subject, String content) {
+        //first of this day? ok send an alarm
+        if (fieryConfig.getMailfrom().length() > 0 && fieryConfig.getMailto().length() > 0) {
+            try {
+                mailHelper.sendSimpleMail(fieryConfig.getMailfrom(), fieryConfig.getMailto(), subject, content);
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+                log.error(e.getMessage());
+            }
+        }
+        return false;
     }
 
     @Scheduled(fixedRate = 30 * 1000)

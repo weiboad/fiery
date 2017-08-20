@@ -19,6 +19,26 @@ public class FieryConfig {
 
     private String kafkagroupid;
 
+    private String mailfrom;
+
+    public String getMailfrom() {
+        return mailfrom;
+    }
+
+    public void setMailfrom(String mailfrom) {
+        this.mailfrom = mailfrom;
+    }
+
+    public String getMailto() {
+        return mailto;
+    }
+
+    public void setMailto(String mailto) {
+        this.mailto = mailto;
+    }
+
+    private String mailto;
+
     public String getKafkagroupid() {
         return kafkagroupid;
     }
