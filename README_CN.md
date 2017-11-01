@@ -62,7 +62,7 @@ LogPusher部署在每一台运行集成FierySDK项目的服务器内，主要职
  3. 在jar所在目录创建文件夹 mkdir logs index db
  4. 通过以下命令启动主服务:
  ```
- nohup java -XX:-MaxFDLimit -Xms3750m -Xmx3750m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar ragnarserver-版本号-SNAPSHOT.jar  --server.port=9090 &
+ nohup java -XX:-MaxFDLimit -Xms3750m -Xmx3750m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar ragnarserver-版本号.jar  --server.port=9090 &
  ```
  5. 服务启动后 浏览器访问地址： http://127.0.0.1:9090/ragnar/ 即可
 
@@ -73,7 +73,7 @@ LogPusher部署在每一台运行集成FierySDK项目的服务器内，主要职
 ### LogPusher 日志收集及推送服务
  日志推送服务，可以监控一个目录下所有日志是否有更新，并将内容推送到主服务
  ```
- nohup java -XX:-MaxFDLimit -Xms128m -Xmx450m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar logpusher-版本号-SNAPSHOT.jar  -path [要监控的日志目录] -host 服务器ip及端口[ip:port] -outtime 7 -threadcount 10 &
+nohup java -XX:-MaxFDLimit -Xms128m -Xmx450m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -jar logpusher-版本号.jar -c ./conf/logpusher.properties &
  ```
 
 
