@@ -80,6 +80,7 @@ public class ErrorStatistic {
                 token += c;
             }
         }
+        token.replaceAll("[ ]+", " ");
         return token;
     }
 
