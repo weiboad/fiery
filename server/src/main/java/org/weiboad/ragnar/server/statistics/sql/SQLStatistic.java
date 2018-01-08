@@ -55,28 +55,16 @@ public class SQLStatistic {
         if (index != -1) {
             sqlStrPre = sqlStrPre.substring(0, index);
         }
-
-        index = sqlStrPre.indexOf("BETWEEN");
+        
+        index = sqlStrPre.toLowerCase().indexOf("between");
         if (index != -1) {
             sqlStrPre = sqlStrPre.substring(0, index);
         }
-        index = sqlStrPre.indexOf("between");
+        index = sqlStrPre.toLowerCase().indexOf("like");
         if (index != -1) {
             sqlStrPre = sqlStrPre.substring(0, index);
         }
-        index = sqlStrPre.indexOf("LIKE");
-        if (index != -1) {
-            sqlStrPre = sqlStrPre.substring(0, index);
-        }
-        index = sqlStrPre.indexOf("like");
-        if (index != -1) {
-            sqlStrPre = sqlStrPre.substring(0, index);
-        }
-        index = sqlStrPre.indexOf("IS ");
-        if (index != -1) {
-            sqlStrPre = sqlStrPre.substring(0, index);
-        }
-        index = sqlStrPre.indexOf("is ");
+        index = sqlStrPre.toLowerCase().indexOf("is ");
         if (index != -1) {
             sqlStrPre = sqlStrPre.substring(0, index);
         }
@@ -84,19 +72,11 @@ public class SQLStatistic {
         if (index != -1) {
             sqlStrPre = sqlStrPre.substring(0, index);
         }
-        index = sqlStrPre.indexOf("IN");
+        index = sqlStrPre.toLowerCase().indexOf("in");
         if (index != -1) {
             sqlStrPre = sqlStrPre.substring(0, index);
         }
-        index = sqlStrPre.indexOf("in");
-        if (index != -1) {
-            sqlStrPre = sqlStrPre.substring(0, index);
-        }
-        index = sqlStrPre.indexOf("VALUES");
-        if (index != -1) {
-            sqlStrPre = sqlStrPre.substring(0, index);
-        }
-        index = sqlStrPre.indexOf("values");
+        index = sqlStrPre.toLowerCase().indexOf("values");
         if (index != -1) {
             sqlStrPre = sqlStrPre.substring(0, index);
         }
