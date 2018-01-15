@@ -70,18 +70,18 @@ public class ErrorStatistic {
     }
 
     private String getToken(String tokenStr) {
-        String token = "";
+        StringBuffer token = new StringBuffer();
         //特殊符号替换空格
         for (int i = 0; i < tokenStr.length(); i++) {
             char c = tokenStr.charAt(i);
             if (!((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9'))) {
-                token += " ";
+                token.append(" ");
             } else {
-                token += c;
+                token.append(c);
             }
         }
-        token.replaceAll("[ ]+", " ");
-        return token;
+
+        return token.toString().replaceAll("\\s+", " ");
     }
 
     private void addLogInfo(Map<Long, Map<String, ErrorStatisticStruct>> logMap, String logStr, String token, Long nowTime, String filePath, Integer line, SimHash hash, int level) {
