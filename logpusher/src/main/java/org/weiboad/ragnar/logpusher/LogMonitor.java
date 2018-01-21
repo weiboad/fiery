@@ -12,7 +12,8 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class LogMonitor {
 
@@ -21,8 +22,8 @@ public class LogMonitor {
     private Map<String, File> fileMap = new HashMap<>();
     private Map<String, BufferedReader> bufferReaderMap = new HashMap<>();
 
-    private ConcurrentLinkedQueue<String> sendBizLogQueue = new ConcurrentLinkedQueue<String>();
-    private ConcurrentLinkedQueue<String> sendMetaLogQueue = new ConcurrentLinkedQueue<String>();
+    private BlockingQueue<String> sendBizLogQueue = new LinkedBlockingQueue<>(5000);
+    private BlockingQueue<String> sendMetaLogQueue = new LinkedBlockingQueue<String>(5000);
 
     //max load log Data
     private int maxProcessData = 1048576;//max load one file
@@ -131,20 +132,9 @@ public class LogMonitor {
 
     private void fetchTheFileAppend() {
 
-        //limit the length
-        //maxProcessData * 20
-        if (sendBizLogQueue.size() > 20) {
-            return;
-        }
-
         //loop the file list
         for (Map.Entry<String, Long> ent : fileInfoMap.entrySet()) {
             String filePath = ent.getKey();
-            //limit the length
-            //maxProcessData * 20
-            if (sendBizLogQueue.size() > 20) {
-                break;
-            }
 
             //make sure the file opened
             if (!bufferReaderMap.containsKey(filePath)) {
@@ -190,12 +180,6 @@ public class LogMonitor {
                         combinedContent.append(tempString + "\n");
                     }
 
-                    //limit the length
-                    //maxProcessData * 20
-                    if (sendBizLogQueue.size() > 20) {
-                        break;
-                    }
-
                     //ok process more than
                     if (processLength > maxProcessData) {
                         break;
@@ -220,11 +204,15 @@ public class LogMonitor {
                 continue;
             }
 
-            // insert to queue
-            if (!combinedContent.substring(0, 1).equals("[")) {
-                sendMetaLogQueue.add(combinedContent.toString());
-            } else {
-                sendBizLogQueue.add(combinedContent.toString());
+            try {
+                // insert to queue
+                if (!combinedContent.substring(0, 1).equals("[")) {
+                    sendMetaLogQueue.put(combinedContent.toString());
+                } else {
+                    sendBizLogQueue.put(combinedContent.toString());
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
 

@@ -4,15 +4,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class CurlThreadPool {
 
     private Logger log = LoggerFactory.getLogger(CurlThread.class);
 
-    private ConcurrentLinkedQueue<String> sendBizLogQueue;
+    private BlockingQueue<String> sendBizLogQueue;
 
-    private ConcurrentLinkedQueue<String> sendMetaLogQueue;
+    private BlockingQueue<String> sendMetaLogQueue;
 
     private String host;
 
@@ -20,7 +21,7 @@ public class CurlThreadPool {
 
     private ArrayList<CurlThread> threadList = new ArrayList<>();
 
-    public CurlThreadPool(String host, ConcurrentLinkedQueue<String> sendBizLogQueue, ConcurrentLinkedQueue<String> sendMetaLogQueue, Integer maxthread) {
+    public CurlThreadPool(String host, BlockingQueue<String> sendBizLogQueue, BlockingQueue<String> sendMetaLogQueue, Integer maxthread) {
         this.host = host;
         this.sendBizLogQueue = sendBizLogQueue;
         this.sendMetaLogQueue = sendMetaLogQueue;

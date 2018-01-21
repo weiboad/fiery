@@ -7,6 +7,7 @@ import org.apache.kafka.clients.producer.RecordMetadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 //http://blog.csdn.net/stonexmx/article/details/52326388
@@ -21,11 +22,11 @@ public class ProviderThread extends Thread {
 
     private String kafkaTopic = "";
 
-    private ConcurrentLinkedQueue<String> commonLogQueue;
+    private BlockingQueue<String> commonLogQueue;
 
-    private ConcurrentLinkedQueue<String> metaLogQueue;
+    private BlockingQueue<String> metaLogQueue;
 
-    public ProviderThread(String kafkaTopic, String serverList, ConcurrentLinkedQueue<String> metaLogQueue, ConcurrentLinkedQueue<String> commonLogQueue) {
+    public ProviderThread(String kafkaTopic, String serverList, BlockingQueue<String> metaLogQueue, BlockingQueue<String> commonLogQueue) {
 
         if (metaLogQueue == null) {
             log.error("meta queue obj is null...");

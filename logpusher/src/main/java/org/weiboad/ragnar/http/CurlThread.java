@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.weiboad.ragnar.util.DateTimeHelper;
 
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 public class CurlThread extends Thread {
@@ -17,14 +17,14 @@ public class CurlThread extends Thread {
 
     private String host;
 
-    private ConcurrentLinkedQueue<String> sendBizLogQueue;
+    private BlockingQueue<String> sendBizLogQueue;
 
-    private ConcurrentLinkedQueue<String> sendMetaLogQueue;
+    private BlockingQueue<String> sendMetaLogQueue;
 
     private int processMaxCount = 1000000;//9M
 
 
-    public CurlThread(String host, ConcurrentLinkedQueue<String> sendBizLogQueue, ConcurrentLinkedQueue<String> sendMetaLogQueue) {
+    public CurlThread(String host, BlockingQueue<String> sendBizLogQueue, BlockingQueue<String> sendMetaLogQueue) {
         this.host = host;
         this.sendBizLogQueue = sendBizLogQueue;
         this.sendMetaLogQueue = sendMetaLogQueue;
@@ -53,14 +53,14 @@ public class CurlThread extends Thread {
 
         Builder builder = new Builder();
         builder.connectTimeout(10000, TimeUnit.MILLISECONDS);
-        builder.readTimeout(10000,TimeUnit.MILLISECONDS);
-        builder.writeTimeout(10000,TimeUnit.MILLISECONDS);
+        builder.readTimeout(10000, TimeUnit.MILLISECONDS);
+        builder.writeTimeout(10000, TimeUnit.MILLISECONDS);
         builder.followRedirects(true);
         builder.retryOnConnectionFailure(false);
         OkHttpClient client = builder.build();
 
         //MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded; charset=utf-8");
-        RequestBody body =  new FormBody.Builder().add("contents", postData).build();
+        RequestBody body = new FormBody.Builder().add("contents", postData).build();
         //RequestBody.create(mediaType, "contents=" + postData);
 
         Request request = new Request.Builder()
@@ -123,13 +123,9 @@ public class CurlThread extends Thread {
         */
     }
 
-    private String fetchQueue(ConcurrentLinkedQueue<String> queue, int maxtime) {
+    private String fetchQueue(BlockingQueue<String> queue, int maxtime) {
         StringBuilder resultString = new StringBuilder();
         Long startTime = DateTimeHelper.getCurrentTime();
-
-        if (queue.peek() == null) {
-            return "";
-        }
 
         String queueString = "";
         while (true) {
