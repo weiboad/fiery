@@ -1,5 +1,7 @@
 package org.weiboad.ragnar.server.statistics.sql;
 
+import org.weiboad.ragnar.server.util.SimHash;
+
 public class SqlStatisticStruct {
     //sql语句
     public String sqlStr;
@@ -11,4 +13,6 @@ public class SqlStatisticStruct {
     public Double[] sumTime = {0.0, 0.0, 0.0, 0.0};
     //执行sql所消耗时间分段统计0:0-200,1:200-500,2:50-1000,3:1000-∞次数
     public int[] sumCount = {0, 0, 0, 0};
+
+    public SimHash hash;
 }

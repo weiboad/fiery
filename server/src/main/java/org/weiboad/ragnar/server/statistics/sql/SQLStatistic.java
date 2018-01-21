@@ -1,5 +1,8 @@
 package org.weiboad.ragnar.server.statistics.sql;
 
+import com.alibaba.druid.sql.SQLUtils;
+import com.alibaba.druid.sql.visitor.ParameterizedOutputVisitorUtils;
+import com.alibaba.druid.util.JdbcConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +13,10 @@ import org.weiboad.ragnar.server.config.FieryConfig;
 import org.weiboad.ragnar.server.statistics.dependapi.DependAPIStatistic;
 import org.weiboad.ragnar.server.storage.DBManage;
 import org.weiboad.ragnar.server.util.DateTimeHelper;
+import org.weiboad.ragnar.server.util.SimHash;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
@@ -31,58 +32,41 @@ public class SQLStatistic {
     @Autowired
     FieryConfig fieryConfig;
 
-    private Map<String, Map<Long, SqlStatisticStruct>> _sqlMap = new ConcurrentHashMap<>();
+    private Map<SQLKey, Map<Long, SqlStatisticStruct>> _sqlMap = new ConcurrentHashMap<>();
     private Logger log = LoggerFactory.getLogger(SQLStatistic.class);
 
     public void addSqlMap(String sqlStr, Long hour, Double costTime) {
-        if (sqlStr == null) {
+
+        if (sqlStr == null || sqlStr.trim().length() == 0) {
             return;
         }
-        String sqlStrPre;
-        int index = sqlStr.indexOf('=');
-        if (index != -1) {
-            sqlStrPre = sqlStr.substring(0, index);
-        } else {
-            sqlStrPre = sqlStr;
+
+        //clean up the parameter of sql
+        String sqlStrPure = SQLUtils.format(sqlStr, JdbcConstants.MYSQL);
+        sqlStrPure = ParameterizedOutputVisitorUtils.parameterize(sqlStrPure, JdbcConstants.MYSQL);
+        sqlStrPure = sqlStrPure.replaceAll("\\s+", " ");
+
+        SimHash hash1;
+        try {
+            hash1 = new SimHash(sqlStrPure, 64);
+        } catch (Exception e) {
+            log.debug(e.getMessage());
+            return;
         }
 
-        index = sqlStrPre.indexOf('>');
-        if (index != -1) {
-            sqlStrPre = sqlStrPre.substring(0, index);
-        }
-
-        index = sqlStrPre.indexOf('<');
-        if (index != -1) {
-            sqlStrPre = sqlStrPre.substring(0, index);
-        }
-        
-        index = sqlStrPre.toLowerCase().indexOf("between");
-        if (index != -1) {
-            sqlStrPre = sqlStrPre.substring(0, index);
-        }
-        index = sqlStrPre.toLowerCase().indexOf("like");
-        if (index != -1) {
-            sqlStrPre = sqlStrPre.substring(0, index);
-        }
-        index = sqlStrPre.toLowerCase().indexOf("is ");
-        if (index != -1) {
-            sqlStrPre = sqlStrPre.substring(0, index);
-        }
-        index = sqlStrPre.indexOf("%");
-        if (index != -1) {
-            sqlStrPre = sqlStrPre.substring(0, index);
-        }
-        index = sqlStrPre.toLowerCase().indexOf("in");
-        if (index != -1) {
-            sqlStrPre = sqlStrPre.substring(0, index);
-        }
-        index = sqlStrPre.toLowerCase().indexOf("values");
-        if (index != -1) {
-            sqlStrPre = sqlStrPre.substring(0, index);
-        }
         boolean issame = false;
-        for (Map.Entry<String, Map<Long, SqlStatisticStruct>> entry : _sqlMap.entrySet()) {
-            if (sqlStrPre.equals(entry.getKey())) {
+        for (Map.Entry<SQLKey, Map<Long, SqlStatisticStruct>> entry : _sqlMap.entrySet()) {
+
+            Integer similityThreadHold;
+            if (sqlStrPure.length() < 100) {
+                similityThreadHold = 8;
+            } else if (sqlStrPure.length() < 500) {
+                similityThreadHold = 5;
+            } else {
+                similityThreadHold = 3;
+            }
+
+            if (entry.getKey().getHash().hammingDistance(hash1) <= similityThreadHold) {
                 addHourMap(entry.getValue(), sqlStr, hour, costTime);
                 issame = true;
                 break;
@@ -90,8 +74,12 @@ public class SQLStatistic {
         }
         if (!issame) {
             Map<Long, SqlStatisticStruct> hourMap = new HashMap<Long, SqlStatisticStruct>();
-            addHourMap(hourMap, sqlStr, hour, costTime);
-            _sqlMap.put(sqlStrPre, hourMap);
+            addHourMap(hourMap, sqlStrPure, hour, costTime);
+            SQLKey sqlKey = new SQLKey();
+            sqlKey.setHash(hash1);
+            sqlKey.setPureSql(sqlStrPure);
+            sqlKey.setSql(sqlStr);
+            _sqlMap.put(sqlKey, hourMap);
         }
     }
 
@@ -148,7 +136,7 @@ public class SQLStatistic {
         Long start = DateTimeHelper.getTimesMorning(DateTimeHelper.getBeforeDay(daytime));
         Long end = start + 24 * 60 * 60 - 1;
         Map<String, Map<String, String>> list = new HashMap<String, Map<String, String>>();
-        for (Map.Entry<String, Map<Long, SqlStatisticStruct>> ent : _sqlMap.entrySet()) {
+        for (Map.Entry<SQLKey, Map<Long, SqlStatisticStruct>> ent : _sqlMap.entrySet()) {
             SqlStatisticStruct sqlStatisticStruct = new SqlStatisticStruct();
             sqlStatisticStruct.fastTime = 0.0;
             sqlStatisticStruct.slowTime = 0.0;
@@ -190,7 +178,7 @@ public class SQLStatistic {
             performJson.put("five", getPercent(sqlStatisticStruct.sumCount[1], sumcount));
             performJson.put("ten", getPercent(sqlStatisticStruct.sumCount[2], sumcount));
             performJson.put("twenty", getPercent(sqlStatisticStruct.sumCount[3], sumcount));
-            list.put(ent.getKey(), performJson);
+            list.put(ent.getKey().getSql(), performJson);
         }
         return list;
     }
@@ -253,31 +241,21 @@ public class SQLStatistic {
     @Scheduled(fixedRate = 30 * 1000)
     public boolean DelOutTimeSqlLog() {
         if (_sqlMap.size() > 0) {
-            Map<String, ArrayList<Integer>> delSqlMap = new Hashtable<>();
-            for (Map.Entry<String, Map<Long, SqlStatisticStruct>> ent : _sqlMap.entrySet()) {
-                ArrayList<Long> delList = new ArrayList<>();
-                if (ent.getValue().size() > 0) {
-                    for (Map.Entry<Long, SqlStatisticStruct> hourent : ent.getValue().entrySet()) {
-                        if (hourent.getKey() >= DateTimeHelper.getCurrentTime() - fieryConfig.getKeepdataday() * 86400) {
-                            continue;
-                        }
-                        delList.add(hourent.getKey());
-                        //_sqlMap.get(ent.getKey()).remove(hourent.getKey());
-                        //log.info("del out time sql log:" + ent.getKey() + ",log create_time:" + DateTimeHelper.TimeStamp2Date(hourent.getKey().toString(), "yyyy-MM-dd HH:mm:ss"));
+            Set<Long> delSqlMap = new HashSet<>();
+
+            for (Map.Entry<SQLKey, Map<Long, SqlStatisticStruct>> ent : _sqlMap.entrySet()) {
+                for (Map.Entry<Long, SqlStatisticStruct> sqlStatic : ent.getValue().entrySet()) {
+                    if (sqlStatic.getKey() < DateTimeHelper.getCurrentTime() - fieryConfig.getKeepdataday() * 86400) {
+                        delSqlMap.add(sqlStatic.getKey());
                     }
                 }
-                /*if (_sqlMap.get(ent.getKey()).size() == 0) {
-                        _sqlMap.remove(ent.getKey());
-                }*/
             }
-            for (Map.Entry<String, ArrayList<Integer>> sqlent : delSqlMap.entrySet()) {
-                for (Integer key : sqlent.getValue()) {
-                    _sqlMap.get(sqlent.getKey()).remove(key);
-                    log.info("del out time sql log:" + sqlent.getKey() + ",log create_time:" + DateTimeHelper
-                            .TimeStamp2Date(key.toString(), "yyyy-MM-dd HH:mm:ss"));
-                }
-                if (_sqlMap.get(sqlent.getKey()).size() == 0) {
-                    _sqlMap.remove(sqlent.getKey());
+
+            for (Map.Entry<SQLKey, Map<Long, SqlStatisticStruct>> ent : _sqlMap.entrySet()) {
+                for (Long key : delSqlMap) {
+                    if (ent.getValue().containsKey(key)) {
+                        ent.getValue().remove(key);
+                    }
                 }
             }
         }

@@ -75,6 +75,12 @@ Server(use cmd option)
  * Persistent memory statistics
  * Statsd
 
+#### Depend Package
+> * Alibaba Druid
+> * Spring Boot
+> * Facebook RocksDB
+> * Lucene
+> * Google Gson
 
 ## Contact Us
  * WeiboAD ADINF Team

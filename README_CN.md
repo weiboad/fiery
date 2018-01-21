@@ -136,6 +136,13 @@ Kafka版本
 > * 线上所有通过埋点库产生的警报日志、异常日志、通知日志都会在这里汇总，去重
 > * 可查看第一次产生故障调用回放以及最后一次调用回放 
 
+##### 依赖开源声明
+> * Alibaba Druid
+> * Spring Boot
+> * Facebook RocksDB
+> * Lucene
+> * Google Gson
+
 ## 联系我们
  * WeiboAD ADINF Team
  * QQ Group: 318051466
