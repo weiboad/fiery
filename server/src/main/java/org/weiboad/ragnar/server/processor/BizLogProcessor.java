@@ -144,14 +144,16 @@ public class BizLogProcessor {
                         if (!msgObj.has("info")) {
                             continue;
                         }
-                        JsonObject infoObj = msgObj.get("info").getAsJsonObject();
+                        if(msgObj.get("info").isJsonObject()) {
+                            JsonObject infoObj = msgObj.get("info").getAsJsonObject();
 
-                        if (!infoObj.has("http_code")) {
-                            continue;
+                            if (!infoObj.has("http_code")) {
+                                continue;
+                            }
+
+                            String code = infoObj.get("http_code").getAsString();
+                            logApi.addPerformMap(url, hourTime, costTime, code);
                         }
-
-                        String code = infoObj.get("http_code").getAsString();
-                        logApi.addPerformMap(url, hourTime, costTime, code);
 
                     } else if (bflog.equals("mysql")) {
 

@@ -73,7 +73,7 @@
                     <td>${item.twenty}</td>
                     <td>
                         <a type="button" class="btn btn-primary"
-                           href='sqlstatisticdetail?sql=${key?url}&daytime=${datelist_selected}'>查看
+                           href="sqlstatisticdetail?sql=${key?url}&daytime=${datelist_selected}">查看
                         </a>
                     </td>
                 </tr>

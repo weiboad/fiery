@@ -67,14 +67,14 @@ public class SQLStatistic {
             }
 
             if (entry.getKey().getHash().hammingDistance(hash1) <= similityThreadHold) {
-                addHourMap(entry.getValue(), sqlStr, hour, costTime);
+                addHourMap(entry.getValue(), entry.getKey().getSql(), hour, costTime);
                 issame = true;
                 break;
             }
         }
         if (!issame) {
             Map<Long, SqlStatisticStruct> hourMap = new HashMap<Long, SqlStatisticStruct>();
-            addHourMap(hourMap, sqlStrPure, hour, costTime);
+            addHourMap(hourMap, sqlStr, hour, costTime);
             SQLKey sqlKey = new SQLKey();
             sqlKey.setHash(hash1);
             sqlKey.setPureSql(sqlStrPure);
@@ -188,13 +188,21 @@ public class SQLStatistic {
         if (_sqlMap.size() == 0) {
             return null;
         }
-        if (_sqlMap.get(sql) == null) {
+        SQLKey sqlkey = null;
+
+        log.info("search sql:"+sql);
+        for (Map.Entry<SQLKey, Map<Long, SqlStatisticStruct>> ent : _sqlMap.entrySet()) {
+            if(ent.getKey().getSql().equalsIgnoreCase(sql)){
+                sqlkey = ent.getKey();
+            }
+        }
+        if (sqlkey == null) {
             return null;
         }
         Long start = DateTimeHelper.getTimesMorning(DateTimeHelper.getBeforeDay(daytime));
         Long end = start + 24 * 60 * 60 - 1;
         String sqlStr = "";
-        for (Map.Entry<Long, SqlStatisticStruct> hourmap : _sqlMap.get(sql).entrySet()) {
+        for (Map.Entry<Long, SqlStatisticStruct> hourmap : _sqlMap.get(sqlkey).entrySet()) {
             if (hourmap.getKey() < start || hourmap.getKey() > end) {
                 continue;
             }
@@ -204,7 +212,7 @@ public class SQLStatistic {
                 continue;
             }
             sqlStr = hourmap.getValue().sqlStr;
-            //performJson.put("sql",hourmap.getValue().sqlStr);
+            performJson.put("sql",hourmap.getValue().sqlStr);
             performJson.put("fasttime", getDoubleTime(hourmap.getValue().fastTime));
             performJson.put("slowtime", getDoubleTime(hourmap.getValue().slowTime));
             performJson.put("sumcount", sumcount.toString());
