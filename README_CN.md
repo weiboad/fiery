@@ -67,7 +67,7 @@ LogPusher部署在每一台运行集成FierySDK项目的服务器内，主要职
  5. 服务启动后 浏览器访问地址： http://127.0.0.1:9090/ragnar/ 即可
 
 ### PHP项目埋点库埋点介绍
- * [埋点库相关介绍](https://github.com/weiboad/fiery/blob/master/README_CN.md)
+ * [埋点库相关介绍](https://github.com/weiboad/fierysdk)
 
 
 ### LogPusher 日志收集及推送服务
