@@ -31,7 +31,7 @@ Ragnar Fiery主要由三个部分组成：
 
  * FierySDK：PHP埋点库（https://github.com/weiboad/fierysdk)
  * Log Pusher：日志收集及推送 在本项目内
- * Fiery Server：日志存储索引统计及管理界面（https://github.com/weiboad/fiery/server)
+ * Fiery Server：日志存储索引统计及管理界面 在本项目内
 
  
 ### FierySDK
