@@ -31,7 +31,7 @@ Ragnar Fiery主要由三个部分组成：
 
  * FierySDK：PHP埋点库（https://github.com/weiboad/fierysdk)
  * Log Pusher：日志收集及推送 在本项目内
- * Fiery Server：日志存储索引统计及管理界面（https://github.com/weiboad/fiery/server)
+ * Fiery Server：日志存储索引统计及管理界面 在本项目内
 
  
 ### FierySDK
@@ -67,7 +67,7 @@ LogPusher部署在每一台运行集成FierySDK项目的服务器内，主要职
  5. 服务启动后 浏览器访问地址： http://127.0.0.1:9090/ragnar/ 即可
 
 ### PHP项目埋点库埋点介绍
- * [埋点库相关介绍](https://github.com/weiboad/fiery/blob/master/README_CN.md)
+ * [埋点库相关介绍](https://github.com/weiboad/fierysdk)
 
 
 ### LogPusher 日志收集及推送服务
