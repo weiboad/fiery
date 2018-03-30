@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.weiboad.ragnar.server.config.FieryConfig;
@@ -171,9 +172,10 @@ public class IndexWriterShaderManager {
         return true;
     }
 
+    @Async
     @Scheduled(fixedRate = 5000)
     public void refreshIndex() {
-        if (diskWriterList.size() == 0) {
+        if (diskWriterList == null || diskWriterList.size() == 0) {
             return;
         }
         Iterator<Map.Entry<String, IndexWriter>> iter = diskWriterList.entrySet().iterator();

@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.weiboad.ragnar.server.config.FieryConfig;
@@ -245,8 +246,9 @@ public class ErrorStatistic {
         return false;
     }
 
+    @Async
     @Scheduled(fixedRate = 30 * 1000)
-    public boolean DelOutTimeLog() {
+    public void DelOutTimeLog() {
         if (_errorLogMap.size() > 0) {
             ArrayList<Long> errorList = new ArrayList<>();
             for (Map.Entry<Long, Map<String, ErrorStatisticStruct>> ent : _errorLogMap.entrySet()) {
@@ -289,6 +291,6 @@ public class ErrorStatistic {
                 _exceptionLogMap.remove(key);
             }
         }
-        return true;
+        //return true;
     }
 }

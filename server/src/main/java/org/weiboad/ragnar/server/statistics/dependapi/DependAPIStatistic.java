@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.weiboad.ragnar.server.config.FieryConfig;
@@ -211,8 +212,9 @@ public class DependAPIStatistic {
         return df.format(a * 100.00 / b) + "%";
     }
 
+    @Async
     @Scheduled(fixedRate = 30 * 1000)
-    public boolean DelOutTimeSqlLog() {
+    public void DelOutTimeSqlLog() {
         if (_performMap.size() > 0) {
             Map<String, ArrayList<Long>> delMap = new Hashtable<>();
             for (Map.Entry<String, Map<Long, DependAPIStatisticStruct>> ent : _performMap.entrySet()) {
@@ -242,6 +244,6 @@ public class DependAPIStatistic {
                 }
             }
         }
-        return true;
+        //return true;
     }
 }

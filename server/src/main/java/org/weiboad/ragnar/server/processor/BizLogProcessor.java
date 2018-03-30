@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.weiboad.ragnar.server.statistics.dependapi.DependAPIStatistic;
@@ -54,14 +55,24 @@ public class BizLogProcessor {
         }
     }
 
-    @Scheduled(fixedRate = 500)
-    private void processData() {
+    @Async
+    @Scheduled(fixedRate = 100)
+    public void processData() {
 
-        int totalProcess = 0;
-        JsonArray valueArr = BizLogQueue.poll();
-        while (valueArr != null) {
+        if(BizLogQueue == null || BizLogQueue.size()==0){
+            return;
+        }
+        int totalProcess;
+        //reset value
+        totalProcess = 0;
+
+        JsonArray valueArr = null;
+
+        while (totalProcess <= 5000 && (valueArr = BizLogQueue.poll()) != null) {
 
             for (int index = 0; index < valueArr.size(); index++) {
+                totalProcess++;
+
                 JsonObject valueObj = valueArr.get(index).getAsJsonObject();
                 String traceid = valueObj.get("key").getAsString();
                 String rpcid = valueObj.get("rpcid").getAsString();
@@ -144,7 +155,7 @@ public class BizLogProcessor {
                         if (!msgObj.has("info")) {
                             continue;
                         }
-                        if(msgObj.get("info").isJsonObject()) {
+                        if (msgObj.get("info").isJsonObject()) {
                             JsonObject infoObj = msgObj.get("info").getAsJsonObject();
 
                             if (!infoObj.has("http_code")) {
@@ -167,14 +178,7 @@ public class BizLogProcessor {
                 }
             }
 
-            totalProcess++;
 
-            if (totalProcess > 1000) {
-                break;
-            }
-
-            //ok next one
-            valueArr = BizLogQueue.poll();
         }
     }
 }

@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.weiboad.ragnar.server.struct.MetaLog;
@@ -38,8 +39,12 @@ public class MetaLogProcessor {
         }
     }
 
-    @Scheduled(fixedRate = 100)
-    private void processData() {
+    @Async
+    @Scheduled(fixedRate = 500)
+    public void processData() {
+        if (metaLogQueue == null) {
+            return;
+        }
         int totalProcess = 0;
         MetaLog metainfo = metaLogQueue.poll();
         while (metainfo != null) {
@@ -48,7 +53,7 @@ public class MetaLogProcessor {
 
             totalProcess++;
 
-            if (totalProcess > 10000) {
+            if (totalProcess > 5000) {
                 break;
             }
 

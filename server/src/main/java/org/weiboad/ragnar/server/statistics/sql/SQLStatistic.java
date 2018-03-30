@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.weiboad.ragnar.server.config.FieryConfig;
@@ -246,9 +247,10 @@ public class SQLStatistic {
         return df.format(a * 100.00 / b) + "%";
     }
 
+    @Async
     @Scheduled(fixedRate = 30 * 1000)
-    public boolean DelOutTimeSqlLog() {
-        if (_sqlMap.size() > 0) {
+    public void DelOutTimeSqlLog() {
+        if (_sqlMap!=null && _sqlMap.size() > 0) {
             Set<Long> delSqlMap = new HashSet<>();
 
             for (Map.Entry<SQLKey, Map<Long, SqlStatisticStruct>> ent : _sqlMap.entrySet()) {
@@ -267,6 +269,6 @@ public class SQLStatistic {
                 }
             }
         }
-        return true;
+        //return true;
     }
 }
