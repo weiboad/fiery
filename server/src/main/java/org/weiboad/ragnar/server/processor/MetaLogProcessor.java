@@ -11,13 +11,15 @@ import org.weiboad.ragnar.server.struct.MetaLog;
 import org.weiboad.ragnar.server.statistics.api.APIStatisticTimeSet;
 import org.weiboad.ragnar.server.search.IndexService;
 
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 @Component
 @Scope("singleton")
 public class MetaLogProcessor {
 
-    private ConcurrentLinkedQueue<MetaLog> metaLogQueue = new ConcurrentLinkedQueue<>();
+    private int maxQueueLength = 20000;
+
+    private LinkedBlockingQueue<MetaLog> metaLogQueue = new LinkedBlockingQueue<>();
 
     //log obj
     private Logger log = LoggerFactory.getLogger(BizLogProcessor.class);
@@ -35,8 +37,19 @@ public class MetaLogProcessor {
     //main process struct
     public void insertDataQueue(MetaLog data) {
         if (data != null) {
-            metaLogQueue.add(data);
+            try {
+                this.metaLogQueue.put(data);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+    }
+
+    public boolean checkAvalible() {
+        if (this.metaLogQueue.size() >= this.maxQueueLength / 2) {
+            return false;
+        }
+        return true;
     }
 
     @Async
@@ -53,7 +66,7 @@ public class MetaLogProcessor {
 
             totalProcess++;
 
-            if (totalProcess > 5000) {
+            if (totalProcess > this.maxQueueLength) {
                 break;
             }
 

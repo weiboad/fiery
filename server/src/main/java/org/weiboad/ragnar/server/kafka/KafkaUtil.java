@@ -23,4 +23,8 @@ public class KafkaUtil {
 
         return kc;
     }
+    public static void cleanConsumer() {
+        kc = null;
+    }
+
 }

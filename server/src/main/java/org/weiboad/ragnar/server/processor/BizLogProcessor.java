@@ -18,12 +18,15 @@ import org.weiboad.ragnar.server.storage.DBSharder;
 import org.weiboad.ragnar.server.util.DateTimeHelper;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 @Component
 @Scope("singleton")
 public class BizLogProcessor {
 
-    private ConcurrentLinkedQueue<JsonArray> BizLogQueue = new ConcurrentLinkedQueue<>();
+    private int maxQueueLength = 20000;
+
+    private LinkedBlockingQueue<JsonArray> BizLogQueue = new LinkedBlockingQueue<>();
 
     //log obj
     private Logger log = LoggerFactory.getLogger(BizLogProcessor.class);
@@ -48,10 +51,21 @@ public class BizLogProcessor {
         return BizLogQueue.size();
     }
 
+    public boolean checkAvalible() {
+        if (this.BizLogQueue.size() >= this.maxQueueLength / 2) {
+            return false;
+        }
+        return true;
+    }
+
     //main process struct
     public void insertDataQueue(JsonArray data) {
         if (data != null) {
-            BizLogQueue.add(data);
+            try {
+                this.BizLogQueue.put(data);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
