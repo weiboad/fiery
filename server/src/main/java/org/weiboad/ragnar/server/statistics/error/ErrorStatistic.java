@@ -108,7 +108,7 @@ public class ErrorStatistic {
                     simility = 5;
                 }
                 if (entry.getValue().hash.hammingDistance(hash) <= simility) {
-                    entry.getValue().setCount(entry.getValue().getCount() + 1);
+                    entry.getValue().addCount();
                     entry.getValue().setNewLog(logStr);
                     entry.getValue().setEndTime(nowTime);
                     issame = true;

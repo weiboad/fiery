@@ -77,6 +77,10 @@ public class ErrorStatisticStruct {
         this.count = count;
     }
 
+    public void addCount(){
+        this.count++;
+    }
+
     public void setStartTime(Long startTime) {
         this.startTime = startTime;
     }
