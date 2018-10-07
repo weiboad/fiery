@@ -212,7 +212,6 @@ public class DependAPIStatistic {
         return df.format(a * 100.00 / b) + "%";
     }
 
-    @Async
     @Scheduled(fixedRate = 30 * 1000)
     public void DelOutTimeSqlLog() {
         if (_performMap.size() > 0) {

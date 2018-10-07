@@ -52,7 +52,6 @@ public class MetaLogProcessor {
         return true;
     }
 
-    @Async
     @Scheduled(fixedRate = 500)
     public void processData() {
         if (metaLogQueue == null) {

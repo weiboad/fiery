@@ -247,7 +247,6 @@ public class SQLStatistic {
         return df.format(a * 100.00 / b) + "%";
     }
 
-    @Async
     @Scheduled(fixedRate = 30 * 1000)
     public void DelOutTimeSqlLog() {
         if (_sqlMap!=null && _sqlMap.size() > 0) {

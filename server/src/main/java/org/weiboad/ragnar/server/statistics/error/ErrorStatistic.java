@@ -246,7 +246,6 @@ public class ErrorStatistic {
         return false;
     }
 
-    @Async
     @Scheduled(fixedRate = 30 * 1000)
     public void DelOutTimeLog() {
         if (_errorLogMap.size() > 0) {

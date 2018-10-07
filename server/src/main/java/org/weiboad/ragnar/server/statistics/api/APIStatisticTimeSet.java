@@ -256,7 +256,6 @@ public class APIStatisticTimeSet {
 
     }
 
-    @Async
     @Scheduled(fixedRate = 120000)
     public void cleanUpSharder() {
 

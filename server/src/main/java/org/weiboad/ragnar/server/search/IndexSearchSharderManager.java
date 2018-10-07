@@ -222,7 +222,6 @@ public class IndexSearchSharderManager {
         }
     }
 
-    @Async
     @Scheduled(fixedRate = 5000)
     public void refreshAllIndex() {
 

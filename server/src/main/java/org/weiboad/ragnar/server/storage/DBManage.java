@@ -77,7 +77,6 @@ public class DBManage {
 
 
     //remove the old db
-    @Async
     @Scheduled(fixedRate = 5000)
     public void Refresh() {
 

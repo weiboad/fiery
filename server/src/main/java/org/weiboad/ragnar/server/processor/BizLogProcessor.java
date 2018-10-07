@@ -69,7 +69,6 @@ public class BizLogProcessor {
         }
     }
 
-    @Async
     @Scheduled(fixedRate = 100)
     public void processData() {
 

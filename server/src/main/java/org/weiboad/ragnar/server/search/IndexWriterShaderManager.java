@@ -172,7 +172,6 @@ public class IndexWriterShaderManager {
         return true;
     }
 
-    @Async
     @Scheduled(fixedRate = 5000)
     public void refreshIndex() {
         if (diskWriterList == null || diskWriterList.size() == 0) {

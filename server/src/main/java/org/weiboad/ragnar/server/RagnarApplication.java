@@ -13,7 +13,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @EnableScheduling
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
-@EnableAsync
 public class RagnarApplication {
 
     public static void main(String[] args) {
