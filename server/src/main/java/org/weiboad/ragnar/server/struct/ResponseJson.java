@@ -6,7 +6,7 @@ import java.util.List;
 public class ResponseJson {
     public int code = 0;
     public String msg = "OK";
-    public int totalcount = 0;
+    public long totalcount = 0;
     public List<MetaLog> result = new ArrayList<>();
 
 
@@ -34,11 +34,11 @@ public class ResponseJson {
         this.result = result;
     }
 
-    public int getTotalcount() {
+    public long getTotalcount() {
         return totalcount;
     }
 
-    public void setTotalcount(int totalcount) {
+    public void setTotalcount(long totalcount) {
         this.totalcount = totalcount;
     }
 }

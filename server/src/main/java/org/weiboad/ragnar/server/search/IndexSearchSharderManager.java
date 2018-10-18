@@ -80,7 +80,7 @@ public class IndexSearchSharderManager {
         return 0;
     }
 
-    public ResponseJson searchByQuery(Long timestamp, Query query, int start, int limit, Sort sort) {
+    public ResponseJson searchByQuery(Long timestamp, Query query, int start, long limit, Sort sort) {
 
         String timeSharder = String.valueOf(DateTimeHelper.getTimesMorning(timestamp));
 
@@ -102,7 +102,7 @@ public class IndexSearchSharderManager {
                 TopDocs results = searcher.search(query, 2000, sort);
 
                 ScoreDoc[] hits = results.scoreDocs;
-                int numTotalHits = results.totalHits;
+                long numTotalHits = results.totalHits;
 
                 //set result count
                 responeJson.setTotalcount(numTotalHits);
