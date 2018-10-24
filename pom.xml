@@ -95,6 +95,12 @@
                 <version>${lucene.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.apache.lucene</groupId>
+                <artifactId>lucene-analyzers-smartcn</artifactId>
+                <version>7.2.1</version>
+            </dependency>
+
             <!-- https://mvnrepository.com/artifact/org.apache.lucene/lucene-analyzers-common -->
             <dependency>
                 <groupId>org.apache.lucene</groupId>

@@ -1,7 +1,8 @@
 package org.weiboad.ragnar.server.controller.web;
 
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.analysis.cn.smart.SmartChineseAnalyzer;
 import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
+import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.Sort;
 import org.apache.lucene.search.SortField;
@@ -34,6 +35,7 @@ public class SearchPage {
             Model model,
             @RequestParam(value = "keyword", required = false) String keyword) {
 
+
         String[] fieldList = {"uid", "rpcid", "traceid", "rt_type", "url", "param", "ip", "httpcod", "project"};
 
         Map<String, Float> boosts = new HashMap<>();
@@ -48,7 +50,7 @@ public class SearchPage {
         boosts.put("httpcode", 1.0f);
         boosts.put("project", 1.0f);
 
-        MultiFieldQueryParser mulFieldQueryParser = new MultiFieldQueryParser(fieldList, new StandardAnalyzer(), boosts);
+        MultiFieldQueryParser mulFieldQueryParser = new MultiFieldQueryParser(fieldList, new SmartChineseAnalyzer(), boosts);
         Query query;
         try {
             query = mulFieldQueryParser.parse(keyword);
@@ -57,11 +59,30 @@ public class SearchPage {
             return "search";
         }
 
-        Sort sort = new Sort(new SortField("time", SortField.Type.DOUBLE, true));
+        try {
+            Sort sort = new Sort(new SortField("time", SortField.Type.DOUBLE, true));
 
-        ResponseJson result = indexHelper.searchByQuery(DateTimeHelper.getCurrentTime(), query, 0, 1000, sort);
-        model.addAttribute("resultlist", result.getResult());
-        model.addAttribute("keyword", keyword);
+            ResponseJson result = indexHelper.searchByQuery(DateTimeHelper.getCurrentTime(), query, 0, 1000, sort);
+            model.addAttribute("resultlist", result.getResult());
+            model.addAttribute("keyword", keyword);
+        }catch (Exception e){
+            log.error(e.getMessage());
+        }
+
+        /*
+        QueryParser parser = new QueryParser("desc", new SmartChineseAnalyzer());
+        try {
+            Query query = parser.parse(keyword);
+            Sort sort = new Sort(new SortField("time", SortField.Type.DOUBLE, true));
+
+            ResponseJson result = indexHelper.searchByQuery(DateTimeHelper.getCurrentTime(), query, 0, 1000, sort);
+            model.addAttribute("resultlist", result.getResult());
+            model.addAttribute("keyword", keyword);
+        }catch (Exception e){
+            log.error(e.getMessage());
+        }
+*/
+
         return "search";
     }
 }

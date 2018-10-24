@@ -1,5 +1,6 @@
 package org.weiboad.ragnar.server.controller.search;
 
+import org.apache.lucene.analysis.cn.smart.SmartChineseAnalyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
 import org.apache.lucene.search.Query;
@@ -95,7 +96,7 @@ public class SearchField {
         boosts.put("httpcode", 1.0f);
         boosts.put("project", 1.0f);
 
-        MultiFieldQueryParser mulFieldQueryParser = new MultiFieldQueryParser(fieldList, new StandardAnalyzer(), boosts);
+        MultiFieldQueryParser mulFieldQueryParser = new MultiFieldQueryParser(fieldList, new SmartChineseAnalyzer(), boosts);
         Query query;
         try {
             query = mulFieldQueryParser.parse(keyword);

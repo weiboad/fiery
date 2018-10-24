@@ -1,6 +1,7 @@
 package org.weiboad.ragnar.server.search;
 
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.cn.smart.SmartChineseAnalyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexWriter;
@@ -69,7 +70,7 @@ public class IndexWriterShaderManager {
         }
         log.info("Create Write Index:" + dbname);
 
-        analyzerList.put(dbname, new StandardAnalyzer());
+        analyzerList.put(dbname, new SmartChineseAnalyzer());
         diskConfigList.put(dbname, new IndexWriterConfig(analyzerList.get(dbname)));
         diskConfigList.get(dbname).setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
         //diskConfig.setRAMBufferSizeMB(256.0);

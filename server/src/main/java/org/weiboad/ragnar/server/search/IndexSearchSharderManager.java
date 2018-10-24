@@ -1,6 +1,7 @@
 package org.weiboad.ragnar.server.search;
 
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.cn.smart.SmartChineseAnalyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
@@ -93,6 +94,11 @@ public class IndexSearchSharderManager {
             if (!readerList.containsKey(timeSharder)) {
                 log.info("index not loaded:" + timeSharder);
                 boolean loadRet = this.openIndex(timeSharder, fieryConfig.getIndexpath() + "/" + timeSharder);
+                if(!loadRet){
+                    responeJson.setMsg( "error load index");
+                    responeJson.setCode (232);
+                    return responeJson;
+                }
             }
 
             ArrayList<MetaLog> metalist = new ArrayList<MetaLog>();
@@ -100,9 +106,9 @@ public class IndexSearchSharderManager {
             try {
                 //max 2k result
                 TopDocs results = searcher.search(query, 2000, sort);
-
                 ScoreDoc[] hits = results.scoreDocs;
                 long numTotalHits = results.totalHits;
+                log.info("foud count " + numTotalHits);
 
                 //set result count
                 responeJson.setTotalcount(numTotalHits);
@@ -117,6 +123,10 @@ public class IndexSearchSharderManager {
                 }
             } catch (Exception e) {
                 log.error(e.getMessage());
+                responeJson.setMsg( "search error");
+                responeJson.setCode (111);
+                return responeJson;
+
                 //e.printStackTrace();
             }
 
@@ -170,7 +180,7 @@ public class IndexSearchSharderManager {
 
     private boolean openIndex(String foldername, String folderpath) {
         try {
-            Analyzer analyzer = new StandardAnalyzer();
+            Analyzer analyzer = new SmartChineseAnalyzer();
 
             //diskConfig = new IndexWriterConfig(analyzer);
             //diskConfig.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
