@@ -168,7 +168,7 @@ public class MetaLog {
 
     public Document gDoc() {
         Document doc = new Document();
-        Field version = new StringField("version", getVersion(), Field.Store.YES);
+        Field version = new TextField("version", getVersion(), Field.Store.YES);
         Field rpcid = new StringField("rpcid", getRpcid(), Field.Store.YES);
         Field traceid = new StringField("traceid", getTraceid(), Field.Store.YES);
 
@@ -181,15 +181,15 @@ public class MetaLog {
         Field elapsedRaw = new StoredField("elapsed_ms_raw", getElapsed_ms());
         Field elapsedDouble = new DoublePoint("elapsed_ms", getElapsed_ms());
 
-        Field perf_on = new StringField("perf_on", getPerf_on(), Field.Store.YES);
-        Field ip = new StringField("ip", getIp(), Field.Store.YES);
-        Field rt_type = new StringField("rt_type", getRt_type(), Field.Store.YES);
+        Field perf_on = new TextField("perf_on", getPerf_on(), Field.Store.YES);
+        Field ip = new TextField("ip", getIp(), Field.Store.YES);
+        Field rt_type = new TextField("rt_type", getRt_type(), Field.Store.YES);
         Field uid = new StringField("uid", getUid(), Field.Store.YES);
-        Field url = new StringField("url", getUrl(), Field.Store.YES);
+        Field url = new TextField("url", getUrl(), Field.Store.YES);
         Field urlraw = new SortedDocValuesField("urlraw", new BytesRef(getUrl()));
         Field param = new TextField("param", getParam(), Field.Store.YES);
-        Field httpcode = new StringField("httpcode", getHttpcode(), Field.Store.YES);
-        Field project = new StringField("project", getProject(), Field.Store.YES);
+        Field httpcode = new TextField("httpcode", getHttpcode(), Field.Store.YES);
+        Field project = new TextField("project", getProject(), Field.Store.YES);
         //todo:extra没有做处理
         //Field extra = new StringField("param", getExtraStr(), Field.Store.YES);
 
