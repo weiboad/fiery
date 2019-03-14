@@ -76,6 +76,7 @@ public class Main {
             logMonitor.startFileScan(logPusherConfig.getPath(), logPusherConfig.getOutTime());
 
         } catch (Exception e) {
+            e.printStackTrace();
             Toolbox.die("Startup logpusher error", e);
         }
 

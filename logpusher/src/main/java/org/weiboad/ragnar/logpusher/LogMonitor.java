@@ -10,17 +10,17 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class LogMonitor {
 
     private Logger log = LoggerFactory.getLogger(LogMonitor.class);
-    private Map<String, Long> fileInfoMap = new HashMap<>();
-    private Map<String, File> fileMap = new HashMap<>();
-    private Map<String, BufferedReader> bufferReaderMap = new HashMap<>();
+    private Map<String, Long> fileInfoMap = new ConcurrentHashMap<>();
+    private Map<String, File> fileMap = new ConcurrentHashMap<>();
+    private Map<String, BufferedReader> bufferReaderMap = new ConcurrentHashMap<>();
 
     private BlockingQueue<String> sendBizLogQueue = new LinkedBlockingQueue<>(5000);
     private BlockingQueue<String> sendMetaLogQueue = new LinkedBlockingQueue<String>(5000);
