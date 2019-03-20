@@ -103,17 +103,20 @@ public class LogMonitor {
             }
 
             //expire file
-            if (outime > 0 && file.lastModified() / 1000 < DateTimeHelper.getCurrentTime() - outime * 86400) {
+            if (true) {
                 //removed
-                file.delete();
-                cleanUpList.add(ent.getKey());
+                boolean ret = file.delete();
+                log.info("file fd remove:" + ent.getKey() + " result:" + ret);
+                if(ret){
+                    cleanUpList.add(ent.getKey());
+                }
             }
         }
 
         //clean up the list
         for (String filePath : cleanUpList) {
 
-            log.info("file fd remove:" + filePath);
+            log.info("file map remove:" + filePath + "");
 
             fileInfoMap.remove(filePath);
 
