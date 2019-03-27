@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.weiboad.ragnar.http.CurlThreadPool;
 import org.weiboad.ragnar.kafka.ProviderThread;
 import org.weiboad.ragnar.util.DateTimeHelper;
+import org.weiboad.ragnar.util.Toolbox;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -28,11 +29,6 @@ public class LogMonitor {
     //max load log Data
     private int maxProcessData = 1048576;//max load one file
 
-    /**
-     * scan the new file
-     *
-     * @param path
-     */
     private void scanTheFolderFileList(String path) {
         File file = new File(path);
         File[] tempList = file.listFiles();
@@ -56,9 +52,21 @@ public class LogMonitor {
                 }
 
                 //found new file
-                if (fileinfo.isFile() && !fileInfoMap.containsKey(filepath)) {
-                    log.info("New File:" + filepath);
-                    fileInfoMap.put(filepath, 0L);
+                if (fileinfo.isFile() && !fileInfoMap.containsKey(filepath) && filepath.endsWith(".log")) {
+                    Long offset = 0L;
+                    try {
+                        String offsetString = Toolbox.fileGetContent(filepath + ".index.offset");
+                        Long tempOffset = Long.parseLong(offsetString);
+                        if(tempOffset > 0){
+                            offset = tempOffset;
+                        }
+                        log.info("load offset file:" + filepath + ".index.offset :" + offsetString);
+                    }catch (Exception $e){
+                        log.info("load fail offset file:" + filepath + ".index.offset");
+                    }
+
+                    log.info("New File:" + filepath + " offset:" + offset);
+                    fileInfoMap.put(filepath, offset);
                     fileMap.put(filepath, file);
                     continue;
                 }
@@ -96,20 +104,31 @@ public class LogMonitor {
         for (Map.Entry<String, Long> ent : fileInfoMap.entrySet()) {
             //log.info(ent.getKey() + ":" + ent.getValue());
 
-            File file = new File(ent.getKey());
-            if (!file.exists()) {
-                cleanUpList.add(ent.getKey());
-                continue;
-            }
-
-            //expire file
-            if (outime > 0 && file.lastModified() / 1000 < DateTimeHelper.getCurrentTime() - outime * 86400) {
-                //removed
-                boolean ret = file.delete();
-                log.info("file fd remove:" + ent.getKey() + " result:" + ret);
-                if(ret){
+            try {
+                File file = new File(ent.getKey());
+                if (!file.exists()) {
                     cleanUpList.add(ent.getKey());
+                    continue;
                 }
+
+                //expire file
+                if (outime > 0 && file.lastModified() / 1000 < DateTimeHelper.getCurrentTime() - outime * 86400) {
+                    //removed
+                    boolean ret = file.delete();
+                    log.info("file fd remove:" + ent.getKey() + " result:" + ret);
+
+                    File fileoffset = new File(ent.getKey() + ".index.offset");
+                    if (fileoffset.exists()) {
+                        fileoffset.delete();
+                    }
+
+                    if (ret) {
+                        cleanUpList.add(ent.getKey());
+                    }
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+                log.error(e.getMessage());
             }
         }
 
@@ -155,6 +174,7 @@ public class LogMonitor {
                 BufferedReader reader;
                 try {
                     reader = new BufferedReader(new FileReader(file));
+                    reader.skip(ent.getValue());
                     bufferReaderMap.put(filePath, reader);
                 } catch (Exception e) {
                     log.error("buffer reader create fail:" + e.getMessage() + " | " + filePath);
@@ -181,6 +201,12 @@ public class LogMonitor {
                     //combine the content
                     if (tempString.trim().length() > 0) {
                         combinedContent.append(tempString + "\n");
+                        try {
+                            Toolbox.filePutContent(offset + "", filePath + ".index.offset");
+                        }catch (Exception e){
+                            e.printStackTrace();
+                            log.error(e.getMessage());
+                        }
                     }
 
                     //ok process more than
