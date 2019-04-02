@@ -79,18 +79,4 @@ public class SimHash {
         }
         return tot;
     }
-    /*public static void main(String[] args) {
-        String s = "This is a test string for testing";
-        SimHash hash1 = new SimHash(s, 128);
-        System.out.println(hash1.strSimHash + "  " + hash1.strSimHash.bitLength());
-        s = "This is a test string for testing also";
-        SimHash hash2 = new SimHash(s, 128);
-        System.out.println(hash2.strSimHash+ "  " + hash2.strSimHash.bitCount());
-        s = "This is a test string for testing als";
-        SimHash hash3 = new SimHash(s, 128);
-        System.out.println(hash3.strSimHash+ "  " + hash3.strSimHash.bitCount());
-        System.out.println("============================");
-        System.out.println(hash1.hammingDistance(hash2));
-        System.out.println(hash1.hammingDistance(hash3));
-    }*/
 }
